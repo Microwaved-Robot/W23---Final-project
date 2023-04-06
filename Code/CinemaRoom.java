@@ -2,14 +2,10 @@ package Code;
 
 import java.util.LinkedList;
 
-public class CinemaRoom extends Cinema{
+public class CinemaRoom{
     private boolean[][] seats;
     private LinkedList<Movie> movie_List;
     private int maxOccupancy, roomNumber;
-
-
-    public CinemaRoom() {
-    }
 
     public CinemaRoom(boolean[][] seats, LinkedList<Movie> movie_List, int maxOccupancy, int roomNumber) {
         this.seats = seats;
@@ -49,10 +45,16 @@ public class CinemaRoom extends Cinema{
     }
 
     public void displaySeat() {
-        System.out.print("# ");
-        for (int i = 0; i < seats.length; i++) {
+        for (int i = -1; i < seats.length; i++) {
+            if (i == -1) {
+                System.out.print("# ");
+            } else {
+                System.out.print((char)(97 + i));
+            }
             for (int j = 0; j < seats[i].length; j++) {
-                if (seats[i][j] == false) {
+                if (j ==-1) {
+                    System.out.print((j + 1));
+                } else if (seats[i][j] == false) {
                     System.out.print("X ");
                 } else {
                     System.out.print("O ");
@@ -69,11 +71,5 @@ public class CinemaRoom extends Cinema{
         } else {
             
         }
-    }
-}
-
-class t {
-    public static void main(String[] args) {
-        System.out.print("#");
     }
 }
