@@ -1,19 +1,31 @@
 package Code;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class Movie {
     private String name;
     private int length;
-    private Date time;
+    private LocalDateTime time;
 
     public Movie() {
     }
 
-    public Movie(String name, int length, Date time) {
-        this.name = name;
+    public Movie(String name, int length, int year ,int month, int day, int hour, int min) {
+        this.name = Character.toUpperCase(name.charAt(0)) + name.substring(1);
         this.length = length;
-        this.time = time;
+        this.time = LocalDateTime.of(year, month, day, hour, min);
+    }
+
+    @Override
+    public String toString() {
+        return getName() + " is playing for " + getLength() 
+            + " minutes during " + getTime();
+    }
+
+    public boolean equals(Movie m) {
+        return m.getName().equals(this.getName()) 
+            && m.length == this.length
+            && m.time.equals(this.time);
     }
 
     public String getName() {
@@ -32,23 +44,15 @@ public class Movie {
         this.length = length;
     }
 
-    public Date getTime() {
+    public LocalDateTime getTime() {
         return this.time;
     }
 
-    public void setTime(Date time) {
+    public void setTime(LocalDateTime time) {
         this.time = time;
     }
 
-    @Override
-    public String toString() {
-        return getName() + " is playing for " + getLength() 
-            + " minutes at " + getTime() + " o'clock";
-    }
-
-    public boolean equals(Movie m) {
-        return m.getName().equals(this.getName()) 
-            && m.length == this.length 
-            && m.time.equals(this.time);
+    public void setTime(int year ,int month, int day, int hour, int min) {
+        this.time = LocalDateTime.of(year, month, day, hour, min);
     }
 }
