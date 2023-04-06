@@ -49,12 +49,13 @@ public class CinemaRoom extends Cinema{
     }
 
     public void displaySeat() {
+        System.out.print("# ");
         for (int i = 0; i < seats.length; i++) {
             for (int j = 0; j < seats[i].length; j++) {
                 if (seats[i][j] == false) {
-                    System.out.println("X ");
+                    System.out.print("X ");
                 } else {
-                    System.out.println("O ");
+                    System.out.print("O ");
                 }
                 System.out.println();
             }
@@ -68,5 +69,11 @@ public class CinemaRoom extends Cinema{
         } else {
             
         }
+    }
+}
+
+class t {
+    public static void main(String[] args) {
+        System.out.print("#");
     }
 }
