@@ -6,9 +6,10 @@ import java.util.Collections;
 public class Cinema {
     static final String cinemaName = "ThaBest Cinema inc";
     final int branchNumber;
-    protected int numberOfRoom;
+    protected static int numberOfRoom = 0;
     protected ArrayList<Staff> staff_List;
     protected ArrayList<Movie> movie_List;
+    private CinemaRoom room;
 
     public Cinema() {
     }
@@ -17,11 +18,12 @@ public class Cinema {
         this.branchNumber = branchNumber;
     }
 
-    public Cinema(int branchNumber, int numberOfRoom, ArrayList<Staff> staff_List, ArrayList<Movie> movie_List) {
+    public Cinema(int branchNumber, ArrayList<Staff> staff_List, ArrayList<Movie> movie_List, CinemaRoom room) {
         this.branchNumber = branchNumber;
-        this.numberOfRoom = numberOfRoom;
         this.staff_List = staff_List;
         this.movie_List = movie_List;
+        this.room = room;
+        numberOfRoom++;
     }
     
     public ArrayList<String> showMovies() {
