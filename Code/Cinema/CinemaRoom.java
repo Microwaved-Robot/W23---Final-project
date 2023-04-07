@@ -1,13 +1,13 @@
-package Code;
+package Code.Cinema;
 
 import java.util.LinkedList;
 
-public class CinemaRoom {
+ class CinemaRoom {
     private boolean[][] seats;
     private LinkedList<Movie> movie_List;
     private int maxOccupancy, roomNumber;
 
-    public CinemaRoom(boolean[][] seats, LinkedList<Movie> movie_List, int maxOccupancy, int roomNumber) {
+    protected CinemaRoom(boolean[][] seats, LinkedList<Movie> movie_List, int maxOccupancy, int roomNumber) {
         this.seats = seats;
         this.movie_List = movie_List;
         this.maxOccupancy = maxOccupancy;
@@ -21,7 +21,7 @@ public class CinemaRoom {
         }
     }
 
-    public CinemaRoom(int row, int column, LinkedList<Movie> movie_List, int maxOccupancy, int roomNumber) {
+    protected CinemaRoom(int row, int column, LinkedList<Movie> movie_List, int maxOccupancy, int roomNumber) {
         this.seats = new boolean[row][column];
         this.movie_List = movie_List;
         this.maxOccupancy = maxOccupancy;
@@ -101,6 +101,7 @@ public class CinemaRoom {
         }
     }
     
+    /* Getters & Setters */
     public LinkedList<Movie> getMovie_List() {
         return this.movie_List;
     }
