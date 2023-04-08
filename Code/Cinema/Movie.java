@@ -1,6 +1,7 @@
 package Code.Cinema;
 
 import java.time.LocalDateTime;
+import java.util.Scanner;
 
 public class Movie {
     private String name;
@@ -22,6 +23,22 @@ public class Movie {
             this.getTime().minusMinutes(length);
             return false;
         }
+    }
+
+    //Create a new movie obj
+    protected static Movie createMovie() {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter : Name, length in minutes, date (YYYY MM DD) and time of the movie (hour, min). "
+        + "Every information must be separated by a space : ");
+        String name = input.nextLine();
+        int length = input.nextInt();
+        int year = input.nextInt();
+        int month = input.nextInt();
+        int day = input.nextInt();
+        int hour = input.nextInt();
+        int min = input.nextInt();
+        input.nextLine();
+        return new Movie(name, length, year, month, day, hour, min);
     }
 
     //Check if it is equal by first checking the time then the name

@@ -2,6 +2,10 @@ For the boolean[][] seats, the axis might be inverted beware
 In cinema class undo the comments for staff stuff when the class is done
 
 
+                /* Optional stuff */
+Solve ressource leak for scanners (Cinema)
+add a limit to cinemaRoom seats so its not infinitly big and break the display (max 26 vertically)
+
                 /* Copy paste stuff */
 
 // For creating Movies ArrayList

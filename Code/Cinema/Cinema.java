@@ -2,27 +2,26 @@ package Code.Cinema;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Scanner;
 
 public class Cinema {
-    static final String cinemaName = "ThaBest Cinema inc";
-    final int branchNumber;
+    private static final String cinemaName = "ThaBest Cinema inc";
+    private final int branchNumber;
     protected static int numberOfRoom = 0;
     // protected ArrayList<Staff> staff_List;
     protected ArrayList<Movie> movie_List;
     private CinemaRoom room;
 
-    public Cinema(int branchNumber) {
+    protected Cinema(int branchNumber) {
         this.branchNumber = branchNumber;
     }
 
-    public Cinema(int branchNumber,/*ArrayList<Staff> staff_List, */ArrayList<Movie> movie_List, CinemaRoom room) {
+    protected Cinema(int branchNumber,/*ArrayList<Staff> staff_List, */ArrayList<Movie> movie_List, CinemaRoom room) {
         this.branchNumber = branchNumber;
         // this.staff_List = staff_List;
         this.movie_List = movie_List;
         this.room = room;
         numberOfRoom++;
-    }
+    } //---------------------------------------------------- change movie list to manual adding
     
     // It shows every movie in the cinema
     public ArrayList<String> showMovies() {
@@ -36,25 +35,27 @@ public class Cinema {
         return s_List;
     }
 
-    //Adds ONE!!! movie and check for duplicates
-    public void addMovie() {
-        
-    }
+    //Adds ONE movie and check for duplicates
+    protected void addMovie() {
+        Movie m = Movie.createMovie();
+        boolean flag = false;
+        for (Movie movie : movie_List) {
+            flag = movie.equals(m);
+            if (flag) {
+                break;
+            }
+        }
+        if (flag == false) {
+            movie_List.add(m);
+            System.out.println("Movie added. ");
+        }
+    } // -------------------------------------------  Also need to select a room when done 
 
-    //Create a new movie obj
-    private Movie createMovie() {
-        Scanner input = new Scanner(System.in);
-        System.out.println("Enter : Name, length in minutes, date (YYYY MM DD) and time of the movie (hour, min). "
-        + "Every information must be separated by a space : ");
-        String name = input.nextLine();
-        int length = input.nextInt();
-        int year = input.nextInt();
-        int month = input.nextInt();
-        int day = input.nextInt();
-        int hour = input.nextInt();
-        int min = input.nextInt();
-        input.nextLine();
-        return new Movie(name, length, year, month, day, hour, min);
+    protected void addMovie(int amount) {
+        for (int i = 0; i < amount; i++) {
+            System.out.println("Movie " + (i + 1) + ":");
+            addMovie();
+        }
     }
 
     // public void addStaff(Staff staff) {
