@@ -1,5 +1,6 @@
 package Code.Cinema;
 
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Scanner;
@@ -32,7 +33,7 @@ import java.util.Scanner;
         Collections.sort(movie_List, new MovieTimeComparator());
     }
 
-    protected void addToQueue() {
+    protected void addMovieToQueue() {
         Movie newMovie = Movie.createMovie();
         boolean flag = false;
         for (Movie movie : movie_List) {
@@ -44,6 +45,15 @@ import java.util.Scanner;
         if (flag == false) {
             movie_List.add(newMovie);
             System.out.println("Movie added to queue. ");
+        }
+    }
+
+    protected void removeMovie() {
+        Movie movie = Movie.createMovie();
+        for (int i = 0; i < movie_List.size(); i++) {
+            if (movie_List.get(i).equals(movie)) {
+                movie_List.remove(i);
+            }
         }
     }
 
