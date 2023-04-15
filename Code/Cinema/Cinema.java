@@ -7,7 +7,6 @@ public class Cinema {
     private static final String cinemaName = "ThaBest Cinema inc";
     private final int branchNumber;
     protected static int numberOfRoom = 0;
-    // protected ArrayList<Staff> staff_List;
     protected ArrayList<Movie> movie_List;
     private CinemaRoom room;
 
@@ -15,7 +14,7 @@ public class Cinema {
         this.branchNumber = branchNumber;
     }
 
-    protected Cinema(int branchNumber,/*ArrayList<Staff> staff_List, */ArrayList<Movie> movie_List, CinemaRoom room) {
+    protected Cinema(int branchNumber, ArrayList<Movie> movie_List, CinemaRoom room) {
         this.branchNumber = branchNumber;
         // this.staff_List = staff_List;
         this.movie_List = movie_List;
@@ -58,10 +57,6 @@ public class Cinema {
         }
     }
 
-    // public void addStaff(Staff staff) {
-    //     staff_List.add(staff);
-    // }
-
     public int getBranchNumber() {
         return this.branchNumber;
     }
@@ -70,14 +65,6 @@ public class Cinema {
     public int getNumberOfRoom() {
         return Cinema.numberOfRoom;
     }
-
-    // public ArrayList<Staff> getStaff_List() {
-    //     return this.staff_List;
-    // }
-
-    // public void setStaff_List(ArrayList<Staff> staff_List) {
-    //     this.staff_List = staff_List;
-    // }
 
     public ArrayList<Movie> getMovie_List() {
         return this.movie_List;
