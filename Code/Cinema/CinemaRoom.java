@@ -1,6 +1,5 @@
 package Code.Cinema;
 
-import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Scanner;
@@ -8,7 +7,7 @@ import java.util.Scanner;
  class CinemaRoom {
     private boolean[][] seats;
     private LinkedList<Movie> movie_List;
-    private int roomNumber;
+    private final int roomNumber;
 
     protected CinemaRoom(int row, int column, int maxOccupancy, int roomNumber) {
         Scanner input = new Scanner(System.in);
@@ -93,27 +92,49 @@ import java.util.Scanner;
     }
 
     public void displaySeat() {
-        for (int i = -1; i < seats.length; i++) {
-            if (i == -1) {
-                System.out.print("# ");
+        // flag 1 & 2 are so that we can have the number and letter column without changing the array itself
+        boolean flag = true, flag2 = true;
+
+        for (int i = 0; i < seats.length + 1; i++) {
+            if (i == 0) {
+                // '#'' for estetic reason
+                System.out.print("#");
             } else {
                 // Prints a letter in the first vertical column
-                System.out.print((char) (97 + i));
+                System.out.print((char) (65 + i - 1));
             }
-            for (int j = 0; j < seats[i].length; j++) {
-                //Print X or O depending on the seat available : X meaning not available and O the contrary
-                if (j == -1) {
-                    System.out.print((j + 1));
-                } else if (seats[i][j] == false) {
-                    System.out.print("X ");
-                } else {
-                    System.out.print("O ");
+            if (i == seats.length) {
+                i--;
+                flag2 = false;
+            }
+            for (int j = 0; j < seats[i].length + 1; j++) {
+                flag = true;
+                if (i == 0) {
+                    //Print the horizontal numbers
+                    System.out.print(" " + j);
+                    continue;
+                } else if (j == seats[i].length) {
+                    j--;
+                    flag = false;
                 }
-                System.out.println();
+                //Print X or O depending on the seat available : X meaning not available and O the contrary
+                if (seats[i][j] == false) {
+                    System.out.print(" X");
+                } else {
+                    System.out.print(" O");
+                }
+                if (flag == false) {
+                    j++;
+                }
+            }
+            System.out.println();
+            if (flag2 == false) {
+                i++;
             }
         }
         System.out.println("Where X is taken and O is vacant.");
     }
+    
 
     //Show the name and time of the movie in the room
     public void showMoviesInTheRoom() {
