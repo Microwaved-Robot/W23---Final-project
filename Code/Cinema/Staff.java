@@ -4,18 +4,31 @@ public class Staff {
 
     protected String name;
     protected int age;
+    private String password;
+    private static boolean isAdmin = false;
+    protected Cinema cinemaOfEmployement;
 
     public Staff() {
-        name = null;
-        age = 0;
+        this.name = null;
+        this.age = 0;
+        this.cinemaOfEmployement = null;
     }
 
-    public Staff(String n, int a) {
-        name = n;
-        age = a;
+    public Staff(String n, int a, Cinema c) {
+        this.name = n;
+        this.age = a;
+        this.cinemaOfEmployement = c;
     }
 
-    public String getName() {
+    // to empty a seat I need to know:
+    // the cinema that the staff member is a part of
+    // the cinema room that the staff wants to empty the seat of
+    // the location of the seat in the room.
+    private void emptySeat(int roomNum, int row, int column){
+        rooms[roomNum][row][column] = false;
+    }
+
+
         return name;
     }
 
