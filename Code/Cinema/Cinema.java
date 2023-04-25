@@ -8,25 +8,26 @@ public class Cinema {
     private final int branchNumber;
     protected static int numberOfRoom = 0;
     protected ArrayList<Movie> movie_List;
-    private CinemaRoom room;
+    protected ArrayList<CinemaRoom> rooms;
 
     protected Cinema(int branchNumber) {
         this.branchNumber = branchNumber;
     }
 
-    protected Cinema(int branchNumber, ArrayList<Movie> movie_List, CinemaRoom room) {
+    protected Cinema(int branchNumber, ArrayList<Movie> movie_List, ArrayList<CinemaRoom> rooms) {
         this.branchNumber = branchNumber;
         // this.staff_List = staff_List;
         this.movie_List = movie_List;
-        this.room = room;
+        this.rooms = rooms;
         numberOfRoom++;
-    } //---------------------------------------------------- change movie list to manual adding
-    
+    } // ---------------------------------------------------- change movie list to
+      // manual adding
+
     // It shows every movie in the cinema
     public ArrayList<String> showMovies() {
         ArrayList<String> s_List = new ArrayList<>();
 
-        //Sorts by name
+        // Sorts by name
         Collections.sort(movie_List, new MovieNameComparator());
         for (Movie movie : movie_List) {
             s_List.add(movie.getName() + " at " + movie.getTime());
@@ -34,7 +35,7 @@ public class Cinema {
         return s_List;
     }
 
-    //Adds ONE movie and check for duplicates
+    // Adds ONE movie and check for duplicates
     protected void addMovie() {
         Movie m = Movie.createMovie();
         boolean flag = false;
@@ -48,7 +49,8 @@ public class Cinema {
             movie_List.add(m);
             System.out.println("Movie added. ");
         }
-    } // -------------------------------------------  Also need to select a room when done 
+    } // ------------------------------------------- Also need to select a rooms when
+      // done
 
     protected void addMovie(int amount) {
         for (int i = 0; i < amount; i++) {
@@ -60,7 +62,6 @@ public class Cinema {
     public int getBranchNumber() {
         return this.branchNumber;
     }
-
 
     public int getNumberOfRoom() {
         return Cinema.numberOfRoom;
