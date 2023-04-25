@@ -47,7 +47,7 @@ class CinemaRoom {
         }
     }
 
-    protected void removeMovie() {
+    protected void removeMovieInQueue() {
         Movie movie = Movie.createMovie();
         for (int i = 0; i < movie_List.size(); i++) {
             if (movie_List.get(i).equals(movie)) {
@@ -141,6 +141,14 @@ class CinemaRoom {
                                                     // reserved seat that his ticket is now terminated
         if (seats[row][column] == true) {
             seats[row][column] = false;
+        }
+    }
+
+    protected void emptyAllSeat() {
+        for (int i = 0; i < seats.length; i++) {
+            for (int j = 0; j < seats[i].length; j++) {
+                seats[i][j] = false;
+            }
         }
     }
 
