@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Scanner;
 
- class CinemaRoom {
+class CinemaRoom {
     private boolean[][] seats;
     private LinkedList<Movie> movie_List;
     private final int roomNumber;
@@ -92,7 +92,8 @@ import java.util.Scanner;
     }
 
     public void displaySeat() {
-        // flag 1 & 2 are so that we can have the number and letter column without changing the array itself
+        // flag 1 & 2 are so that we can have the number and letter column without
+        // changing the array itself
         boolean flag = true, flag2 = true;
 
         for (int i = 0; i < seats.length + 1; i++) {
@@ -110,14 +111,15 @@ import java.util.Scanner;
             for (int j = 0; j < seats[i].length + 1; j++) {
                 flag = true;
                 if (i == 0) {
-                    //Print the horizontal numbers
+                    // Print the horizontal numbers
                     System.out.print(" " + j);
                     continue;
                 } else if (j == seats[i].length) {
                     j--;
                     flag = false;
                 }
-                //Print X or O depending on the seat available : X meaning not available and O the contrary
+                // Print X or O depending on the seat available : X meaning not available and O
+                // the contrary
                 if (seats[i][j] == false) {
                     System.out.print(" X");
                 } else {
@@ -134,9 +136,15 @@ import java.util.Scanner;
         }
         System.out.println("Where X is taken and O is vacant.");
     }
-    
 
-    //Show the name and time of the movie in the room
+    protected void emptySeat(int row, int column) { // will have to be changed to notify the client that had the
+                                                    // reserved seat that his ticket is now terminated
+        if (seats[row][column] == true) {
+            seats[row][column] = false;
+        }
+    }
+
+    // Show the name and time of the movie in the room
     public void showMoviesInTheRoom() {
         if (movie_List.size() == 0) {
             System.out.println("No movie presenting in this room.");
@@ -154,7 +162,7 @@ import java.util.Scanner;
             }
         }
     }
-    
+
     /* Getters & Setters */
     public LinkedList<Movie> getMovie_List() {
         return this.movie_List;
