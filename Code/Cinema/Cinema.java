@@ -10,6 +10,17 @@ public class Cinema {
     protected ArrayList<Movie> movie_List;
     protected ArrayList<CinemaRoom> rooms;
 
+    public ArrayList<CinemaRoom> getRooms() {
+        return rooms;
+    }
+
+    public Cinema() {
+        this.branchNumber = 0;
+        this.numberOfRoom = 0;
+        this.movie_List = null;
+        this.rooms = null;
+    }
+
     protected Cinema(int branchNumber) {
         this.branchNumber = branchNumber;
     }
