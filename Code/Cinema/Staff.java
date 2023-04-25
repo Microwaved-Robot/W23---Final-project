@@ -24,12 +24,8 @@ public class Staff {
     // the cinema that the staff member is a part of
     // the cinema room that the staff wants to empty the seat of
     // the location of the seat in the room.
-    private void emptySeat(int roomNum, int row, int column){
-        rooms[roomNum][row][column] = false;
-    }
-
-
-        return name;
+    private void emptySeat(int roomNum, int row, int column) {
+        cinemaOfEmployement.getRooms().get(roomNum)[row][column] = false;
     }
 
     public void setName(String name) {
