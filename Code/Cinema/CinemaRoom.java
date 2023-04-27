@@ -21,13 +21,16 @@ class CinemaRoom {
         input.nextLine();
 
         for (int i = 0; i < nb; i++) {
-            while (flag) {
+            do {
                 System.out.println("Movie " + i + ": ");
                 Movie newMovie = Movie.createMovie();
                 for (Movie movie : movie_List) {
                     flag = movie.equals(newMovie);
+                    if (flag) {
+                        break;
+                    }
                 }
-            }
+            } while (flag);
         }
         Collections.sort(movie_List, new MovieTimeComparator());
     }

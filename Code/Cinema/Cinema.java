@@ -50,16 +50,19 @@ public class Cinema {
     protected void addMovie() {
         Movie m = Movie.createMovie();
         boolean flag = false;
-        for (Movie movie : movie_List) {
-            flag = movie.equals(m);
-            if (flag) {
-                break;
-            }
-        }
-        if (flag == false) {
-            movie_List.add(m);
-            System.out.println("Movie added. ");
-        }
+        do {
+            for (Movie movie : movie_List) {
+                    flag = movie.getName().equals(m.getName());
+                    if (flag) {
+                        m = Movie.createMovie();
+                        break;
+                    }
+                }
+        } while (flag);
+        // if (flag == false) {
+        //     movie_List.add(m);
+        //     System.out.println("Movie added. ");
+        // }
     } // ------------------------------------------- Also need to select a rooms when
       // done
 
