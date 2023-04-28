@@ -3,6 +3,14 @@ package Code.Cinema;
 public class Admin extends Staff {
     private static boolean isAdmin = true;
 
+    Admin() {
+        super();
+    }
+
+    Admin(int Nip, String name, int age, Cinema cinemaOfEmployment) {
+        super(Nip, name, age, cinemaOfEmployment);
+    }
+
     public static boolean isAdmin() {
         return isAdmin;
     }
