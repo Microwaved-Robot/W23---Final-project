@@ -11,16 +11,15 @@ public class Cinema {
     protected ArrayList<Movie> movie_List;
     protected ArrayList<CinemaRoom> room_List;
 
-    public ArrayList<CinemaRoom> getroom_List() {
-        return room_List;
-    }
-
+    /* Constructors */
     public Cinema() {
         this.branchNumber = 0;
         this.numberOfRoom = 0;
         this.movie_List = null;
         this.room_List = null;
-    }
+    }/*  change movie list and cinema room to manuel adding to manual adding
+      /   make sure that the 
+      */
 
     protected Cinema(int branchNumber) {
         this.branchNumber = branchNumber;
@@ -32,8 +31,7 @@ public class Cinema {
         this.movie_List = movie_List;
         this.room_List = room_List;
         numberOfRoom++;
-    } // ---------------------------------------------------- change movie list to
-      // manual adding
+    }
 
     // It shows every movie in the cinema
     public ArrayList<String> showMovies() {
@@ -92,6 +90,47 @@ public class Cinema {
         }
     }
 
+    protected void addCinemaRoom() {
+        Scanner input = new Scanner(System.in);
+
+        System.out.print("Enter the amount of row: ");
+        int row = input.nextInt();
+        System.out.print("\nEnter the amount of column: ");
+        int colum = input.nextInt();
+        System.out.print("\nEnter the room number: ");
+        int roomNum = input.nextInt();
+        input.nextLine();
+
+        room_List.add(new CinemaRoom(row, colum, roomNum));
+        //// :3 you got this buddy!
+    }
+
+    protected void removeCinemaRoom(){
+        Scanner input = new Scanner(System.in);
+
+        System.out.print("The room numbers of the rooms are: ");
+        for (CinemaRoom room : room_List) {
+            System.out.print(room.getRoomNumber() + ", ");
+        }
+        System.out.println();
+
+        System.out.print("Enter the amount of room to be removed: ");
+        int amount = input.nextInt();
+
+        for (int i = 0; i < amount; i++) {
+            System.out.print("Enter the room number: ");
+            int roomNum = input.nextInt();
+
+            for (CinemaRoom room : room_List) {
+                if (room.getRoomNumber() == roomNum) {
+                    room_List.remove(room);
+                }
+            }
+        }
+        //Make sure we can read the nxt line after this method
+        input.nextLine();
+    } //---------------------------------------------- do this one (not finished)
+ 
     public int getBranchNumber() {
         return this.branchNumber;
     }
@@ -106,5 +145,9 @@ public class Cinema {
 
     public void setMovie_List(ArrayList<Movie> movie_List) {
         this.movie_List = movie_List;
+    }
+
+    public ArrayList<CinemaRoom> getroom_List() {
+        return room_List;
     }
 }
