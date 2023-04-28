@@ -49,10 +49,17 @@ class CinemaRoom {
         }
     }
 
-    protected void removeMovieInQueue() {
-        Movie movie = Movie.createMovie();
+    protected void removeMovieInQueue(Movie movie) {
         for (int i = 0; i < movie_List.size(); i++) {
             if (movie_List.get(i).equals(movie)) {
+                movie_List.remove(i);
+            }
+        }
+    }
+
+    protected void removeMovieInQueue(String name) {
+        for (int i = 0; i < movie_List.size(); i++) {
+            if (movie_List.get(i).getName().equals(name)) {
                 movie_List.remove(i);
             }
         }
@@ -171,6 +178,10 @@ class CinemaRoom {
                 }
             }
         }
+    }
+
+    protected Movie getMovieFromList(int index) {
+        return movie_List.get(index);
     }
 
     /* Getters & Setters */

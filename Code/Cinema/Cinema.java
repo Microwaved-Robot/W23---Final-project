@@ -85,13 +85,12 @@ public class Cinema {
     protected void removeMovie(String name) {
         for (CinemaRoom room : room_List) {
             for (int i = 0; i < room.getMovie_List().size(); i++) {
-                if (room.getMovie_List())
-            }
-            for (Movie movie : room.getMovie_List()) {
-                for
+                if (room.getMovieFromList(i).getName().equals(name)) {
+                    room.removeMovieInQueue(name);
+                }
             }
         }
-    } //------------------------------------------do this one
+    }
 
     public int getBranchNumber() {
         return this.branchNumber;
