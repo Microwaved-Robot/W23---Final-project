@@ -183,6 +183,10 @@ public class CinemaRoom {
 
 
     /* Getters & Setters */
+    public Movie getMovieFromList(int index) {
+        return movie_List.get(index);
+    }
+
     public LinkedList<Movie> getMovie_List() {
         return this.movie_List;
     }
