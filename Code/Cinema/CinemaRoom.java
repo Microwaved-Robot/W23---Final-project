@@ -35,8 +35,7 @@ class CinemaRoom {
         Collections.sort(movie_List, new MovieTimeComparator());
     }
 
-    protected void addMovieToQueue() {
-        Movie newMovie = Movie.createMovie();
+    protected void addMovieToQueue(Movie newMovie) {
         boolean flag = false;
         for (Movie movie : movie_List) {
             flag = movie.equals(newMovie);

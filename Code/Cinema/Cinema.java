@@ -2,6 +2,7 @@ package Code.Cinema;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Scanner;
 
 public class Cinema {
     private static final String cinemaName = "ThaBest Cinema inc";
@@ -50,21 +51,29 @@ public class Cinema {
     protected void addMovie() {
         Movie m = Movie.createMovie();
         boolean flag = false;
+        Scanner input = new Scanner(System.in);
+
         do {
             for (Movie movie : movie_List) {
-                    flag = movie.getName().equals(m.getName());
-                    if (flag) {
-                        m = Movie.createMovie();
-                        break;
-                    }
+                flag = movie.getName().equals(m.getName());
+                if (flag) {
+                    m = Movie.createMovie();
+                    break;
                 }
+                movie_List.add(m);
+                System.out.println(m.getName() + " has been added. ");
+            }
+
+            // Add the movie in one room of the cinema
+            System.out.println("Select a room to be added.");
+            for (CinemaRoom room : rooms) {
+                System.out.print(room.getRoomNumber() + " ");
+            }
+            System.out.println();
+            int roomNum = input.nextInt();
+            rooms.get(roomNum).addMovie(m);
         } while (flag);
-        // if (flag == false) {
-        //     movie_List.add(m);
-        //     System.out.println("Movie added. ");
-        // }
-    } // ------------------------------------------- Also need to select a rooms when
-      // done
+    }
 
     protected void addMovie(int amount) {
         for (int i = 0; i < amount; i++) {
@@ -72,6 +81,17 @@ public class Cinema {
             addMovie();
         }
     }
+
+    protected void removeMovie(String name) {
+        for (CinemaRoom room : rooms) {
+            for (int i = 0; i < room.getMovie_List().size(); i++) {
+                if (room.getMovie_List())
+            }
+            for (Movie movie : room.getMovie_List()) {
+                for
+            }
+        }
+    } //------------------------------------------do this one
 
     public int getBranchNumber() {
         return this.branchNumber;
