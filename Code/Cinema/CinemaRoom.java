@@ -9,7 +9,7 @@ class CinemaRoom {
     private LinkedList<Movie> movie_List;
     private final int roomNumber;
 
-    protected CinemaRoom(int row, int column, int maxOccupancy, int roomNumber) {
+    protected CinemaRoom(int row, int column, int roomNumber) {
         Scanner input = new Scanner(System.in);
         this.seats = new boolean[row][column];
         this.roomNumber = roomNumber;
@@ -21,19 +21,21 @@ class CinemaRoom {
         input.nextLine();
 
         for (int i = 0; i < nb; i++) {
-            while (flag) {
+            do {
                 System.out.println("Movie " + i + ": ");
                 Movie newMovie = Movie.createMovie();
                 for (Movie movie : movie_List) {
                     flag = movie.equals(newMovie);
+                    if (flag) {
+                        break;
+                    }
                 }
-            }
+            } while (flag);
         }
         Collections.sort(movie_List, new MovieTimeComparator());
     }
 
-    protected void addMovieToQueue() {
-        Movie newMovie = Movie.createMovie();
+    protected void addMovieToQueue(Movie newMovie) {
         boolean flag = false;
         for (Movie movie : movie_List) {
             flag = movie.equals(newMovie);
@@ -47,10 +49,17 @@ class CinemaRoom {
         }
     }
 
-    protected void removeMovie() {
-        Movie movie = Movie.createMovie();
+    protected void removeMovieInQueue(Movie movie) {
         for (int i = 0; i < movie_List.size(); i++) {
             if (movie_List.get(i).equals(movie)) {
+                movie_List.remove(i);
+            }
+        }
+    }
+
+    protected void removeMovieInQueue(String name) {
+        for (int i = 0; i < movie_List.size(); i++) {
+            if (movie_List.get(i).getName().equals(name)) {
                 movie_List.remove(i);
             }
         }
@@ -144,6 +153,14 @@ class CinemaRoom {
         }
     }
 
+    protected void emptyAllSeat() {
+        for (int i = 0; i < seats.length; i++) {
+            for (int j = 0; j < seats[i].length; j++) {
+                seats[i][j] = false;
+            }
+        }
+    }
+
     // Show the name and time of the movie in the room
     public void showMoviesInTheRoom() {
         if (movie_List.size() == 0) {
@@ -161,6 +178,10 @@ class CinemaRoom {
                 }
             }
         }
+    }
+
+    protected Movie getMovieFromList(int index) {
+        return movie_List.get(index);
     }
 
     /* Getters & Setters */
