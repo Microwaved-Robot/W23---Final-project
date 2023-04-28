@@ -9,7 +9,7 @@ class CinemaRoom {
     private LinkedList<Movie> movie_List;
     private final int roomNumber;
 
-    protected CinemaRoom(int row, int column, int maxOccupancy, int roomNumber) {
+    protected CinemaRoom(int row, int column, int roomNumber) {
         Scanner input = new Scanner(System.in);
         this.seats = new boolean[row][column];
         this.roomNumber = roomNumber;
