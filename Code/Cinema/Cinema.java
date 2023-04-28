@@ -9,28 +9,28 @@ public class Cinema {
     private final int branchNumber;
     protected static int numberOfRoom = 0;
     protected ArrayList<Movie> movie_List;
-    protected ArrayList<CinemaRoom> rooms;
+    protected ArrayList<CinemaRoom> room_List;
 
-    public ArrayList<CinemaRoom> getRooms() {
-        return rooms;
+    public ArrayList<CinemaRoom> getroom_List() {
+        return room_List;
     }
 
     public Cinema() {
         this.branchNumber = 0;
         this.numberOfRoom = 0;
         this.movie_List = null;
-        this.rooms = null;
+        this.room_List = null;
     }
 
     protected Cinema(int branchNumber) {
         this.branchNumber = branchNumber;
     }
 
-    protected Cinema(int branchNumber, ArrayList<Movie> movie_List, ArrayList<CinemaRoom> rooms) {
+    protected Cinema(int branchNumber, ArrayList<Movie> movie_List, ArrayList<CinemaRoom> room_List) {
         this.branchNumber = branchNumber;
         // this.staff_List = staff_List;
         this.movie_List = movie_List;
-        this.rooms = rooms;
+        this.room_List = room_List;
         numberOfRoom++;
     } // ---------------------------------------------------- change movie list to
       // manual adding
@@ -66,12 +66,12 @@ public class Cinema {
 
             // Add the movie in one room of the cinema
             System.out.println("Select a room to be added.");
-            for (CinemaRoom room : rooms) {
+            for (CinemaRoom room : room_List) {
                 System.out.print(room.getRoomNumber() + " ");
             }
             System.out.println();
             int roomNum = input.nextInt();
-            rooms.get(roomNum).addMovie(m);
+            room_List.get(roomNum).addMovie(m);
         } while (flag);
     }
 
@@ -83,7 +83,7 @@ public class Cinema {
     }
 
     protected void removeMovie(String name) {
-        for (CinemaRoom room : rooms) {
+        for (CinemaRoom room : room_List) {
             for (int i = 0; i < room.getMovie_List().size(); i++) {
                 if (room.getMovie_List())
             }
