@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Scanner;
 
-class CinemaRoom {
+public class CinemaRoom {
     private boolean[][] seats;
     private LinkedList<Movie> movie_List;
     private final int roomNumber;
@@ -30,6 +30,7 @@ class CinemaRoom {
             }
         }
         Collections.sort(movie_List, new MovieTimeComparator());
+        input.close();
     }
 
     protected void addMovieToQueue() {
@@ -162,6 +163,8 @@ class CinemaRoom {
             }
         }
     }
+
+    
 
     /* Getters & Setters */
     public LinkedList<Movie> getMovie_List() {
