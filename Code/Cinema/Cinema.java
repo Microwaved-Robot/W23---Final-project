@@ -5,32 +5,51 @@ import java.util.Collections;
 import java.util.Scanner;
 
 public class Cinema {
-    private static final String cinemaName = "ThaBest Cinema inc";
+    private final String cinemaName = "ThaBest Cinema inc";
     private final int branchNumber;
     protected static int numberOfRoom = 0;
     protected ArrayList<Movie> movie_List;
     protected ArrayList<CinemaRoom> room_List;
+    protected ArrayList<Staff> staff_List;
 
     /* Constructors */
     public Cinema() {
         this.branchNumber = 0;
-        this.numberOfRoom = 0;
         this.movie_List = null;
         this.room_List = null;
+        System.out.println("Created a empty cinema. ");
     }/*  change movie list and cinema room to manuel adding to manual adding
       /   make sure that the 
       */
 
+     //Manual adding
     protected Cinema(int branchNumber) {
         this.branchNumber = branchNumber;
-    }
 
-    protected Cinema(int branchNumber, ArrayList<Movie> movie_List, ArrayList<CinemaRoom> room_List) {
+        Scanner input = new Scanner(System.in);
+
+        System.out.print("Enter the number of staff: ");
+        int number = input.nextInt();
+
+        for (int i = 0; i < number; i++) {
+            staff_List.add(new Staff(cinemaName));    
+        }
+
+        System.out.println("Enter the number of room: ");
+        number = input.nextInt();
+
+        for (int i = 0; i < number; i++) {
+            room_List.add(new CinemaRoom(branchNumber, i, number));    
+        }
+    } //-------------------------------------Finish for movie list ;)
+
+    // Bulk Adding for CinemaRoom, movie_List and staff_List
+    protected Cinema(int branchNumber, ArrayList<Movie> movie_List, ArrayList<CinemaRoom> room_List, ArrayList<Staff> staff_List) {
         this.branchNumber = branchNumber;
-        // this.staff_List = staff_List;
+        this.staff_List = staff_List;
         this.movie_List = movie_List;
         this.room_List = room_List;
-        numberOfRoom++;
+        numberOfRoom = room_List.size();
     }
 
     // It shows every movie in the cinema
@@ -102,6 +121,7 @@ public class Cinema {
         input.nextLine();
 
         room_List.add(new CinemaRoom(row, colum, roomNum));
+        numberOfRoom++;
         //// :3 you got this buddy!
     }
 
@@ -124,13 +144,16 @@ public class Cinema {
             for (CinemaRoom room : room_List) {
                 if (room.getRoomNumber() == roomNum) {
                     room_List.remove(room);
+                    numberOfRoom--;
+                    System.out.println("Room " + roomNum + " has been removed. ");
                 }
             }
         }
-        //Make sure we can read the nxt line after this method
+        //To Make sure we can read the nxt line after this method
         input.nextLine();
-    } //---------------------------------------------- do this one (not finished)
- 
+    }
+
+    /*----------------------------------Getter and Setters/*----------------------------------*/
     public int getBranchNumber() {
         return this.branchNumber;
     }
@@ -149,5 +172,9 @@ public class Cinema {
 
     public ArrayList<CinemaRoom> getroom_List() {
         return room_List;
+    }
+
+    public String getCinemaName() {
+        return this.cinemaName;
     }
 }

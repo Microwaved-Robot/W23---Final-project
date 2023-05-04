@@ -51,6 +51,11 @@ public class CinemaRoom {
     }
 
     protected void removeMovieInQueue(Movie movie) {
+        // break if the movielist is empty
+        if (movie_List.size() == 0) {
+            System.out.println("The room is empty. ");
+            return;
+        }
         for (int i = 0; i < movie_List.size(); i++) {
             if (movie_List.get(i).equals(movie)) {
                 movie_List.remove(i);
@@ -59,13 +64,17 @@ public class CinemaRoom {
     }
 
     protected void removeMovieInQueue(String name) {
+        if (movie_List.size() == 0) {
+            System.out.println("The room is empty. ");
+            return;
+        }
         for (int i = 0; i < movie_List.size(); i++) {
             if (movie_List.get(i).getName().equals(name)) {
                 movie_List.remove(i);
             }
         }
     }
-
+ 
     public void selectSeat(int row, int column) {
         if (isFull()) {
             System.out.println("The room is full :( ");
@@ -181,7 +190,6 @@ public class CinemaRoom {
         }
     }
 
-
     /* Getters & Setters */
     public Movie getMovieFromList(int index) {
         return movie_List.get(index);
@@ -191,11 +199,15 @@ public class CinemaRoom {
         return this.movie_List;
     }
 
-    public void setMovie_List(LinkedList<Movie> movie_List) {
+    protected void setMovie_List(LinkedList<Movie> movie_List) {
         this.movie_List = movie_List;
     }
 
-    public void addMovie(Movie movie) {
+    protected int getMovie_ListSize() {
+        return movie_List.size();
+    }
+
+    protected void addMovie(Movie movie) {
         movie_List.add(movie);
     }
 
