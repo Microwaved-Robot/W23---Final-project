@@ -11,18 +11,31 @@ public class Staff {
     private static boolean isAdmin = false;
     private Cinema cinemaOfEmployement;
 
+  
+    public Staff(String cinema) {
+        Scanner input = new Scanner(System.in);
+
+        System.out.print("Enter the staffName: ");
+        name = input.nextLine();
+        
+        System.out.print("Enter his age: ");
+        age = input.nextInt();
+
+        // to make sure the scanner works next time
+        input.nextLine();
+    }
+
+    public Staff(String name, int age, Cinema cinema, int pin) {
+        this.PIN = pin;
+        this.name = name;
+        this.age = age;
+        this.cinemaOfEmployement = cinema;
+    }
     public Staff() {
         this.PIN = 0;
         this.name = null;
         this.age = 0;
         this.cinemaOfEmployement = null;
-    }
-
-    public Staff(int pin, String name, int a, Cinema c) {
-        this.PIN = pin;
-        this.name = name;
-        this.age = a;
-        this.cinemaOfEmployement = c;
     }
 
     String options() {
