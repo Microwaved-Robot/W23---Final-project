@@ -3,11 +3,11 @@ package Code.Cinema;
 public class Admin extends Staff {
     private static boolean isAdmin = true;
 
-    Admin() {
+    protected Admin() {
         super();
     }
 
-    Admin(int Nip, String name, int age, Cinema cinemaOfEmployment) {
+    protected Admin(int Nip, String name, int age, Cinema cinemaOfEmployment) {
         super(Nip, name, age, cinemaOfEmployment);
     }
 
