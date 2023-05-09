@@ -2,6 +2,7 @@ package Code.Cinema;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class Cinema {
@@ -10,41 +11,50 @@ public class Cinema {
     protected static int numberOfRoom = 0;
     protected ArrayList<Movie> movie_List;
     protected ArrayList<CinemaRoom> room_List;
-    protected ArrayList<Staff> staff_List;
+    protected HashMap<String, Staff> staff_List;
 
-    /* Constructors */
+    Scanner input = new Scanner(System.in);
+
+    /*----------------------------------Constructors----------------------------------*/
     public Cinema() {
         this.branchNumber = 0;
         this.movie_List = null;
         this.room_List = null;
         System.out.println("Created a empty cinema. ");
-    }/*  change movie list and cinema room to manuel adding to manual adding
-      /   make sure that the 
-      */
+    }
 
-     //Manual adding
+    //Manual adding
     protected Cinema(int branchNumber) {
         this.branchNumber = branchNumber;
-
-        Scanner input = new Scanner(System.in);
 
         System.out.print("Enter the number of staff: ");
         int number = input.nextInt();
 
         for (int i = 0; i < number; i++) {
-            staff_List.add(new Staff(cinemaName));    
+            Staff staff = new Staff();
+            staff_List.put(staff.getName(), staff);
         }
 
-        System.out.println("Enter the number of room: ");
+        System.out.print("Enter the number of room: ");
         number = input.nextInt();
 
         for (int i = 0; i < number; i++) {
             room_List.add(new CinemaRoom(branchNumber, i, number));    
         }
-    } //-------------------------------------Finish for movie list ;)
+
+        System.out.print("Enter the number of Movie: ");
+        number = input.nextInt();
+
+        for (int i = 0; i < number; i++) {
+            movie_List.add(new Movie());
+        }
+
+        //Make sure next line is not skipped
+        input.nextLine();
+    }
 
     // Bulk Adding for CinemaRoom, movie_List and staff_List
-    protected Cinema(int branchNumber, ArrayList<Movie> movie_List, ArrayList<CinemaRoom> room_List, ArrayList<Staff> staff_List) {
+    protected Cinema(int branchNumber, ArrayList<Movie> movie_List, ArrayList<CinemaRoom> room_List, HashMap<String, Staff> staff_List) {
         this.branchNumber = branchNumber;
         this.staff_List = staff_List;
         this.movie_List = movie_List;
@@ -52,6 +62,7 @@ public class Cinema {
         numberOfRoom = room_List.size();
     }
 
+    /*----------------------------------Methods----------------------------------*/
     // It shows every movie in the cinema
     public ArrayList<String> showMovies() {
         ArrayList<String> s_List = new ArrayList<>();
@@ -66,15 +77,14 @@ public class Cinema {
 
     // Adds ONE movie and check for duplicates
     protected void addMovie() {
-        Movie m = Movie.createMovie();
+        Movie m = new Movie();
         boolean flag = false;
-        Scanner input = new Scanner(System.in);
 
         do {
             for (Movie movie : movie_List) {
                 flag = movie.getName().equals(m.getName());
                 if (flag) {
-                    m = Movie.createMovie();
+                    m = new Movie();
                     break;
                 }
                 movie_List.add(m);
@@ -107,11 +117,12 @@ public class Cinema {
                 }
             }
         }
+        for (int i = 0; i < movie_List.size(); i++) {
+            if (movie_List.get(i).getName().equalsIgnoreCase(name));
+        }
     }
 
     protected void addCinemaRoom() {
-        Scanner input = new Scanner(System.in);
-
         System.out.print("Enter the amount of row: ");
         int row = input.nextInt();
         System.out.print("\nEnter the amount of column: ");
@@ -126,8 +137,6 @@ public class Cinema {
     }
 
     protected void removeCinemaRoom(){
-        Scanner input = new Scanner(System.in);
-
         System.out.print("The room numbers of the rooms are: ");
         for (CinemaRoom room : room_List) {
             System.out.print(room.getRoomNumber() + ", ");
@@ -153,7 +162,18 @@ public class Cinema {
         input.nextLine();
     }
 
-    /*----------------------------------Getter and Setters/*----------------------------------*/
+    protected void addStaff() {
+        Staff staff = new Staff();
+        staff_List.put(staff.getName(), staff);
+    }
+
+    protected void removeStaff() {
+        System.out.print("Enter the name of the staff you want to fire: ");
+        String name = input.nextLine();
+        staff_List.remove(name);
+    }
+
+    /*----------------------------------Getter and Setters----------------------------------*/
     public int getBranchNumber() {
         return this.branchNumber;
     }
@@ -177,4 +197,21 @@ public class Cinema {
     public String getCinemaName() {
         return this.cinemaName;
     }
+
+    public ArrayList<CinemaRoom> getRoom_List() {
+        return this.room_List;
+    }
+
+    public void setRoom_List(ArrayList<CinemaRoom> room_List) {
+        this.room_List = room_List;
+    }
+
+    public HashMap<String,Staff> getStaff_List() {
+        return this.staff_List;
+    }
+
+    public void setStaff_List(HashMap<String,Staff> staff_List) {
+        this.staff_List = staff_List;
+    }
+
 }

@@ -6,9 +6,10 @@ import java.util.Scanner;
 
 public class CinemaRoom {
     private boolean[][] seats;
-    private LinkedList<Movie> movie_List;
+    private LinkedList<Movie> movie_List; // Do priority queue on this one
     private final int roomNumber;
 
+    /*----------------------------------Constructors----------------------------------*/
     protected CinemaRoom(int row, int column, int roomNumber) {
         Scanner input = new Scanner(System.in);
         this.seats = new boolean[row][column];
@@ -23,7 +24,7 @@ public class CinemaRoom {
         for (int i = 0; i < nb; i++) {
             do {
                 System.out.println("Movie " + i + ": ");
-                Movie newMovie = Movie.createMovie();
+                Movie newMovie = new Movie();
                 for (Movie movie : movie_List) {
                     flag = movie.equals(newMovie);
                     if (flag) {
@@ -36,6 +37,7 @@ public class CinemaRoom {
         input.close();
     }
 
+    /*----------------------------------Methods----------------------------------*/
     protected void addMovieToQueue(Movie newMovie) {
         boolean flag = false;
         for (Movie movie : movie_List) {
@@ -190,7 +192,7 @@ public class CinemaRoom {
         }
     }
 
-    /* Getters & Setters */
+    /*----------------------------------Getter and Setters----------------------------------*/
     public Movie getMovieFromList(int index) {
         return movie_List.get(index);
     }

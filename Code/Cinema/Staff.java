@@ -8,7 +8,7 @@ public class Staff {
     private String name;
     private int age;
     private int PIN;
-    private static boolean isAdmin = false;
+    private static final boolean isAdmin = false;
     private Cinema cinemaOfEmployement;
 
   
@@ -68,12 +68,11 @@ public class Staff {
     // include their user name at the beginning of their pw
     // then when we greet the employee we can create a substring of the pw provided.
     boolean pinChecker() {
-        int pin = 0;
         do {
             System.out.print("Enter your PIN: ");
-            pin = read.nextInt();
+            int pin = read.nextInt();
             if (pin == this.PIN) {
-                System.out.println("Welcome back " + this.name + ".");
+                System.out.println("Welcome back " + name + ".");
                 return true;
             } else {
                 System.out.println("Would you like to reatempt entering your password? (Y or N)");
@@ -92,6 +91,10 @@ public class Staff {
     // the location of the seat in the room.
     private void emptySeat(int roomNum, int row, int column) {
         cinemaOfEmployement.getRooms().getNumberOfRoom()[row][column] = false;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public void setName(String name) {
