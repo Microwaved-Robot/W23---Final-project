@@ -1,5 +1,6 @@
 import java.time.LocalDateTime;
 
+import Code.Cinema.Cinema;
 import Code.Cinema.Staff;
 
 public class Test {
@@ -7,8 +8,7 @@ public class Test {
         LocalDateTime n = LocalDateTime.of(2023, 12, 31, 23, 59, 59);
 
         // management staff test:
-        Staff staff1 = new Staff();
-        staff1.UI();
+        Cinema testCinema = new Cinema();
 
         // end of management staff test
         boolean[][] seats = new boolean[5][5];

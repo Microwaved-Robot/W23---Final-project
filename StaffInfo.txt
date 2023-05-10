@@ -1,1 +1,10 @@
 (Sam, 18, testCinema, 514)
+
+steps to read what I have writen in this text file:
+
+1. read whatever is in brackets
+2. use the comas to determin the position of the cinema name and then read it
+3. use the cinema name to create a staff member with the info provided and add them to the hashSet
+
+
+make sure to store the data of new staff members when they are created somehow.
