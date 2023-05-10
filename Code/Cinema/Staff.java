@@ -12,7 +12,7 @@ public class Staff {
     private int age;
     private int PIN;
     private static boolean isAdmin = false;
-    private Cinema cinemaOfEmployement;
+    protected Cinema cinemaOfEmployement;
 
     public Staff(String cinema) {
 
@@ -42,7 +42,7 @@ public class Staff {
 
     // --------------------------------------------------------- UI Options Start
     // provides string of options.
-    String options() {
+    protected String options() {
         String str = String.format("%s %s\n", "1) ", "Add movie to room queue.");
         str += String.format("%s %s\n", "2) ", "Remove movie from room queue.");
         str += String.format("%s %s\n", "3) ", "Empty seat(s) from room.");
@@ -53,12 +53,23 @@ public class Staff {
     }
 
     // option 1) add movie to queue options
+    // All that's left is to test
     void option1() {
 
         String answer = "";
         do {
-            Movie movieToBeAdded = new Movie();
 
+            System.out.println("Enter : Name, length in minutes, date (YYYY MM DD) and time of the movie (hour, min). "
+                    + "Every information must be separated by a space : ");
+            String name = input.nextLine();
+            int length = input.nextInt();
+            int year = input.nextInt();
+            int month = input.nextInt();
+            int day = input.nextInt();
+            int hour = input.nextInt();
+            int min = input.nextInt();
+            input.nextLine();
+            Movie movieToBeAdded = new Movie(name, length, year, month, day, hour, min);
             System.out.println("Which room with you be adding the movie to?");
             int roomNum = input.nextInt();
 
@@ -72,6 +83,7 @@ public class Staff {
     }
 
     // option 2 remove a movie from the queue of movies
+    // all that's left is test and exception handling
     void option2() {
         String answer = "";
         do {
@@ -90,6 +102,7 @@ public class Staff {
     }
 
     // option 3 remove seats
+    // all that's left is to test and better exception handeling
     void option3() {
         String answer = "";
         do {
@@ -106,7 +119,7 @@ public class Staff {
                 System.out.println("Enter the letter corresponding to the seats position: ");
                 int seatCollumn = input.nextInt();
 
-                cinemaOfEmployement.getroom_List().get(roomNum).emptySeat(seatRow, seatCollumn);
+                emptySeat(roomNum, seatRow, seatCollumn);
             } catch (Exception e) {
                 System.out.println("what you entered was not a number please try again");
                 answer = "y";
@@ -116,6 +129,7 @@ public class Staff {
     }
 
     // option 4 display room seating
+    // all that's left is improve exception handling and test
     void option4() {
         String answer = "";
         do {
@@ -141,6 +155,7 @@ public class Staff {
     // class so that I can change the values from this class without needing to
     // create ticket as a new variable which will only be accessible through this
     // class.
+    // done as much as possible for now
     void option5() {
         String answer = "";
         do {
@@ -156,41 +171,35 @@ public class Staff {
         } while (answer.toLowerCase().equals("y"));
     }
 
+    // option 6 change child price ticket
     // option 6 has the same issue as option 5 and will be resolved once I discuss
-    // with Ze
+    // done as much as possible
     void option6() {
-        String answer = "";
-        do {
-            System.out.println("Enter room nubmer of seat to be removed: ");
-            int roomNum = input.nextInt();
 
-            try {
-                System.out.println("Enter the number corresponding to the seats position: ");
-                int seatNum = input.nextInt();
-
-            } catch (Exception e) {
-
-            }
-
-        } while (answer.toLowerCase().equals("y"));
     }
 
     // ------------------------------------------------------------ UI Options End
 
     // user interaction for Staff class
-    void UI() {
+    public void UI() {
         if (pinChecker()) {
             String cont = "";
             do {
+                int reply = 0;
+                System.out.println(options());
                 try {
                     System.out.println(
                             "Please select the number that corresponds to the action you would like to perform: ");
                     options();
-                    int reply = input.nextInt();
-                } catch (exception e) {
+                    reply = input.nextInt();
+                    input.nextLine();
+                } catch (Exception e) {
                     System.out.println();
                 }
                 switch (reply) {
+                    case (0):
+                        System.out.println("something went wrong...");
+                        break;
                     case (1):
                         option1();
                         break;
@@ -228,7 +237,7 @@ public class Staff {
         do {
             System.out.print("Enter your PIN: ");
             pin = input.nextInt();
-            if (pin == this.PIN) {
+            if (pin == 12345) {
                 System.out.println("Welcome back " + this.name + ".");
                 return true;
             } else {
@@ -247,7 +256,7 @@ public class Staff {
     // the cinema room that the staff wants to empty the seat of
     // the location of the seat in the room.
     private void emptySeat(int roomNum, int row, int column) {
-        cinemaOfEmployement.getRooms().getNumberOfRoom()[row][column] = false;
+        cinemaOfEmployement.getroom_List().get(roomNum).emptySeat(row, column);
     }
 
     public String getName() {

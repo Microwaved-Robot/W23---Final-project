@@ -1,9 +1,16 @@
 import java.time.LocalDateTime;
 
+import Code.Cinema.Staff;
+
 public class Test {
     public static void main(String[] args) {
         LocalDateTime n = LocalDateTime.of(2023, 12, 31, 23, 59, 59);
 
+        // management staff test:
+        Staff staff1 = new Staff();
+        staff1.UI();
+
+        // end of management staff test
         boolean[][] seats = new boolean[5][5];
         seats[3][2] = true;
 
@@ -29,7 +36,8 @@ public class Test {
                     j--;
                     flag = false;
                 }
-                //Print X or O depending on the seat available : X meaning not available and O the contrary
+                // Print X or O depending on the seat available : X meaning not available and O
+                // the contrary
                 if (seats[i][j] == false) {
                     System.out.print(" X");
                 } else {
