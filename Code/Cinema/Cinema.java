@@ -1,5 +1,8 @@
 package Code.Cinema;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -12,6 +15,7 @@ public class Cinema {
     protected ArrayList<Movie> movie_List;
     protected ArrayList<CinemaRoom> room_List;
     protected HashMap<String, Staff> staff_List;
+    protected HashMap<String, Admin> Admin_List;
 
     Scanner input = new Scanner(System.in);
 
@@ -23,7 +27,7 @@ public class Cinema {
         System.out.println("Created a empty cinema. ");
     }
 
-    //Manual adding
+    // Manual adding
     protected Cinema(int branchNumber) {
         this.branchNumber = branchNumber;
 
@@ -39,7 +43,7 @@ public class Cinema {
         number = input.nextInt();
 
         for (int i = 0; i < number; i++) {
-            room_List.add(new CinemaRoom(branchNumber, i, number));    
+            room_List.add(new CinemaRoom(branchNumber, i, number));
         }
 
         System.out.print("Enter the number of Movie: ");
@@ -49,12 +53,13 @@ public class Cinema {
             movie_List.add(new Movie());
         }
 
-        //Make sure next line is not skipped
+        // Make sure next line is not skipped
         input.nextLine();
     }
 
     // Bulk Adding for CinemaRoom, movie_List and staff_List
-    protected Cinema(int branchNumber, ArrayList<Movie> movie_List, ArrayList<CinemaRoom> room_List, HashMap<String, Staff> staff_List) {
+    protected Cinema(int branchNumber, ArrayList<Movie> movie_List, ArrayList<CinemaRoom> room_List,
+            HashMap<String, Staff> staff_List) {
         this.branchNumber = branchNumber;
         this.staff_List = staff_List;
         this.movie_List = movie_List;
@@ -118,7 +123,8 @@ public class Cinema {
             }
         }
         for (int i = 0; i < movie_List.size(); i++) {
-            if (movie_List.get(i).getName().equalsIgnoreCase(name));
+            if (movie_List.get(i).getName().equalsIgnoreCase(name))
+                ;
         }
     }
 
@@ -136,7 +142,7 @@ public class Cinema {
         //// :3 you got this buddy!
     }
 
-    protected void removeCinemaRoom(){
+    protected void removeCinemaRoom() {
         System.out.print("The room numbers of the rooms are: ");
         for (CinemaRoom room : room_List) {
             System.out.print(room.getRoomNumber() + ", ");
@@ -158,7 +164,7 @@ public class Cinema {
                 }
             }
         }
-        //To Make sure we can read the nxt line after this method
+        // To Make sure we can read the nxt line after this method
         input.nextLine();
     }
 
@@ -206,12 +212,54 @@ public class Cinema {
         this.room_List = room_List;
     }
 
-    public HashMap<String,Staff> getStaff_List() {
+    public HashMap<String, Staff> getStaff_List() {
         return this.staff_List;
     }
 
-    public void setStaff_List(HashMap<String,Staff> staff_List) {
+    public void setStaff_List(HashMap<String, Staff> staff_List) {
         this.staff_List = staff_List;
+    }
+
+    // --------------------- File Reading and Data Storage Start
+
+    protected void staff_dataRead() {
+        try {
+            FileInputStream fin = new FileInputStream("StaffInfo.txt");
+
+            HashMap<String, Staff> St_List = new HashMap<>();
+            int i = 0;
+            while ((i = fin.read()) != -1) {
+                String str = "";
+                if ((char) i == '(') {
+                    for (int j = i + 1; (char) j != ')'; j++) {
+                        str += (char) j;
+                        if ((char) j == ')') {
+                            String[] parts = str.split(",");
+
+                            for (String part : parts) {
+                                part.trim();
+                            }
+                            // make a hashmap that you will then add to a cinema
+                            // I don't know what I'm doing anymore ;( this thing is supposed to create and
+                            // add staff members to a hashmap which I will later use the setStaff_List()
+                            // method to turn into the staff list of the cinema
+                            // AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH
+                            St_List.put(parts[0],
+                                    new Staff(parts[0], Integer.parseInt(parts[1]), null, Integer.parseInt(parts[3])));
+
+                        }
+                    }
+                }
+
+            }
+            fin.close();
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+    }
+
+    protected void admin_dataRead() {
+
     }
 
 }

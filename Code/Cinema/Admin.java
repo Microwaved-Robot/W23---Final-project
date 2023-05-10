@@ -77,6 +77,7 @@ public class Admin extends Staff {
         String str = options();
         str += String.format("%s %s\n", "7) ", "Hire Staff.");
         str += String.format("%s %s\n", "8) ", "Fire Staff.");
+        str += String.format("%s %s\n", "9) ", "destroy Cinema."); // set cinema to null
         str += String.format("%s %s\n", "9) ", "Create Cinema.");
         str += String.format("%s %s\n", "10) ", "Reset Cinema.");
         str += String.format("%s %s\n", "11) ", "Search for Employee with Highest Sallary.");
