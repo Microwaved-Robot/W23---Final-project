@@ -3,12 +3,13 @@ package Code.Cinema;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class Cinema {
+public class Cinema { //finish this
     private final String cinemaName = "ThaBest Cinema inc";
     private final int branchNumber;
-    protected static int numberOfRoom = 0;
+    protected int numberOfRoom = 0;
     protected ArrayList<Movie> movie_List;
     protected ArrayList<CinemaRoom> room_List;
     protected HashMap<String, Staff> staff_List;
@@ -23,23 +24,53 @@ public class Cinema {
         System.out.println("Created a empty cinema. ");
     }
 
-    //Manual adding
+    // Manual adding
     protected Cinema(int branchNumber) {
         this.branchNumber = branchNumber;
+        int number = 0;
+        boolean flag = false;
 
-        System.out.print("Enter the number of staff: ");
-        int number = input.nextInt();
-
+        do {
+            try {
+                System.out.print("Enter the number of staff: ");
+                number = input.nextInt();
+                if (number <= 0) {
+                    throw new IllegalArgumentException("Negative number");
+                }
+                flag = false;
+            } catch (IllegalArgumentException e) {
+                System.out.println("The number needs to be bigger than 0.");
+                flag = true;
+            } catch (InputMismatchException e) {
+                System.out.println("The input needs to be a number.");
+                flag = true;
+            }
+        } while (flag);
+        
         for (int i = 0; i < number; i++) {
             Staff staff = new Staff();
             staff_List.put(staff.getName(), staff);
         }
 
-        System.out.print("Enter the number of room: ");
-        number = input.nextInt();
+        do {
+            try {
+                System.out.print("Enter the number of room: ");
+                numberOfRoom = input.nextInt();
+                if (numberOfRoom <= 0) {
+                    throw new IllegalArgumentException("Negative number");
+                }
+                flag = false;
+            } catch (IllegalArgumentException e) {
+                System.out.println("The number needs to be bigger than 0.");
+                flag = true;
+            } catch (InputMismatchException e) {
+                System.out.println("The input needs to be a number.");
+                flag = true;
+            }
+        } while (flag);
 
-        for (int i = 0; i < number; i++) {
-            room_List.add(new CinemaRoom(branchNumber, i, number));    
+        for (int i = 0; i < numberOfRoom; i++) {
+            room_List.add(new CinemaRoom(numberOfRoom));
         }
 
         System.out.print("Enter the number of Movie: ");
@@ -49,12 +80,13 @@ public class Cinema {
             movie_List.add(new Movie());
         }
 
-        //Make sure next line is not skipped
+        // Make sure next line is not skipped
         input.nextLine();
     }
 
     // Bulk Adding for CinemaRoom, movie_List and staff_List
-    protected Cinema(int branchNumber, ArrayList<Movie> movie_List, ArrayList<CinemaRoom> room_List, HashMap<String, Staff> staff_List) {
+    protected Cinema(int branchNumber, ArrayList<Movie> movie_List, ArrayList<CinemaRoom> room_List,
+            HashMap<String, Staff> staff_List) {
         this.branchNumber = branchNumber;
         this.staff_List = staff_List;
         this.movie_List = movie_List;
@@ -118,25 +150,18 @@ public class Cinema {
             }
         }
         for (int i = 0; i < movie_List.size(); i++) {
-            if (movie_List.get(i).getName().equalsIgnoreCase(name));
+            if (movie_List.get(i).getName().equalsIgnoreCase(name))
+                ;
         }
     }
 
     protected void addCinemaRoom() {
-        System.out.print("Enter the amount of row: ");
-        int row = input.nextInt();
-        System.out.print("\nEnter the amount of column: ");
-        int colum = input.nextInt();
-        System.out.print("\nEnter the room number: ");
-        int roomNum = input.nextInt();
-        input.nextLine();
-
-        room_List.add(new CinemaRoom(row, colum, roomNum));
+        room_List.add(new CinemaRoom(numberOfRoom));
         numberOfRoom++;
         //// :3 you got this buddy!
     }
 
-    protected void removeCinemaRoom(){
+    protected void removeCinemaRoom() {
         System.out.print("The room numbers of the rooms are: ");
         for (CinemaRoom room : room_List) {
             System.out.print(room.getRoomNumber() + ", ");
@@ -158,7 +183,7 @@ public class Cinema {
                 }
             }
         }
-        //To Make sure we can read the nxt line after this method
+        // To Make sure we can read the nxt line after this method
         input.nextLine();
     }
 
@@ -179,7 +204,7 @@ public class Cinema {
     }
 
     public int getNumberOfRoom() {
-        return Cinema.numberOfRoom;
+        return numberOfRoom;
     }
 
     public ArrayList<Movie> getMovie_List() {
@@ -206,11 +231,11 @@ public class Cinema {
         this.room_List = room_List;
     }
 
-    public HashMap<String,Staff> getStaff_List() {
+    public HashMap<String, Staff> getStaff_List() {
         return this.staff_List;
     }
 
-    public void setStaff_List(HashMap<String,Staff> staff_List) {
+    public void setStaff_List(HashMap<String, Staff> staff_List) {
         this.staff_List = staff_List;
     }
 

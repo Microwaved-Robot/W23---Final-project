@@ -1,4 +1,5 @@
 import java.time.LocalDateTime;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 public class Test {
@@ -49,22 +50,35 @@ public class Test {
         // }
         // System.out.println("Where X is taken and O is vacant.");
 
-        int number = 0;
-        boolean flag = false;
+        // int number = 0;
+        // boolean flag = false;
 
         
-        do {
-            try {
-                System.out.print("Enter the number of staff: ");
-                number = input.nextInt();
-                if (number < 0) {
-                    throw new IllegalArgumentException("Negative number");
-                }
-                flag = false;
-            } catch (IllegalArgumentException e) {
-                System.out.println("The number needs to be bigger than 0.");
-                flag = true;
+        // do {
+        //     try {
+        //         System.out.print("Enter the number of staff: ");
+        //         number = input.nextInt();
+        //         if (number < 0) {
+        //             throw new IllegalArgumentException("Negative number");
+        //         }
+        //         flag = false;
+        //     } catch (IllegalArgumentException e) {
+        //         System.out.println("The number needs to be bigger than 0.");
+        //         flag = true;
+        //     }
+        // } while (flag);
+
+        LinkedList<LocalDateTime> list = new LinkedList<>();
+        // list.add(LocalDateTime.of(2005, 200, 31, 9, 7, 6));
+        list.add(LocalDateTime.of(2005, 1, 31, 9, 7, 6));
+        list.add(LocalDateTime.of(2005, 4, 5, 9, 7, 6));
+        list.add(LocalDateTime.of(2005, 7, 31, 9, 7, 6));
+        for (int i = 0; i < list.size(); i++) {
+            if (LocalDateTime.of(2005, 5, 31, 9, 7, 6).isAfter(list.get(i))) {
+                list.remove(i);
+                i--;
             }
-        } while (flag);
+        }
+        System.out.println(list);
     }
 }
