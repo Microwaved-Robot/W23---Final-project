@@ -11,8 +11,8 @@ public class Staff {
     private String name;
     private int age;
     private int PIN;
-    private static boolean isAdmin = false;
-    protected Cinema cinemaOfEmployement;
+    private static final boolean isAdmin = false;
+    private Cinema cinemaOfEmployement;
 
     public Staff(String cinema) {
 
@@ -233,7 +233,6 @@ public class Staff {
     // include their user name at the beginning of their pw
     // then when we greet the employee we can create a substring of the pw provided.
     boolean pinChecker() {
-        int pin = 0;
         do {
             System.out.print("Enter your PIN: ");
             pin = input.nextInt();
@@ -261,6 +260,10 @@ public class Staff {
 
     public String getName() {
         return this.name;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public void setName(String name) {
