@@ -29,8 +29,7 @@ public class Staff {
         input.nextLine();
     }
 
-    public Staff(String name, int age, Cinema cinema, int pin) {// I want to take cinema out of the constructor and keep
-                                                                // the datamember
+    public Staff(String name, int age, Cinema cinema, int pin) {
         this.PIN = pin;
         this.name = name;
         this.age = age;
@@ -185,50 +184,48 @@ public class Staff {
     // ------------------------------------------------------------ UI Options End
 
     // user interaction for Staff class
-    public void UI() {
-        if (pinChecker()) {
-            String cont = "";
-            do {
-                int reply = 0;
-                System.out.println(options());
-                try {
-                    System.out.println(
-                            "Please select the number that corresponds to the action you would like to perform: ");
-                    options();
-                    reply = input.nextInt();
-                    input.nextLine();
-                } catch (Exception e) {
-                    System.out.println();
-                }
-                switch (reply) {
-                    case (0):
-                        System.out.println("something went wrong...");
-                        break;
-                    case (1):
-                        option1();
-                        break;
-                    case (2):
-                        option2();
-                        break;
-                    case (3):
-                        option3();
-                        break;
-                    case (4):
-                        option4();
-                        break;
-                    case (5):
-                        option5();
-                        break;
-                    case (6):
-                        option6();
-                        break;
-                }
+    public void staffUI() {
+        String cont = "";
+        do {
+            int reply = 0;
+            System.out.println(options());
+            try {
+                System.out.println(
+                        "Please select the number that corresponds to the action you would like to perform: ");
+                options();
+                reply = input.nextInt();
+                input.nextLine();
+            } catch (Exception e) {
+                System.out.println();
+            }
+            switch (reply) {
+                case (0):
+                    System.out.println("something went wrong...");
+                    break;
+                case (1):
+                    option1();
+                    break;
+                case (2):
+                    option2();
+                    break;
+                case (3):
+                    option3();
+                    break;
+                case (4):
+                    option4();
+                    break;
+                case (5):
+                    option5();
+                    break;
+                case (6):
+                    option6();
+                    break;
+            }
 
-                System.out.println("do you wish to continue?(Y or N) ");
-                cont = input.nextLine();
+            System.out.println("do you wish to continue?(Y or N) ");
+            cont = input.nextLine();
 
-            } while (cont.toLowerCase().equals("y"));
-        }
+        } while (cont.toLowerCase().equals("y"));
     }
 
     // this pinChecker works for now but a stranger can easily guess someone elses
@@ -263,6 +260,8 @@ public class Staff {
         cinemaOfEmployement.getroom_List().get(roomNum).emptySeat(row, column);
     }
 
+    // ------------------------- getters and setters
+
     public String getName() {
         return name;
     }
@@ -277,6 +276,14 @@ public class Staff {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public int getPin() {
+        return this.PIN;
+    }
+
+    public void setPin(int pin) {
+        this.PIN = pin;
     }
 
     @Override

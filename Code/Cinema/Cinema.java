@@ -221,42 +221,11 @@ public class Cinema {
         this.staff_List = staff_List;
     }
 
-    // --------------------- File Reading and Data Storage Start
-
-    protected void staff_dataRead() {
-        try {
-            FileInputStream fin = new FileInputStream("StaffInfo.txt");
-
-            HashMap<String, Staff> St_List = new HashMap<>();
-            int i = 0;
-            while ((i = fin.read()) != -1) {
-                String str = "";
-                if ((char) i == '(') {
-                    for (int j = i + 1; (char) j != ')'; j++) {
-                        str += (char) j;
-                        if ((char) j == ')') {
-                            String[] parts = str.split(",");
-
-                            for (String part : parts) {
-                                part.trim();
-                            }
-                            St_List.put(parts[0],
-                                    new Staff(parts[0], Integer.parseInt(parts[1]), testCinema,
-                                            Integer.parseInt(parts[3])));
-
-                        }
-                    }
-                }
-
-            }
-            fin.close();
-        } catch (Exception e) {
-            // TODO: handle exception
-        }
+    public HashMap<String, Admin> getAdmin_List() {
+        return Admin_List;
     }
 
-    protected void admin_dataRead() {
-
+    public void setAdmin_List(HashMap<String, Admin> admin_List) {
+        Admin_List = admin_List;
     }
-
 }

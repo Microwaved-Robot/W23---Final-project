@@ -12,7 +12,7 @@ public class Admin extends Staff {
         super();
     }
 
-    protected Admin(int PIN, String name, int age, Cinema cinemaOfEmployment) {
+    public Admin(String name, int age, Cinema cinemaOfEmployment, int PIN) {
         super(name, age, cinemaOfEmployment, PIN);
     }
 

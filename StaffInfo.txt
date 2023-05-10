@@ -1,10 +1,7 @@
-(Sam, 18, testCinema, 514)
-
-steps to read what I have writen in this text file:
-
-1. read whatever is in brackets
-2. use the comas to determin the position of the cinema name and then read it
-3. use the cinema name to create a staff member with the info provided and add them to the hashSet
-
-
-make sure to store the data of new staff members when they are created somehow.
+(Ze, 3000, theOnlyCinema, 123)
+(Mackenzie, 3000, theOnlyCinema, 123)
+(JJ, 19, theOnlyCinema, 123)
+(Brie, 18, theOnlyCinema, 5435)
+(Jacob, 17, theOnlyCinema, 8356)
+(Jess, 18, theOnlyCinema, 1235)
+(Niki, 18, theOnlyCinema, 4321)
