@@ -1,6 +1,9 @@
 package Code.Cinema;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Scanner;
 
 import javax.sound.sampled.SourceDataLine;
@@ -26,7 +29,8 @@ public class Staff {
         input.nextLine();
     }
 
-    public Staff(String name, int age, Cinema cinema, int pin) {
+    public Staff(String name, int age, Cinema cinema, int pin) {// I want to take cinema out of the constructor and keep
+                                                                // the datamember
         this.PIN = pin;
         this.name = name;
         this.age = age;

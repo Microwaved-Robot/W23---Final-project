@@ -1,5 +1,7 @@
 package Code.Cinema;
 
+import java.util.HashMap;
+
 public class Admin extends Staff {
     private static boolean isAdmin = true;
     // incrementor for creating different staff members?

@@ -58,12 +58,13 @@ public class Cinema {
     }
 
     // Bulk Adding for CinemaRoom, movie_List and staff_List
-    protected Cinema(int branchNumber, ArrayList<Movie> movie_List, ArrayList<CinemaRoom> room_List,
-            HashMap<String, Staff> staff_List) {
+    public Cinema(int branchNumber, ArrayList<Movie> movie_List, ArrayList<CinemaRoom> room_List,
+            HashMap<String, Staff> staff_List, HashMap<String, Admin> admin_List) {
         this.branchNumber = branchNumber;
         this.staff_List = staff_List;
         this.movie_List = movie_List;
         this.room_List = room_List;
+        this.Admin_List = admin_List;
         numberOfRoom = room_List.size();
     }
 
@@ -239,13 +240,9 @@ public class Cinema {
                             for (String part : parts) {
                                 part.trim();
                             }
-                            // make a hashmap that you will then add to a cinema
-                            // I don't know what I'm doing anymore ;( this thing is supposed to create and
-                            // add staff members to a hashmap which I will later use the setStaff_List()
-                            // method to turn into the staff list of the cinema
-                            // AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH
                             St_List.put(parts[0],
-                                    new Staff(parts[0], Integer.parseInt(parts[1]), null, Integer.parseInt(parts[3])));
+                                    new Staff(parts[0], Integer.parseInt(parts[1]), testCinema,
+                                            Integer.parseInt(parts[3])));
 
                         }
                     }
