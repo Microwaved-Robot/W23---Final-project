@@ -22,109 +22,100 @@ public class Admin extends Staff {
         String answer = "";
         String cont = "";
         try {
-            if (pinChecker()) {
-                do {
-                    System.out.println(adminOptions());
-                    System.out.println("Enter the number that corresponds to the action you would like to perform: ");
-                    reply = input.nextInt();
+            do {
+                System.out.println(adminOptions());
+                System.out.println("Enter the number that corresponds to the action you would like to perform: ");
+                reply = input.nextInt();
 
-                    switch (reply) {
-                        case (0):
-                            System.out.println("something went wrong...");
-                            break;
-                        case (1):
-                            option1();
-                            break;
-                        case (2):
-                            option2();
-                            break;
-                        case (3):
-                            option3();
-                            break;
-                        case (4):
-                            option4();
-                            break;
-                        case (5):
-                            option5();
-                            break;
-                        case (6):
-                            option6();
-                            break;
-                        case (7):
-                            option7();
-                            break;
-                        case (8):
-                            option8();
-                            break;
-                        case (9):
-                            option9();
-                            break;
-                        case (10):
-                            option10();
-                            break;
-                        case (11):
-                            option11();
-                            break;
-                    }
-                    System.out.println("Do you want to perform another action?:(y or n) ");
-                    answer = input.nextLine();
-                } while (answer.toLowerCase().equals("y"));
-            }
+                switch (reply) {
+                    case (0):
+                        System.out.println("something went wrong...");
+                        break;
+                    case (1):
+                        option1();
+                        break;
+                    case (2):
+                        option2();
+                        break;
+                    case (3):
+                        option3();
+                        break;
+                    case (4):
+                        option4();
+                        break;
+                    case (5):
+                        option5();
+                        break;
+                    case (6):
+                        option6();
+                        break;
+                    case (7):
+                        option7();
+                        break;
+                    case (8):
+                        option8();
+                        break;
+                    case (9):
+                        option9();
+                        break;
+                    case (10):
+                        option10();
+                        break;
+                }
+                System.out.println("Do you want to perform another action?:(y or n) ");
+                answer = input.nextLine();
+            } while (answer.toLowerCase().equals("y"));
         } catch (Exception e) {
             System.out.println(e);
         }
+        input.nextLine();
     }
 
     private String adminOptions() {
         String str = options();
         str += String.format("%s %s\n", "7) ", "Hire Staff.");
         str += String.format("%s %s\n", "8) ", "Fire Staff.");
-        str += String.format("%s %s\n", "9) ", "destroy Cinema."); // set cinema to null
-        str += String.format("%s %s\n", "9) ", "Create Cinema.");
-        str += String.format("%s %s\n", "10) ", "Reset Cinema.");
-        str += String.format("%s %s\n", "11) ", "Search for Employee with Highest Sallary.");
+        str += String.format("%s %s\n", "9) ", "Reset Cinema.");
+        str += String.format("%s %s\n", "10) ", "Search for Employee with Highest Sallary."); // this won't work as
+                                                                                              // using binary search to
+                                                                                              // look for the highest
+                                                                                              // value in a collection
+                                                                                              // is pointless
         return str;
     }
+    // maybe I can add a promote to admin method?
 
     // option 7 is used to hire staff
-    // how do I create an object with a random name?
-    // ex staff (insert name) = new Staff();
-    // until database created cannot progress further
+    // all that's left is to test and exception handling
     void option7() {
-
+        System.out.println("Enter the staff member's name: ");
+        String name = input.nextLine();
+        cinemaOfEmployement.getStaff_List().put(name, new Staff(name));
+        input.nextLine();
     }
 
     // option 8 is used to fire staff
     // until database created cannot progress further
     void option8() {
-
+        System.out.println(cinemaOfEmployement.getStaff_List());
+        System.out.println("Enter the staff member's username: ");
+        cinemaOfEmployement.getStaff_List().remove(input.nextLine());
+        input.nextLine();
     }
 
-    // option 9 is used to create a new cinema
-    // problem, it is impossible to create a cinema with a different variable name
-    // for each iteration of this method
-    // using a collection would allow for an easier way to create new cinema's
+    // option 9 resets the cinema
+    // All that's left is test and exception handling
     void option9() {
-
-        System.out.println("Enter the branch number of the new cinema: ");
-        int branchNumber = input.nextInt();
-
-        System.out.println("Enter the name of the cinema: ");
-
-        Cinema c = new Cinema(branchNumber);
-
-    }
-
-    // option 10 resets the cinema
-    // can't specify which cinema to reset withought it being in a collection.
-    void option10() {
-        System.out.println("Enter the ");
+        cinemaOfEmployement.setAdmin_List(null);
+        cinemaOfEmployement.setStaff_List(null);
+        cinemaOfEmployement.setMovie_List(null);
+        cinemaOfEmployement.setRoom_List(null);
     }
 
     // option 11 searches through database for employee with highest salary
     // this will require binary search.
     // this is also unacomplishable withough a database
-    void option11() {
+    void option10() {
 
     }
 
@@ -137,24 +128,8 @@ public class Admin extends Staff {
         Admin.isAdmin = isAdmin;
     }
 
-    public void hireStaff(Staff staff) {
-        Staff NS = new Staff();
-        NS = staff;
-    }
-
-    private void destroyCinema() {
-        cinemaOfEmployement.setMovie_List(null);
-        // cinemaOfEmployement.setroom_List(null);
-        // the setroom_List method doesn't exist yet.
-    }
-
-    private void createCinema(Cinema cinema) {
-        Cinema NC = new Cinema();
-        NC = cinema;
-    }
-
-    private void resetCinema() {
-        cinemaOfEmployement.setMovie_List(null);
-        // cinemaOfEmployement.setroom_List(null);
+    // this method could potentialy cause something to go wrong
+    public String toString() {
+        return "(" + name + "," + age + "," + "theOnlyCinema" + "," + PIN + ")";
     }
 }

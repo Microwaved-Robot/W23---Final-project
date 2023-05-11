@@ -11,35 +11,34 @@ import javax.sound.sampled.SourceDataLine;
 public class Staff {
     Scanner input = new Scanner(System.in);
 
-    private String name;
-    private int age;
-    private int PIN;
+    protected String name;
+    protected int age;
+    protected int PIN;
     private static final boolean isAdmin = false;
     protected Cinema cinemaOfEmployement;
-
-    public Staff(String cinema) {
-
-        System.out.print("Enter the staffName: ");
-        name = input.nextLine();
-
-        System.out.print("Enter his age: ");
-        age = input.nextInt();
-
-        // to make sure the scanner works next time
-        input.nextLine();
-    }
 
     public Staff(String name, int age, Cinema cinema, int pin) {
         this.PIN = pin;
         this.name = name;
         this.age = age;
-        this.cinemaOfEmployement = cinema;
+        this.cinemaOfEmployement = null;
     }
 
     public Staff() {
-        this.PIN = 0;
-        this.name = null;
-        this.age = 0;
+        System.out.println("Enter the staff member's name: ");
+        this.name = input.nextLine();
+        System.out.println("Enter the Staff member's pin: ");
+        this.PIN = input.nextInt();
+        System.out.println("Enter the staff member's age: ");
+        this.age = input.nextInt();
+        this.cinemaOfEmployement = null;
+    }
+
+    public Staff(String name) {
+        System.out.println("Enter the Staff member's pin: ");
+        this.PIN = input.nextInt();
+        System.out.println("Enter the staff member's age: ");
+        this.age = input.nextInt();
         this.cinemaOfEmployement = null;
     }
 
@@ -56,29 +55,17 @@ public class Staff {
     }
 
     // option 1) add movie to queue options
-    // All that's left is to test
+    // All that's left is to test and exception handling
     void option1() {
 
         String answer = "";
         do {
-
-            System.out.println("Enter : Name, length in minutes, date (YYYY MM DD) and time of the movie (hour, min). "
-                    + "Every information must be separated by a space : ");
-            String name = input.nextLine();
-            int length = input.nextInt();
-            int year = input.nextInt();
-            int month = input.nextInt();
-            int day = input.nextInt();
-            int hour = input.nextInt();
-            int min = input.nextInt();
-            input.nextLine();
-            Movie movieToBeAdded = new Movie(name, length, year, month, day, hour, min);
             System.out.println("Which room with you be adding the movie to?");
             int roomNum = input.nextInt();
 
-            cinemaOfEmployement.getroom_List().get(roomNum).addMovieToQueue(movieToBeAdded);
+            cinemaOfEmployement.getroom_List().get(roomNum).addMovieToQueue(new Movie());
 
-            System.out.println("Do you choose to add another movie?(Y or N): ");
+            System.out.println("Do you want to add another movie?(Y or N): ");
             answer = input.nextLine();
 
         } while (answer.toLowerCase().equals("y"));
@@ -228,34 +215,6 @@ public class Staff {
         } while (cont.toLowerCase().equals("y"));
     }
 
-    // this pinChecker works for now but a stranger can easily guess someone elses
-    // pin by mistake
-    // Solution: change pw to String then indicate to new employee that they must
-    // include their user name at the beginning of their pw
-    // then when we greet the employee we can create a substring of the pw provided.
-    boolean pinChecker() {
-        int pin = 0;
-        do {
-            System.out.print("Enter your PIN: ");
-            pin = input.nextInt();
-            if (pin == 12345) {
-                System.out.println("Welcome back " + this.name + ".");
-                return true;
-            } else {
-                System.out.println("Would you like to reatempt entering your password? (Y or N)");
-                String answer = input.nextLine();
-                if (answer.toLowerCase() == "n") {
-                    return false;
-                }
-            }
-        } while (this.PIN != pin);
-        return false;
-    }
-
-    // to empty a seat I need to know:
-    // the cinema that the staff member is a part of
-    // the cinema room that the staff wants to empty the seat of
-    // the location of the seat in the room.
     private void emptySeat(int roomNum, int row, int column) {
         cinemaOfEmployement.getroom_List().get(roomNum).emptySeat(row, column);
     }
@@ -288,7 +247,7 @@ public class Staff {
 
     @Override
     public String toString() {
-        return "staff [name=" + name + ", age=" + age + "]";
+        return "(" + name + "," + age + "," + "theOnlyCinema" + "," + PIN + ")";
     }
 
 }
