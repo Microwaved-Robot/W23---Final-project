@@ -4,6 +4,8 @@ import Code.Cinema.Movie;
 
 interface TicketPrice {
     public double calculatePrice(Movie m, Client C);
-    public double calculateTax(int p);
-    public double discount(int p, Movie m);
+    public double calculateTax(double p);
+    public double Daydiscount(Movie m);
+    public double ChildDiscount();
+    public void displayTicket();
 }

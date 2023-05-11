@@ -1,47 +1,88 @@
 package Code.Client;
-
+import java.time.LocalDateTime;
 import java.util.Date;
 import Code.Cinema.Movie;
 
 public class Ticket extends Client implements TicketPrice{
 
-    
     protected Date datePurchased;
     protected Movie movie;
-    protected int movieDate;
-    protected int price;
+    protected LocalDateTime movieDate;
+    final protected double price = 20; // this is the price of all movies
+    final double Daydiscount = 5.0; //how much the day discount is, how much money will be discounted
+    final double childDiscount = 10.0; //how much money will be discounted because the client is a child
+    
+
+    //constructor
+
+
+    public Ticket(Date datePurchased, Movie movie, LocalDateTime movieDate) {
+        this.datePurchased = datePurchased;
+        this.movie = movie;
+        this.movieDate = movieDate;
+    }
+    
+
+    
 
     //price of movie will depend on which movie is being showed 
     @Override
     public double calculatePrice(Movie m, Client c) {
-        //will call the calculateTax, Discount, and Client.isAdult (price is lower for kids than for adults) 
+        //will call the calculateTax, day discount, and Client.isAdult (price is lower for kids than for adults) 
         //and return the final price
-
         
+        double result = 0;
+
         if(c.isAdult(c.getAge()) == true) {
             //will return adult price of movie 
-            return 0;
+            result =  price + calculateTax(price) - Daydiscount(m);
         } else {
             //return kid price of movie
-            return 0;
+            result = price + calculateTax(price) - ChildDiscount() - Daydiscount(m);
         }
 
+        if(result > 1.00) {
+            System.out.println("Error! Price is Negative");
+            return -1;
+        } else {
+            return result;
+        }
 
     }
 
+    
+
     @Override
-    public double calculateTax(int p) {
-        return p*1.15; //assuming tax is 15 percent
+    public double calculateTax(double p) {
+        return p*1.15 - p; //assuming tax is 15 percent
     }
 
     @Override
-    public double discount(int p, Movie m) {
+    public double Daydiscount(Movie m) {
         
         //discount will be applied only on weekends 
-        //if movie.getDate() == a weekend then apply and return the discount discount
-
+        //if movie.getDate() == a tuesday then apply and return the discount discount
+        //tuesday is represented by the int 2
+        if (movie.getTime().getDayOfWeek().getValue() == 2) {
+            return Daydiscount;
+        }
+        
         return 0;
     }
+
+    @Override
+    public double ChildDiscount() {
+        return childDiscount;
+    }
+
+
+    @Override
+    public void displayTicket() {
+        System.out.println("Date purchased: " + datePurchased);
+        System.out.println("Movie: " + movie);
+        System.out.println("Movie Showing Date: " + movieDate);
+        System.out.println("Price: " + price );
+    } 
 
     //getters and setters 
 
@@ -61,22 +102,17 @@ public class Ticket extends Client implements TicketPrice{
         this.movie = movie;
     }
 
-    public int getMovieDate() {
+    public LocalDateTime getMovieDate() {
         return movieDate;
     }
 
-    public void setMovieDate(int movieDate) {
+    public void setMovieDate(LocalDateTime movieDate) {
         this.movieDate = movieDate;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
+    }    
     
     
 }
