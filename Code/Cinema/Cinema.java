@@ -1,5 +1,8 @@
 package Code.Cinema;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -13,6 +16,7 @@ public class Cinema { // finish this
     protected ArrayList<Movie> movie_List;
     protected ArrayList<CinemaRoom> room_List;
     protected HashMap<String, Staff> staff_List;
+    protected HashMap<String, Admin> Admin_List;
 
     Scanner input = new Scanner(System.in);
 
@@ -68,7 +72,7 @@ public class Cinema { // finish this
                 flag = true;
             }
         } while (flag);
-
+      
         for (int i = 0; i < numberOfRoom; i++) {
             room_List.add(new CinemaRoom(numberOfRoom));
         }
@@ -102,10 +106,12 @@ public class Cinema { // finish this
     // no problem in element of the parameter
     protected Cinema(int branchNumber, ArrayList<Movie> movie_List, ArrayList<CinemaRoom> room_List,
             HashMap<String, Staff> staff_List) {
+  
         this.branchNumber = branchNumber;
         this.staff_List = staff_List;
         this.movie_List = movie_List;
         this.room_List = room_List;
+        this.Admin_List = admin_List;
         numberOfRoom = room_List.size();
     }
 
@@ -254,4 +260,11 @@ public class Cinema { // finish this
         this.staff_List = staff_List;
     }
 
+    public HashMap<String, Admin> getAdmin_List() {
+        return Admin_List;
+    }
+
+    public void setAdmin_List(HashMap<String, Admin> admin_List) {
+        Admin_List = admin_List;
+    }
 }

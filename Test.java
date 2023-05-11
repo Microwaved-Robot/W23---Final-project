@@ -2,6 +2,9 @@ import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.Scanner;
 
+import Code.Cinema.Cinema;
+import Code.Cinema.Staff;
+
 public class Test {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
@@ -77,6 +80,31 @@ public class Test {
             if (LocalDateTime.of(2005, 5, 31, 9, 7, 6).isAfter(list.get(i))) {
                 list.remove(i);
                 i--;
+                flag2 = false;
+            }
+            for (int j = 0; j < seats[i].length + 1; j++) {
+                flag = true;
+                if (i == 0) {
+                    System.out.print(" " + j);
+                    continue;
+                } else if (j == seats[i].length) {
+                    j--;
+                    flag = false;
+                }
+                // Print X or O depending on the seat available : X meaning not available and O
+                // the contrary
+                if (seats[i][j] == false) {
+                    System.out.print(" X");
+                } else {
+                    System.out.print(" O");
+                }
+                if (flag == false) {
+                    j++;
+                }
+            }
+            System.out.println();
+            if (flag2 == false) {
+                i++;
             }
         }
         System.out.println(list);

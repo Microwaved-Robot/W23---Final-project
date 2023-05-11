@@ -1,6 +1,8 @@
 package Code.Client;
-
-import Code.Cinema.CinemaRoom;
+import java.util.Comparator;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import Code.Cinema.Movie;
 
 
@@ -8,9 +10,62 @@ abstract class Client {
     protected String name;
     protected int age;
     protected Movie[] moviesViewed;
-    protected Ticket[] tickets; //array of ticket objects
+    protected ArrayList<Ticket> tickets = new ArrayList<>();
 
-    protected void purchaseTicket() {
+    
+
+    protected int findTicket(ArrayList<Ticket> t, Movie m) { 
+
+        //comparator sorting ticket arraylist by alphabetical order
+
+        tickets.sort(new Comparator<Ticket>() {
+            @Override
+            public int compare(Ticket a, Ticket b) {
+
+                return a.getMovie().getName().compareTo(b.getMovie().getName());
+            }
+        });
+
+        return LinearSearch(t, m.getName());
+    }
+
+    //Lienar seach algorithm
+
+    public static int LinearSearch(ArrayList<Ticket> t, String target) {
+        
+        try {
+            for(int i = 0; i < t.size(); i++) {
+                if(t.get(i).getName() == target) {
+                    return i;
+                }
+            }
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Index Trying To Be Accessed Is Out Of Bounds");
+        } catch (NullPointerException m) {
+            System.out.println("ArrayList Is Null");
+        }
+        
+        
+
+        return -1;
+
+        
+    }
+
+    protected void purchaseTicket(Movie m) {
+
+        Date d = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+        System.out.println(formatter.format(d));
+
+
+        try {
+            Ticket t = new Ticket(d, m, m.getTime());
+            tickets.add(t);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Wrong parameters entered");
+        }
+
     }
 
     protected boolean isAdult(int age) {
@@ -22,9 +77,6 @@ abstract class Client {
     }
 
     //getters and setters
-
-    protected void getSeat(int row, int column, CinemaRoom room){    
-    }
 
     public String getName() {
         return name;
@@ -53,16 +105,13 @@ abstract class Client {
         this.moviesViewed = moviesViewed;
     }
 
-    public Ticket[] getTickets() {
+    public ArrayList<Ticket> getTickets() {
         return tickets;
     }
 
-    public void setTickets(Ticket[] tickets) {
+    public void setTickets(ArrayList<Ticket> tickets) {
         this.tickets = tickets;
     }
 
     
-
-    
-
 }
