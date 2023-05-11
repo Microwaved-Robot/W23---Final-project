@@ -7,10 +7,12 @@ public class MovieTimeComparator implements Comparator<Movie>{
     public int compare(Movie m1, Movie m2) {
         if (m1.isTimeRepeated(m2)) {
             return 0;
-        } else if (m1.getTime().isBefore(m2.getTime())) {
-            return 1;
-        } else {
-            return -1;
         }
+        // } else if (m1.getTime().isBefore(m2.getTime())) {
+        //     return 1;
+        // } else {
+        //     return -1;
+        // }
+        return m1.getTime().compareTo(m2.getTime());
     }
 }
