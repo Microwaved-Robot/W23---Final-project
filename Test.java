@@ -80,5 +80,6 @@ public class Test {
             }
         }
         System.out.println(list);
+        System.out.println((int)'A');
     }
 }

@@ -6,7 +6,7 @@ import java.util.InputMismatchException;
 import java.util.LinkedList;
 import java.util.Scanner;
 
-public class CinemaRoom { // Look again
+public class CinemaRoom {
     private boolean[][] seats;
     private LinkedList<Movie> movie_List;
     private final int roomNumber;
@@ -31,7 +31,7 @@ public class CinemaRoom { // Look again
                 System.out.println("The input needs to be a number.");
                 flag = true;
             } catch (IllegalArgumentException e) {
-                System.out.println("The number needs to be bigger than 0.");
+                System.out.println("The input needs to be bigger than 0.");
                 flag = true;
             }
         } while (flag);
@@ -64,11 +64,17 @@ public class CinemaRoom { // Look again
             try {
                 System.out.println("Number of movie to add: ");
                 nb = input.nextInt();
+                if (roomNumber <= 0) {
+                    throw new IllegalArgumentException("Negative number");
+                }
                 input.nextLine();
                 flag = false;
             } catch (InputMismatchException e) {
                 flag = true;
                 System.out.println("The number needs to be a positive number");
+            } catch (IllegalArgumentException e) {
+                System.out.println("The input needs to be bigger than 0.");
+                flag = true;
             }
         } while (flag);
 

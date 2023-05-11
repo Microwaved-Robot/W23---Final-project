@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class Cinema { //finish this
+public class Cinema { // finish this
     private final String cinemaName = "ThaBest Cinema inc";
     private final int branchNumber;
     protected int numberOfRoom = 0;
@@ -46,7 +46,7 @@ public class Cinema { //finish this
                 flag = true;
             }
         } while (flag);
-        
+
         for (int i = 0; i < number; i++) {
             Staff staff = new Staff();
             staff_List.put(staff.getName(), staff);
@@ -73,8 +73,22 @@ public class Cinema { //finish this
             room_List.add(new CinemaRoom(numberOfRoom));
         }
 
-        System.out.print("Enter the number of Movie: ");
-        number = input.nextInt();
+        do {
+            try {
+                System.out.print("Enter the number of Movie: ");
+                number = input.nextInt();
+                if (numberOfRoom <= 0) {
+                    throw new IllegalArgumentException("Negative number");
+                }
+                flag = false;
+            } catch (IllegalArgumentException e) {
+                System.out.println("The number needs to be bigger than 0.");
+                flag = true;
+            } catch (InputMismatchException e) {
+                System.out.println("The input needs to be a number.");
+                flag = true;
+            }
+        } while (flag);
 
         for (int i = 0; i < number; i++) {
             movie_List.add(new Movie());
@@ -84,7 +98,8 @@ public class Cinema { //finish this
         input.nextLine();
     }
 
-    // Bulk Adding for CinemaRoom, movie_List and staff_List
+    // Bulk Adding for CinemaRoom, movie_List and staff_List assuming that there is
+    // no problem in element of the parameter
     protected Cinema(int branchNumber, ArrayList<Movie> movie_List, ArrayList<CinemaRoom> room_List,
             HashMap<String, Staff> staff_List) {
         this.branchNumber = branchNumber;
