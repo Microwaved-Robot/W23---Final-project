@@ -1,20 +1,12 @@
 package Code.Cinema;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Scanner;
-
-import javax.sound.sampled.SourceDataLine;
-
 public class Staff {
     Scanner input = new Scanner(System.in);
 
     protected String name;
     protected int age;
     protected int PIN;
-    private static final boolean isAdmin = false;
     protected Cinema cinemaOfEmployement;
 
     public Staff(String name, int age, Cinema cinema, int pin) {
@@ -25,19 +17,23 @@ public class Staff {
     }
 
     public Staff() {
-        System.out.println("Enter the staff member's name: ");
+        //default
+    }
+
+    public Staff(boolean ignore) {
+        System.out.print("Enter the staff member's name: ");
         this.name = input.nextLine();
-        System.out.println("Enter the Staff member's pin: ");
+        System.out.print("Enter the Staff member's pin: ");
         this.PIN = input.nextInt();
-        System.out.println("Enter the staff member's age: ");
+        System.out.print("Enter the staff member's age: ");
         this.age = input.nextInt();
         this.cinemaOfEmployement = null;
     }
 
     public Staff(String name) {
-        System.out.println("Enter the Staff member's pin: ");
+        System.out.print("Enter the Staff member's pin: ");
         this.PIN = input.nextInt();
-        System.out.println("Enter the staff member's age: ");
+        System.out.print("Enter the staff member's age: ");
         this.age = input.nextInt();
         this.cinemaOfEmployement = null;
     }
@@ -63,7 +59,7 @@ public class Staff {
             System.out.println("Which room with you be adding the movie to?");
             int roomNum = input.nextInt();
 
-            cinemaOfEmployement.getroom_List().get(roomNum).addMovieToQueue(new Movie());
+            cinemaOfEmployement.getRoom_List().get(roomNum).addMovieToQueue(new Movie());
 
             System.out.println("Do you want to add another movie?(Y or N): ");
             answer = input.nextLine();
@@ -83,7 +79,7 @@ public class Staff {
             System.out.println("Enter room num of movie to be removed: ");
             int roomNum = input.nextInt();
 
-            cinemaOfEmployement.getroom_List().get(roomNum).removeMovieInQueue(nameToBeRemoved);
+            cinemaOfEmployement.getRoom_List().get(roomNum).removeMovieInQueue(nameToBeRemoved);
             System.out.println("The movie has been removed from queue");
             System.out.println("Do you want to remove another movie?(y or n): ");
             answer = input.nextLine();
@@ -101,7 +97,7 @@ public class Staff {
                 System.out.println("Enter room nubmer of seat to be removed: ");
                 int roomNum = input.nextInt();
 
-                cinemaOfEmployement.getroom_List().get(roomNum).displaySeat();
+                cinemaOfEmployement.getRoom_List().get(roomNum).displaySeat();
 
                 System.out.println("Enter the integer corresponding to the seats row: ");
                 int seatRow = input.nextInt();
@@ -127,7 +123,7 @@ public class Staff {
                 System.out.print("Enter room nubmer of seating to be viewed: ");
                 int roomNum = input.nextInt();
 
-                cinemaOfEmployement.getroom_List().get(roomNum).displaySeat();
+                cinemaOfEmployement.getRoom_List().get(roomNum).displaySeat();
                 System.out.print("Would you like to view the seating of another room?(y or n): ");
                 answer = input.nextLine();
             } catch (Exception e) {
@@ -216,7 +212,7 @@ public class Staff {
     }
 
     private void emptySeat(int roomNum, int row, int column) {
-        cinemaOfEmployement.getroom_List().get(roomNum).emptySeat(row, column);
+        cinemaOfEmployement.getRoom_List().get(roomNum).emptySeat(row, column);
     }
 
     // ------------------------- getters and setters
