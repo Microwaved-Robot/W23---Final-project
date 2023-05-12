@@ -18,8 +18,12 @@ public class Movie {
         this.time = LocalDateTime.of(year, month, day, hour, min);
     }
 
-    // Create a new movie obj
     protected Movie() {
+        //default
+    }
+
+    // Create a new movie obj
+    protected Movie(boolean ignore) {
         boolean flag = false;
 
         do {
@@ -35,7 +39,7 @@ public class Movie {
 
         do {
             try {
-                System.out.print("Enter the length of the movie: ");
+                System.out.print("Enter the length of the movie in minute: ");
                 length = input.nextInt();
                 flag = false;
                 if (length <= 0) {

@@ -1,42 +1,35 @@
 package Code.Cinema;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class Cinema {
+public class Cinema { // do a update all room for cinema room
     private final String cinemaName = "ThaBest Cinema inc";
-    private final int branchNumber;
+    private final int branchNumber = 1;
     protected int numberOfRoom = 0;
     protected ArrayList<Movie> movie_List;
     protected ArrayList<CinemaRoom> room_List;
     protected HashMap<String, Staff> staff_List;
-    protected HashMap<String, Admin> Admin_List;
+    protected HashMap<String, Admin> admin_List;
 
     Scanner input = new Scanner(System.in);
 
     /*----------------------------------Constructors----------------------------------*/
     public Cinema() {
-        this.branchNumber = 0;
-        this.movie_List = null;
-        this.room_List = null;
-        System.out.println("Created a empty cinema. ");
+        //default
     }
 
     // Manual adding
-    protected Cinema(int branchNumber) {
-        this.branchNumber = branchNumber;
+    public Cinema(int branchNumber) {
         int number = 0;
         boolean flag = false;
 
         do {
             try {
-                System.out.print("Enter the number of staff: ");
+                System.out.print("Enter the number of Admin: ");
                 number = input.nextInt();
                 if (number <= 0) {
                     throw new IllegalArgumentException("Negative number");
@@ -51,14 +44,63 @@ public class Cinema {
             }
         } while (flag);
 
+        admin_List = new HashMap<>();
         for (int i = 0; i < number; i++) {
-            Staff staff = new Staff();
-            staff_List.put(staff.getName(), staff);
+            Admin admin = new Admin();
+            admin_List.put(admin.getName(), admin);
         }
+        System.out.println();
 
         do {
             try {
-                System.out.print("Enter the number of room: ");
+                System.out.print("Enter the number of staff in the cinema: ");
+                number = input.nextInt();
+                if (number <= 0) {
+                    throw new IllegalArgumentException("Negative number");
+                }
+                flag = false;
+            } catch (IllegalArgumentException e) {
+                System.out.println("The input needs to be bigger than 0.");
+                flag = true;
+            } catch (InputMismatchException e) {
+                System.out.println("The input needs to be a number.");
+                flag = true;
+            }
+        } while (flag);
+
+        staff_List = new HashMap<>();
+        for (int i = 0; i < number; i++) {
+            Staff staff = new Staff(true);
+            staff_List.put(staff.getName(), staff);
+        }
+        System.out.println();
+
+        do {
+            try {
+                System.out.print("Enter the number of Movie the cinema is showing: ");
+                number = input.nextInt();
+                if (number <= 0) {
+                    throw new IllegalArgumentException("Negative number");
+                }
+                flag = false;
+            } catch (IllegalArgumentException e) {
+                System.out.println("The input needs to be bigger than 0.");
+                flag = true;
+            } catch (InputMismatchException e) {
+                System.out.println("The input needs to be a number.");
+                flag = true;
+            }
+        } while (flag);
+
+        movie_List = new ArrayList<>();
+        for (int i = 0; i < number; i++) {
+            movie_List.add(new Movie(true));
+        }
+        System.out.println();
+
+        do {
+            try {
+                System.out.print("Enter the number of room in the cinema: ");
                 numberOfRoom = input.nextInt();
                 if (numberOfRoom <= 0) {
                     throw new IllegalArgumentException("Negative number");
@@ -73,47 +115,36 @@ public class Cinema {
             }
         } while (flag);
       
+        room_List = new ArrayList<>();
         for (int i = 0; i < numberOfRoom; i++) {
             room_List.add(new CinemaRoom(numberOfRoom));
         }
+        System.out.println();
 
-        do {
-            try {
-                System.out.print("Enter the number of Movie: ");
-                number = input.nextInt();
-                if (numberOfRoom <= 0) {
-                    throw new IllegalArgumentException("Negative number");
-                }
-                flag = false;
-            } catch (IllegalArgumentException e) {
-                System.out.println("The input needs to be bigger than 0.");
-                flag = true;
-            } catch (InputMismatchException e) {
-                System.out.println("The input needs to be a number.");
-                flag = true;
-            }
-        } while (flag);
-
-        for (int i = 0; i < number; i++) {
-            movie_List.add(new Movie());
+        System.out.println("There is " + numberOfRoom + " room in the cinema.");
+        for (Movie movie : movie_List) {
+            System.out.print("In which room do you want to put it? : ");
+            number = input.nextInt() - 1;
+            room_List.get(number).addMovieToQueue(movie);
         }
 
-        do {
-            try {
-                System.out.print("Enter the number of Staff: ");
-                number = input.nextInt();
-                if (numberOfRoom <= 0) {
-                    throw new IllegalArgumentException("Negative number");
-                }
-                flag = false;
-            } catch (IllegalArgumentException e) {
-                System.out.println("The input needs to be bigger than 0.");
-                flag = true;
-            } catch (InputMismatchException e) {
-                System.out.println("The input needs to be a number.");
-                flag = true;
-            }
-        } while (flag);
+        // ????? its the admin class
+        // do {
+        //     try {
+        //         System.out.print("Enter the number of Staff: ");
+        //         number = input.nextInt();
+        //         if (numberOfRoom <= 0) {
+        //             throw new IllegalArgumentException("Negative number");
+        //         }
+        //         flag = false;
+        //     } catch (IllegalArgumentException e) {
+        //         System.out.println("The input needs to be bigger than 0.");
+        //         flag = true;
+        //     } catch (InputMismatchException e) {
+        //         System.out.println("The input needs to be a number.");
+        //         flag = true;
+        //     }
+        // } while (flag);
 
         // Make sure next line is not skipped
         input.nextLine();
@@ -123,11 +154,10 @@ public class Cinema {
     // no problem in element of the parameter
     protected Cinema(int branchNumber, ArrayList<Movie> movie_List, ArrayList<CinemaRoom> room_List, HashMap<String, Staff> staff_List, HashMap<String, Admin> Admin_List) {
   
-        this.branchNumber = branchNumber;
         this.staff_List = staff_List;
         this.movie_List = movie_List;
         this.room_List = room_List;
-        this.Admin_List = Admin_List;
+        this.admin_List = Admin_List;
         numberOfRoom = room_List.size();
     }
 
@@ -146,14 +176,14 @@ public class Cinema {
 
     // Adds ONE movie and check for duplicates
     protected void addMovie() {
-        Movie m = new Movie();
+        Movie m = new Movie(true);
         boolean flag = false;
 
         do {
             for (Movie movie : movie_List) {
                 flag = movie.getName().equals(m.getName());
                 if (flag) {
-                    m = new Movie();
+                    m = new Movie(true);
                     break;
                 }
                 movie_List.add(m);
@@ -225,7 +255,7 @@ public class Cinema {
     }
 
     protected void addStaff() {
-        Staff staff = new Staff();
+        Staff staff = new Staff(true);
         staff_List.put(staff.getName(), staff);
     }
 
@@ -252,16 +282,12 @@ public class Cinema {
         this.movie_List = movie_List;
     }
 
-    public ArrayList<CinemaRoom> getroom_List() {
+    public ArrayList<CinemaRoom> getRoom_List() {
         return room_List;
     }
 
     public String getCinemaName() {
         return this.cinemaName;
-    }
-
-    public ArrayList<CinemaRoom> getRoom_List() {
-        return this.room_List;
     }
 
     public void setRoom_List(ArrayList<CinemaRoom> room_List) {
@@ -277,10 +303,10 @@ public class Cinema {
     }
 
     public HashMap<String, Admin> getAdmin_List() {
-        return Admin_List;
+        return admin_List;
     }
 
     public void setAdmin_List(HashMap<String, Admin> admin_List) {
-        Admin_List = admin_List;
+        this.admin_List = admin_List;
     }
 }

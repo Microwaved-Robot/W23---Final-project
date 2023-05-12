@@ -14,6 +14,10 @@ public class CinemaRoom {
     Scanner input = new Scanner(System.in);
 
     /*----------------------------------Constructors----------------------------------*/
+    protected CinemaRoom() {
+        roomNumber = 0;
+    }
+
     protected CinemaRoom(int roomNumber) {
         boolean flag = false;
         int rowNumber = 0;
@@ -21,7 +25,7 @@ public class CinemaRoom {
 
         do {
             try {
-                System.out.println("Enter the length of the row: ");
+                System.out.print("Enter the length of the row: ");
                 rowNumber = input.nextInt();
                 if (roomNumber <= 0) {
                     throw new IllegalArgumentException("Negative number");
@@ -38,7 +42,7 @@ public class CinemaRoom {
 
         do {
             try {
-                System.out.println("Enter the length of the column: ");
+                System.out.print("Enter the length of the column: ");
                 columnLetter = input.nextInt();
                 if (columnLetter > 26 || columnLetter < 0) {
                     throw new IllegalArgumentException("The colum needs to be between 0 and 26");
@@ -59,45 +63,45 @@ public class CinemaRoom {
         this.roomNumber = roomNumber;
         this.movie_List = new LinkedList<>();
 
-        int nb = 0;
-        do {
-            try {
-                System.out.println("Number of movie to add: ");
-                nb = input.nextInt();
-                if (roomNumber <= 0) {
-                    throw new IllegalArgumentException("Negative number");
-                }
-                input.nextLine();
-                flag = false;
-            } catch (InputMismatchException e) {
-                flag = true;
-                System.out.println("The input needs to be a positive number");
-            } catch (IllegalArgumentException e) {
-                System.out.println("The input needs to be bigger than 0.");
-                flag = true;
-            }
-        } while (flag);
+        // int nb = 0;
+        // do {
+        //     try {
+        //         System.out.print("Number of movie to add to the cinema room: ");
+        //         nb = input.nextInt();
+        //         if (roomNumber <= 0) {
+        //             throw new IllegalArgumentException("Negative number");
+        //         }
+        //         input.nextLine();
+        //         flag = false;
+        //     } catch (InputMismatchException e) {
+        //         flag = true;
+        //         System.out.println("The input needs to be a positive number");
+        //     } catch (IllegalArgumentException e) {
+        //         System.out.println("The input needs to be bigger than 0.");
+        //         flag = true;
+        //     }
+        // } while (flag);
 
-        for (int i = 0; i < nb; i++) {
-            try {
-                do {
-                    System.out.println("Movie " + i + ": ");
-                    Movie newMovie = new Movie();
-                    for (Movie movie : movie_List) {
-                        flag = movie.equals(newMovie);
-                        if (flag) {
-                            System.out.println("The movie is already in the Room");
-                            break;
-                        }
-                        movie_List.add(newMovie);
-                    }
-                } while (flag);
-            } catch (Exception e) {
-                System.out.println(e);
-            }
-        }
+        // for (int i = 0; i < nb; i++) {
+        //     try {
+        //         do {
+        //             System.out.println("Movie " + i + ": ");
+        //             Movie newMovie = new Movie();
+        //             for (Movie movie : movie_List) {
+        //                 flag = movie.equals(newMovie);
+        //                 if (flag) {
+        //                     System.out.println("The movie is already in the Room");
+        //                     break;
+        //                 }
+        //                 movie_List.add(newMovie);
+        //             }
+        //         } while (flag);
+        //     } catch (Exception e) {
+        //         System.out.println(e);
+        //     }
+        // }
 
-        Collections.sort(movie_List, new MovieTimeComparator());
+        // Collections.sort(movie_List, new MovieTimeComparator());
     }
 
     /*----------------------------------Methods----------------------------------*/
