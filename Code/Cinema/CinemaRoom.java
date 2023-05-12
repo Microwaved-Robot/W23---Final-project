@@ -71,7 +71,7 @@ public class CinemaRoom {
                 flag = false;
             } catch (InputMismatchException e) {
                 flag = true;
-                System.out.println("The number needs to be a positive number");
+                System.out.println("The input needs to be a positive number");
             } catch (IllegalArgumentException e) {
                 System.out.println("The input needs to be bigger than 0.");
                 flag = true;
@@ -233,7 +233,7 @@ public class CinemaRoom {
         }
         System.out.println("Where X is taken and O is vacant.");
     }
-
+    
     protected void emptySeat(int row, int column) { // will have to be changed to notify the client that had the
                                                     // reserved seat that his ticket is now terminated
         if (seats[row][column] == true) {
