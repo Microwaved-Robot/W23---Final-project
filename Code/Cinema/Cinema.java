@@ -45,6 +45,18 @@ public class Cinema {
         return s_List;
     }
 
+    public Movie searchMovieListByName(ArrayList<Movie> m, String  movieName){
+        
+        for(int i = 0; i < m.size(); i++) {
+
+            if(m.get(i).getName().equalsIgnoreCase(movieName)) {
+                return m.get(i);
+            }   
+        }
+
+        return null;
+    }
+
     // Adds ONE movie and check for duplicates
     protected void addMovie() {
         Movie m = Movie.createMovie();
@@ -130,6 +142,20 @@ public class Cinema {
         //Make sure we can read the nxt line after this method
         input.nextLine();
     } //---------------------------------------------- do this one (not finished)
+
+    //search all rooms to see which room the movie is playing in
+
+    public int searchCinemaRooms(Movie t) {
+        for(CinemaRoom m : room_List) {
+            for(int i = 0; i < m.getMovie_List().size(); i++) {
+                if(m.getMovieFromList(i).equals(t)) {
+                    return room_List.get(i).getRoomNumber();
+                }
+            }
+        }
+
+        return -1;
+    }
  
     public int getBranchNumber() {
         return this.branchNumber;

@@ -36,6 +36,7 @@ public class CinemaRoom {
         input.close();
     }
 
+
     protected void addMovieToQueue(Movie newMovie) {
         boolean flag = false;
         for (Movie movie : movie_List) {
