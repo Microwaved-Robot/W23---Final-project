@@ -8,18 +8,21 @@ public class Ticket extends Client implements TicketPrice{
     protected Date datePurchased;
     protected Movie movie;
     protected LocalDateTime movieDate;
-    final protected double price = 20; // this is the price of all movies
-    final double Daydiscount = 5.0; //how much the day discount is, how much money will be discounted
-    final double childDiscount = 10.0; //how much money will be discounted because the client is a child
+    final static public double price = 20.00; // this is the price of all movies
+    final static public double Daydiscount = 5.0; //how much the day discount is, how much money will be discounted
+    final static public double childDiscount = 10.0; //how much money will be discounted because the client is a child
+    protected String seat;
+    
     
 
     //constructor
 
 
-    public Ticket(Date datePurchased, Movie movie, LocalDateTime movieDate) {
+    public Ticket(Date datePurchased, Movie movie, LocalDateTime movieDate, String seat) {
         this.datePurchased = datePurchased;
         this.movie = movie;
         this.movieDate = movieDate;
+        this.seat = seat;
     }
     
 
@@ -82,6 +85,7 @@ public class Ticket extends Client implements TicketPrice{
         System.out.println("Movie: " + movie);
         System.out.println("Movie Showing Date: " + movieDate);
         System.out.println("Price: " + price );
+        System.out.println("Seat: " + seat);
     } 
 
     //getters and setters 
@@ -112,7 +116,34 @@ public class Ticket extends Client implements TicketPrice{
 
     public double getPrice() {
         return price;
+    }
+
+
+
+    public double getDaydiscount() {
+        return Daydiscount;
+    }
+
+
+
+
+    public double getChildDiscount() {
+        return childDiscount;
+    }
+
+
+
+    public String getSeat() {
+        return seat;
+    }
+
+
+
+
+    public void setSeat(String seat) {
+        this.seat = seat;
     }    
+
     
     
 }

@@ -174,6 +174,18 @@ public class Cinema { // do a update all room for cinema room
         return s_List;
     }
 
+    public Movie searchMovieListByName(ArrayList<Movie> m, String  movieName){
+        
+        for(int i = 0; i < m.size(); i++) {
+
+            if(m.get(i).getName().equalsIgnoreCase(movieName)) {
+                return m.get(i);
+            }   
+        }
+
+        return null;
+    }
+
     // Adds ONE movie and check for duplicates
     protected void addMovie() {
         Movie m = new Movie(true);
@@ -252,6 +264,23 @@ public class Cinema { // do a update all room for cinema room
         }
         // To Make sure we can read the nxt line after this method
         input.nextLine();
+    } //---------------------------------------------- do this one (not finished)
+
+    //search all rooms to see which room the movie is playing in
+
+    public int searchCinemaRooms(Movie t) {
+        for(CinemaRoom m : room_List) {
+            for(int i = 0; i < m.getMovie_List().size(); i++) {
+                if(m.getMovieFromList(i).equals(t)) {
+                    return room_List.get(i).getRoomNumber();
+                }
+            }
+        }
+
+        return -1;
+    }
+ 
+
     }
 
     protected void addStaff() {

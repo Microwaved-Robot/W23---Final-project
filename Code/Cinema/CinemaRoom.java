@@ -105,6 +105,7 @@ public class CinemaRoom {
     }
 
     /*----------------------------------Methods----------------------------------*/
+
     protected void addMovieToQueue(Movie newMovie) {
         boolean flag = false;
         for (Movie movie : movie_List) {

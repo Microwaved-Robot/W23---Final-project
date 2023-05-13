@@ -1,37 +1,22 @@
 package Code.Client;
-import java.util.Comparator;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+import Code.Cinema.Cinema;
+import Code.Cinema.CinemaRoom;
 import Code.Cinema.Movie;
 
 
 abstract class Client {
     protected String name;
     protected int age;
-    protected Movie[] moviesViewed;
     protected ArrayList<Ticket> tickets = new ArrayList<>();
 
-    
-
-    protected int findTicket(ArrayList<Ticket> t, Movie m) { 
-
-        //comparator sorting ticket arraylist by alphabetical order
-
-        tickets.sort(new Comparator<Ticket>() {
-            @Override
-            public int compare(Ticket a, Ticket b) {
-
-                return a.getMovie().getName().compareTo(b.getMovie().getName());
-            }
-        });
-
-        return LinearSearch(t, m.getName());
-    }
-
-    //Lienar seach algorithm
-
-    public static int LinearSearch(ArrayList<Ticket> t, String target) {
+    /* 
+    protected static int LinearSearchForTicketsByMovieName(ArrayList<Ticket> t, String target) {
         
         try {
             for(int i = 0; i < t.size(); i++) {
@@ -45,28 +30,121 @@ abstract class Client {
             System.out.println("ArrayList Is Null");
         }
         
+        System.out.println("No Tickets Have Been Purchased");
         
 
         return -1;
 
         
     }
+    
+    */
+    protected void purchaseTicket(Cinema c) {
 
-    protected void purchaseTicket(Movie m) {
+        Scanner sc = new Scanner(System.in);
 
+        System.out.println("Currently: The Standard Movie Rate is " + Ticket.price);
+
+        System.out.println("Showtimes: ");
+
+        c.showMovies();
+
+        String movieSelection;
+        String comfirmation;
+
+
+        //gets todays date
         Date d = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
         System.out.println(formatter.format(d));
 
+        System.out.println("Enter Movie Name To Purchase Ticket: ");
+        movieSelection = sc.nextLine();
+
+        Movie m = null;
 
         try {
-            Ticket t = new Ticket(d, m, m.getTime());
-            tickets.add(t);
-        } catch (IllegalArgumentException e) {
-            System.out.println("Wrong parameters entered");
+            m = c.searchMovieListByName(c.getMovie_List(), movieSelection);
+
+            //the room that the movie is playing in
+            int selectedRoomNumber = c.searchCinemaRooms(m);
+
+            System.out.println("Your Movie Will Be In Cinema: " + selectedRoomNumber);
+
+            System.out.println();
+
+            System.out.println("Choose Seat: ");
+
+            CinemaRoom r = c.getroom_List().get(selectedRoomNumber);
+            r.displaySeat();
+        } catch (InputMismatchException e) {
+            System.out.println("You Have Entered An Incorrect Option (Code 600)");
+            sc.close();
+            return;
+        } catch (RuntimeException e) {
+            System.out.println("An Error Has Occured! (Code 601)");
+            sc.close();
+            return;
         }
 
+        System.out.println("Enter Row Number Of The Seat You Would Like To Purchase: ");
+
+        
+
+        String seat = "";
+
+        try {
+            int row = sc.nextInt();
+
+
+            System.out.println("Enter the Colomn Of the Seat You Would Like To Purchase");
+            //gets first letter user types
+            char column = sc.next().charAt(0);
+
+            seat = row + " " + column;
+
+            System.out.println("Seat Selected: " + seat);
+        } catch (InputMismatchException e) {
+            System.out.println("You Have Entered An Incorrect Option (Code 600)");
+        }
+
+        
+
+        System.out.println("Confirm Purchase? Y/N");
+
+        try {
+            comfirmation = sc.nextLine();
+            if(comfirmation.equalsIgnoreCase("y")) {
+                System.out.println("Ticket Purchased");
+                tickets.add(new Ticket(d, m, m.getTime(), seat));
+                System.out.println("Your Ticket: \n");
+
+                tickets.get(tickets.size()).displayTicket();
+            }       
+
+        } catch (InputMismatchException e) {
+            System.out.println("You Have Entered An Incorrect Option (Code 600)");
+        }
+
+        
+        sc.close();
+
     }
+
+    protected void displayPurchasedTickets(ArrayList<Ticket> t) {
+        for(int i = 0; i < t.size(); i++) {
+            
+            System.out.println(i+1 + ".");
+            System.out.println();
+            System.out.println("--------------------");
+            System.out.println();
+            t.get(i).displayTicket();
+            System.out.println();
+            System.out.println("--------------------");
+            System.out.println();
+        }
+    }
+
 
     protected boolean isAdult(int age) {
         if (age < 18) {
@@ -97,14 +175,6 @@ abstract class Client {
         this.age = age;
     }
 
-    public Movie[] getMoviesViewed() {
-        return moviesViewed;
-    }
-
-    public void setMoviesViewed(Movie[] moviesViewed) {
-        this.moviesViewed = moviesViewed;
-    }
-
     public ArrayList<Ticket> getTickets() {
         return tickets;
     }
@@ -112,6 +182,5 @@ abstract class Client {
     public void setTickets(ArrayList<Ticket> tickets) {
         this.tickets = tickets;
     }
-
     
 }
