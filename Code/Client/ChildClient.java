@@ -19,7 +19,7 @@ public class ChildClient extends Client {
     }
 
     public ChildClient() {
-        
+
     }
 
     //driver method for childClient
@@ -44,25 +44,26 @@ public class ChildClient extends Client {
                 System.out.println("Please Enter A Valid Input");
             }
 
+            if(userChoice == 1) {
+                System.out.println(c.showMovies());
+            } else if (userChoice == 2) {
+                purchaseTicket(c);
+            }else if (userChoice == 3) {
+                displayPurchasedTickets(tickets);
+            }else if (userChoice == 4) {
+                getAcountInfo();
+            }else if (userChoice == 5) {
+                getPurchasingInfo();
+            }else if (userChoice == 6) {
+                break;
+            } else {
+                System.out.println("Enter An Option Listed Above");
+            }
             
 
-            switch(userChoice) {
-                case 1:
-                    c.showMovies();
-                case 2:
-                    purchaseTicket(c);
-                case 3:
-                    displayPurchasedTickets(tickets);
-                case 4:
-                    getAcountInfo();
-                case 5:
-                    getPurchasingInfo();
-                default: 
-                    System.out.println("Enter One Of The Options Listed Above!");
-                
-            }
+            
 
-        } while(userChoice != 6);
+        } while(true);
 
         sc.close();
 
@@ -70,15 +71,22 @@ public class ChildClient extends Client {
 
     
     protected void getAcountInfo() {
+        System.out.println();
+        System.out.println("Account Info: ");
         System.out.println("Name: " + name + " " + lastName);
         System.out.println("Age: " + age);
         System.out.println("Number of Tickets Purchased: " + tickets.size());
+        System.out.println();
     }
 
     protected void getPurchasingInfo() {
+        System.out.println();
+        System.out.println("Purchasing Info: ");
+        System.out.println();
         System.out.println("Standard Rate for Movie: " + Ticket.price);
         System.out.println("Discount on Tuesdays: " + Ticket.Daydiscount);
-        System.out.println("Discount For Children Under 18 " + Ticket.childDiscount);
+        System.out.println("Discount For Children Under 18: " + Ticket.childDiscount);
+        System.out.println();
     }
     //getters and setters
     public String getName() {
@@ -105,4 +113,6 @@ public class ChildClient extends Client {
         this.age = age;
     }
 
+
+    
 }

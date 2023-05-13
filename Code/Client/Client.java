@@ -43,28 +43,36 @@ abstract class Client {
 
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("Currently: The Standard Movie Rate is " + Ticket.price);
+        System.out.println("Currently The Standard Movie Rate is " + Ticket.price);
 
         System.out.println("Showtimes: ");
 
-        c.showMovies();
+        System.out.println(c.showMovies());
 
-        String movieSelection;
+        int movieSelection;
         String comfirmation;
 
 
         //gets todays date
         Date d = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-        System.out.println(formatter.format(d));
+        String todaysDate = formatter.format(d);
 
-        System.out.println("Enter Movie Name To Purchase Ticket: ");
-        movieSelection = sc.nextLine();
+
+        System.out.println("Enter Movie Index To Purchase Ticket: ");
+        movieSelection = sc.nextInt();
 
         Movie m = null;
 
+        
+
         try {
-            m = c.searchMovieListByName(c.getMovie_List(), movieSelection);
+
+
+            m = c.searchMovieList(c.getMovie_List(), movieSelection);
+            
+
+            System.out.println("Movie Selected: " + m.getName());
 
             //the room that the movie is playing in
             int selectedRoomNumber = c.searchCinemaRooms(m);
@@ -75,7 +83,7 @@ abstract class Client {
 
             System.out.println("Choose Seat: ");
 
-            CinemaRoom r = c.getroom_List().get(selectedRoomNumber);
+            CinemaRoom r = c.getRoom_List().get(selectedRoomNumber);
             r.displaySeat();
         } catch (InputMismatchException e) {
             System.out.println("You Have Entered An Incorrect Option (Code 600)");
@@ -116,7 +124,7 @@ abstract class Client {
             comfirmation = sc.nextLine();
             if(comfirmation.equalsIgnoreCase("y")) {
                 System.out.println("Ticket Purchased");
-                tickets.add(new Ticket(d, m, m.getTime(), seat));
+                tickets.add(new Ticket(todaysDate, m, m.getTime(), seat));
                 System.out.println("Your Ticket: \n");
 
                 tickets.get(tickets.size()).displayTicket();
@@ -132,6 +140,13 @@ abstract class Client {
     }
 
     protected void displayPurchasedTickets(ArrayList<Ticket> t) {
+        
+        if(t.size() == 0) {
+            System.out.println();
+            System.out.println("No Tickets Purchased");
+            System.out.println();
+        }
+
         for(int i = 0; i < t.size(); i++) {
             
             System.out.println(i+1 + ".");
@@ -142,6 +157,9 @@ abstract class Client {
             System.out.println();
             System.out.println("--------------------");
             System.out.println();
+
+            
+
         }
     }
 

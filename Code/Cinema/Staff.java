@@ -120,7 +120,7 @@ public class Staff {
         String answer = "";
         do {
             try {
-                System.out.print("Enter room nubmer of seating to be viewed: ");
+                System.out.print("Enter room number of seating to be viewed: ");
                 int roomNum = input.nextInt();
 
                 cinemaOfEmployement.getRoom_List().get(roomNum).displaySeat();
