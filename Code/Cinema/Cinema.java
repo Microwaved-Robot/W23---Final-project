@@ -1,8 +1,5 @@
 package Code.Cinema;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -15,10 +12,10 @@ public class Cinema { // finish this
     protected int numberOfRoom = 0;
     protected ArrayList<Movie> movie_List;
     protected ArrayList<CinemaRoom> room_List;
-    protected HashMap<String, Staff> staff_List;
-    protected HashMap<String, Admin> Admin_List;
+    protected static ArrayList<Staff> StaffArray;
+    protected ArrayList<Admin> AdminArray;
 
-    Scanner input = new Scanner(System.in);
+    static Scanner input = new Scanner(System.in);
 
     /*----------------------------------Constructors----------------------------------*/
     public Cinema() {
@@ -53,7 +50,8 @@ public class Cinema { // finish this
 
         for (int i = 0; i < number; i++) {
             Staff staff = new Staff();
-            staff_List.put(staff.getName(), staff);
+            StaffArray.add(staff);
+
         }
 
         do {
@@ -72,7 +70,7 @@ public class Cinema { // finish this
                 flag = true;
             }
         } while (flag);
-      
+
         for (int i = 0; i < numberOfRoom; i++) {
             room_List.add(new CinemaRoom(numberOfRoom));
         }
@@ -102,16 +100,18 @@ public class Cinema { // finish this
         input.nextLine();
     }
 
-    // Bulk Adding for CinemaRoom, movie_List and staff_List assuming that there is
+    // Bulk Adding for CinemaRoom, movie_List and StaffArray assuming that there is
     // no problem in element of the parameter
+
+    // change constructor parameters from hashmap to Array
     protected Cinema(int branchNumber, ArrayList<Movie> movie_List, ArrayList<CinemaRoom> room_List,
-            HashMap<String, Staff> staff_List) {
-  
+            ArrayList<Staff> StaffArray, ArrayList<Admin> AdminArray) {
+
         this.branchNumber = branchNumber;
-        this.staff_List = staff_List;
+        this.StaffArray = StaffArray;
         this.movie_List = movie_List;
         this.room_List = room_List;
-        this.Admin_List = admin_List;
+        this.AdminArray = AdminArray;
         numberOfRoom = room_List.size();
     }
 
@@ -210,13 +210,15 @@ public class Cinema { // finish this
 
     protected void addStaff() {
         Staff staff = new Staff();
-        staff_List.put(staff.getName(), staff);
+        StaffArray.add(staff);
     }
 
+    // check with google maybe move to main class?
     protected void removeStaff() {
         System.out.print("Enter the name of the staff you want to fire: ");
         String name = input.nextLine();
-        staff_List.remove(name);
+        int index = binarySearch(StaffArray, name);
+        StaffArray.remove(index);
     }
 
     /*----------------------------------Getter and Setters----------------------------------*/
@@ -252,19 +254,151 @@ public class Cinema { // finish this
         this.room_List = room_List;
     }
 
-    public HashMap<String, Staff> getStaff_List() {
-        return this.staff_List;
+    public static ArrayList<Staff> getStaffArray() {
+        return StaffArray;
     }
 
-    public void setStaff_List(HashMap<String, Staff> staff_List) {
-        this.staff_List = staff_List;
+    public void setStaffArray(ArrayList<Staff> StaffArray) {
+        this.StaffArray = StaffArray;
     }
 
-    public HashMap<String, Admin> getAdmin_List() {
-        return Admin_List;
+    public ArrayList<Admin> getAdminArray() {
+        return AdminArray;
     }
 
-    public void setAdmin_List(HashMap<String, Admin> admin_List) {
-        Admin_List = admin_List;
+    public void setAdminArray(ArrayList<Admin> AdminArray) {
+        this.AdminArray = AdminArray;
+    }
+
+    // ------------------------- search and sort methods
+
+    public void bubbleSort(Staff[] staff) {
+        for (int i = 1; i < staff.length; i++) {
+            for (int j = 0; j < staff.length - 1; j++) {
+                if ((staff[j].getName().compareTo(staff[j + 1].getName())) > 0) {
+                    Staff temp = staff[j];
+
+                    staff[j] = staff[j + 1];
+                    staff[j + 1] = temp;
+                }
+            }
+        }
+    }
+
+    public static int binarySearch(ArrayList<Staff> staffArray, String name) {
+        int index = -1;
+        int first = 0;
+        int last = staffArray.size() - 1;
+        int mid = (first + last) / 2;
+        while (first <= last) {
+            if ((staffArray.get(mid).getName().compareTo(name)) < 0) {
+                first = mid + 1;
+            } else if (staffArray.get(mid).getName().equals(name)) {
+                index = mid;
+                break;
+            } else {
+                last = mid - 1;
+            }
+            mid = (first + last) / 2;
+        }
+        if (first > last) {
+            System.out.println("Element is not found!");
+        }
+        return index;
+    }
+
+    public void bubbleSort(ArrayList<Admin> admin) {
+        for (int i = 1; i < admin.size(); i++) {
+            for (int j = 0; j < admin.size() - 1; j++) {
+                if ((admin.get(j).getName().compareTo(admin.get(j + 1).getName())) > 0) {
+                    Admin temp = admin.get(j);
+
+                    admin.set(j, admin.get(j + 1));
+                    admin.set(j + 1, temp);
+                }
+            }
+        }
+    }
+
+    public int AdminBinarySearch(ArrayList<Admin> admins, String name) {
+        int index = -1;
+        int first = 0;
+        int last = admins.size() - 1;
+        int mid = (first + last) / 2;
+        while (first <= last) {
+            if ((admins.get(mid).getName().compareTo(name)) < 0) {
+                first = mid + 1;
+            } else if (admins.get(mid).getName().equals(name)) {
+                index = mid;
+                break;
+            } else {
+                last = mid - 1;
+            }
+            mid = (first + last) / 2;
+        }
+        if (first > last) {
+            System.out.println("Element is not found!");
+        }
+        return index;
+    }
+
+    public static Staff staffLogIn() {
+        int realPin;
+        int pin;
+        String answer;
+        String userName;
+
+        System.out.print("Enter your userName: ");
+        userName = input.nextLine();
+
+        // change to search(username) which will be a binary search method that will
+        // find the index of a staff member in the array of staff members using the
+        // username
+        realPin = getStaffArray().get(binarySearch(getStaffArray(), userName)).getPin();
+        do {
+            System.out.println("Enter your pin: ");
+            pin = input.nextInt();
+            input.nextLine();
+
+            if (realPin != pin) {
+                System.out.println("The pin you entered is incorrect...");
+                System.out.println("Would you like to try again(Y or N)?");
+                answer = input.nextLine();
+                if (answer.toLowerCase().equals("n")) {
+                    System.exit(1);
+                }
+            }
+
+        } while (realPin != pin);
+        System.out.println("Welcome back " + userName);
+        return getStaffArray().get(binarySearch(StaffArray, userName));
+    }
+
+    public Staff AdminLogIn() {
+        int pin;
+        String answer;
+
+        System.out.print("Enter your userName: ");
+        String userName = input.nextLine();
+
+        int realPin = getAdminArray().get(AdminBinarySearch(getAdminArray(), userName)).getPin();
+
+        do {
+            System.out.println("Enter your pin: ");
+            pin = input.nextInt();
+            input.nextLine();
+
+            if (realPin != pin) {
+                System.out.println("The pin you entered is incorrect...");
+                System.out.println("Would you like to try again(Y or N)?");
+                answer = input.nextLine();
+                if (answer.toLowerCase().equals("n")) {
+                    System.exit(1);
+                }
+            }
+
+        } while (realPin != pin);
+        System.out.println("Welcome back " + userName);
+        return getAdminArray().get(AdminBinarySearch(getAdminArray(), userName));
     }
 }

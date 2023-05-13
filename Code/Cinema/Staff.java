@@ -1,12 +1,6 @@
 package Code.Cinema;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Scanner;
-
-import javax.sound.sampled.SourceDataLine;
 
 public class Staff {
     Scanner input = new Scanner(System.in);
@@ -139,13 +133,9 @@ public class Staff {
     }
 
     // option 5 change adult ticket price
-    // in order to change the price of a ticket from this class I will need add
-    // ticket as a parameter for this class
-    // an easier way could be to initialize a ticket as a parameter in the cinema
-    // class so that I can change the values from this class without needing to
-    // create ticket as a new variable which will only be accessible through this
-    // class.
-    // done as much as possible for now
+    // call set price method.
+    // only need one set price method as mackenzie has made it so that people
+    // recieve discounts rather than adults and children having different prices
     void option5() {
         String answer = "";
         do {
@@ -249,5 +239,7 @@ public class Staff {
     public String toString() {
         return "(" + name + "," + age + "," + "theOnlyCinema" + "," + PIN + ")";
     }
+
+    // Things that go in main
 
 }
