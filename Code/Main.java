@@ -1,9 +1,14 @@
 package Code;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import Code.Cinema.Admin;
 import Code.Cinema.Cinema;
@@ -16,6 +21,18 @@ public class Main {
     static Scanner input = new Scanner(System.in);
 
     public static void main(String[] args) {
+        // To import the cinema file that is already existing
+        File file = new File(
+                "C:\\Users\\zeze3\\OneDrive\\Documents\\GitHub\\W23---Final-project\\Code\\Json\\cinema.json");
+        ObjectMapper om = new ObjectMapper();
+        om.registerModule(new JavaTimeModule());
+        Cinema cinema;
+        try {
+            cinema = om.readValue(file, Cinema.class);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
         // ask if staff or client
 
         // ask for name
@@ -24,15 +41,14 @@ public class Main {
 
         Cinema.staffLogIn().staffUI();
 
-        onEnd();
+        // onEnd();
     }
 
     static void onStart() {
-        // Need to sort staff and admin arrays before I use the search algorithms
-        theOnlyCinema.setMovie_List(movieList_DataRead());
-        theOnlyCinema.setRoom_List(roomList_DataRead());
-        theOnlyCinema.setStaffArray(staffList_DataRead());
-        theOnlyCinema.setAdminArray(adminList_DataRead());
+        // theOnlyCinema.setMovie_List(movieList_DataRead());
+        // theOnlyCinema.setRoom_List(roomList_DataRead());
+        theOnlyCinema.setStaff_List(staffList_DataRead());
+        theOnlyCinema.setAdmin_List(adminList_DataRead());
     }
 
     // change return tipe to Array of admins
@@ -115,29 +131,6 @@ public class Main {
         return staffList;
     }
 
-    private static ArrayList<CinemaRoom> roomList_DataRead() {
-        return null;
-    }
-
-    private static ArrayList<Movie> movieList_DataRead() {
-        return null;
-    }
-
-    static void onEnd() {
-        adminList_DataWrite();
-        staffList_DataWrite();
-        roomList_DataWrite();
-        movieList_DataWrite();
-    }
-
-    private static void movieList_DataWrite() {
-
-    }
-
-    private static void roomList_DataWrite() {
-
-    }
-
     private static void staffList_DataWrite() {
         try {
             FileOutputStream fout = new FileOutputStream("Code\\textFiles\\StaffInfo.txt");
@@ -191,4 +184,15 @@ public class Main {
         }
     }
 
+    public static void cinemaConverter(Cinema cinema) {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+        File file = new File("C:\\Users\\zeze3\\OneDrive\\Documents\\GitHub\\W23---Final-project\\Code\\Json",
+                "cinema.json");
+        try {
+            mapper.writeValue(file, cinema);
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+    }
 }

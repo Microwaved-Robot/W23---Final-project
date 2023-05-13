@@ -6,9 +6,9 @@ import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class Cinema { // finish this
+public class Cinema { // do a update all room for cinema room
     private final String cinemaName = "ThaBest Cinema inc";
-    private final int branchNumber;
+    private final int branchNumber = 1;
     protected int numberOfRoom = 0;
     protected ArrayList<Movie> movie_List;
     protected ArrayList<CinemaRoom> room_List;
@@ -19,28 +19,24 @@ public class Cinema { // finish this
 
     /*----------------------------------Constructors----------------------------------*/
     public Cinema() {
-        this.branchNumber = 0;
-        this.movie_List = null;
-        this.room_List = null;
-        System.out.println("Created a empty cinema. ");
+        // default
     }
 
     // Manual adding
-    protected Cinema(int branchNumber) {
-        this.branchNumber = branchNumber;
+    public Cinema(int branchNumber) {
         int number = 0;
         boolean flag = false;
 
         do {
             try {
-                System.out.print("Enter the number of staff: ");
+                System.out.print("Enter the number of Admin: ");
                 number = input.nextInt();
                 if (number <= 0) {
                     throw new IllegalArgumentException("Negative number");
                 }
                 flag = false;
             } catch (IllegalArgumentException e) {
-                System.out.println("The number needs to be bigger than 0.");
+                System.out.println("The input needs to be bigger than 0.");
                 flag = true;
             } catch (InputMismatchException e) {
                 System.out.println("The input needs to be a number.");
@@ -50,20 +46,43 @@ public class Cinema { // finish this
 
         for (int i = 0; i < number; i++) {
             Staff staff = new Staff();
-            StaffArray.add(staff);
-
+            staff_List.put(staff.getName(), staff);
         }
+        System.out.println();
 
         do {
             try {
-                System.out.print("Enter the number of room: ");
+                System.out.print("Enter the number of Movie the cinema is showing: ");
+                number = input.nextInt();
+                if (number <= 0) {
+                    throw new IllegalArgumentException("Negative number");
+                }
+                flag = false;
+            } catch (IllegalArgumentException e) {
+                System.out.println("The input needs to be bigger than 0.");
+                flag = true;
+            } catch (InputMismatchException e) {
+                System.out.println("The input needs to be a number.");
+                flag = true;
+            }
+        } while (flag);
+
+        movie_List = new ArrayList<>();
+        for (int i = 0; i < number; i++) {
+            movie_List.add(new Movie(true));
+        }
+        System.out.println();
+
+        do {
+            try {
+                System.out.print("Enter the number of room in the cinema: ");
                 numberOfRoom = input.nextInt();
                 if (numberOfRoom <= 0) {
                     throw new IllegalArgumentException("Negative number");
                 }
                 flag = false;
             } catch (IllegalArgumentException e) {
-                System.out.println("The number needs to be bigger than 0.");
+                System.out.println("The input needs to be bigger than 0.");
                 flag = true;
             } catch (InputMismatchException e) {
                 System.out.println("The input needs to be a number.");
@@ -71,30 +90,36 @@ public class Cinema { // finish this
             }
         } while (flag);
 
+        room_List = new ArrayList<>();
         for (int i = 0; i < numberOfRoom; i++) {
             room_List.add(new CinemaRoom(numberOfRoom));
         }
+        System.out.println();
 
-        do {
-            try {
-                System.out.print("Enter the number of Movie: ");
-                number = input.nextInt();
-                if (numberOfRoom <= 0) {
-                    throw new IllegalArgumentException("Negative number");
-                }
-                flag = false;
-            } catch (IllegalArgumentException e) {
-                System.out.println("The number needs to be bigger than 0.");
-                flag = true;
-            } catch (InputMismatchException e) {
-                System.out.println("The input needs to be a number.");
-                flag = true;
-            }
-        } while (flag);
-
-        for (int i = 0; i < number; i++) {
-            movie_List.add(new Movie());
+        System.out.println("There is " + numberOfRoom + " room in the cinema.");
+        for (Movie movie : movie_List) {
+            System.out.print("In which room do you want to put it? : ");
+            number = input.nextInt() - 1;
+            room_List.get(number).addMovieToQueue(movie);
         }
+
+        // ????? its the admin class
+        // do {
+        // try {
+        // System.out.print("Enter the number of Staff: ");
+        // number = input.nextInt();
+        // if (numberOfRoom <= 0) {
+        // throw new IllegalArgumentException("Negative number");
+        // }
+        // flag = false;
+        // } catch (IllegalArgumentException e) {
+        // System.out.println("The input needs to be bigger than 0.");
+        // flag = true;
+        // } catch (InputMismatchException e) {
+        // System.out.println("The input needs to be a number.");
+        // flag = true;
+        // }
+        // } while (flag);
 
         // Make sure next line is not skipped
         input.nextLine();
@@ -128,16 +153,28 @@ public class Cinema { // finish this
         return s_List;
     }
 
+    public Movie searchMovieListByName(ArrayList<Movie> m, String movieName) {
+
+        for (int i = 0; i < m.size(); i++) {
+
+            if (m.get(i).getName().equalsIgnoreCase(movieName)) {
+                return m.get(i);
+            }
+        }
+
+        return null;
+    }
+
     // Adds ONE movie and check for duplicates
     protected void addMovie() {
-        Movie m = new Movie();
+        Movie m = new Movie(true);
         boolean flag = false;
 
         do {
             for (Movie movie : movie_List) {
                 flag = movie.getName().equals(m.getName());
                 if (flag) {
-                    m = new Movie();
+                    m = new Movie(true);
                     break;
                 }
                 movie_List.add(m);
@@ -206,6 +243,22 @@ public class Cinema { // finish this
         }
         // To Make sure we can read the nxt line after this method
         input.nextLine();
+    } // ---------------------------------------------- do this one (not finished)
+
+    // search all rooms to see which room the movie is playing in
+
+    public int searchCinemaRooms(Movie t) {
+        for (CinemaRoom m : room_List) {
+            for (int i = 0; i < m.getMovie_List().size(); i++) {
+                if (m.getMovieFromList(i).equals(t)) {
+                    return room_List.get(i).getRoomNumber();
+                }
+            }
+        }
+
+        return -1;
+    }
+
     }
 
     protected void addStaff() {
@@ -238,16 +291,12 @@ public class Cinema { // finish this
         this.movie_List = movie_List;
     }
 
-    public ArrayList<CinemaRoom> getroom_List() {
+    public ArrayList<CinemaRoom> getRoom_List() {
         return room_List;
     }
 
     public String getCinemaName() {
         return this.cinemaName;
-    }
-
-    public ArrayList<CinemaRoom> getRoom_List() {
-        return this.room_List;
     }
 
     public void setRoom_List(ArrayList<CinemaRoom> room_List) {
