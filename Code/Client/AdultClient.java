@@ -17,6 +17,10 @@ public class AdultClient extends Client{
     }
 
 
+    public AdultClient() {
+        
+    }
+
     public void runAdultClient(Cinema c) {
         int userChoice = 0;
 

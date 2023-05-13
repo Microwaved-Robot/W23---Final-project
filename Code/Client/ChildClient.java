@@ -18,6 +18,9 @@ public class ChildClient extends Client {
         this.age = age;
     }
 
+    public ChildClient() {
+        
+    }
 
     //driver method for childClient
     public void runChildClient(Cinema c) {
