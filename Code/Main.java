@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -18,7 +19,7 @@ import Code.Cinema.Staff;
 import Code.Client.AdultClient;
 
 public class Main {
-    private static final Cinema theOnlyCinema = new Cinema();
+    public static Cinema theOnlyCinema = new Cinema();
     static Scanner input = new Scanner(System.in);
 
     public static void main(String[] args) {
@@ -40,16 +41,58 @@ public class Main {
         // ask for pin
         onStart();
 
-        Cinema.staffLogIn().staffUI();
+        userIdentifier();
 
-        // onEnd();
+        onEnd();
+    }
+
+    static void userIdentifier() {
+        boolean flag = true;
+        int reply = 0;
+        do {
+            try {
+                System.out.printf("%s\n%s\n%s\n%s\n", "Welcome, are you a:", "1) Client", "2) Staff member",
+                        "3) Administrator");
+                reply = input.nextInt();
+                if (reply < 1 || reply > 3) {
+                    throw new IllegalArgumentException();
+                } else {
+                    flag = false;
+                }
+            } catch (InputMismatchException ime) {
+                System.out.println("What you entered was not an integer.");
+                System.out.println("Please try again.");
+                flag = true;
+            } catch (IllegalArgumentException iae) {
+                System.out.println("You must enter an integer between 1 and 3.");
+                System.out.println("Please try again.");
+                flag = true;
+            }
+        } while (flag);
+        switch (reply) {
+            case (1):
+                break;
+            case (2):
+                Cinema.staffLogIn().staffUI();
+                break;
+            case (3):
+                Cinema.AdminLogIn().adminUI();
+        }
+        input.nextLine();
     }
 
     static void onStart() {
         // theOnlyCinema.setMovie_List(movieList_DataRead());
         // theOnlyCinema.setRoom_List(roomList_DataRead());
         theOnlyCinema.setStaffArray(staffList_DataRead());
+        theOnlyCinema.bubbleSort(theOnlyCinema.getStaffArray());
         theOnlyCinema.setAdminArray(adminList_DataRead());
+        theOnlyCinema.adminBubbleSort(theOnlyCinema.getAdminArray());
+    }
+
+    static void onEnd() {
+        staffList_DataWrite();
+        adminList_DataWrite();
     }
 
     // change return tipe to Array of admins
@@ -141,9 +184,11 @@ public class Main {
 
             String adminString = theOnlyCinema.getStaffArray().toString();
 
-            String[] adminArray = adminString.split("=");
+            System.out.println(adminString);
+            String[] adminArray = adminString.split(",");
+            System.out.println(adminArray);
             String adminMember = "";
-            for (int i = 1; i < adminArray.length; i++) {
+            for (int i = 0; i < adminArray.length; i++) {
                 adminMember = adminArray[i].substring(adminArray[i].indexOf("("),
                         adminArray[i].indexOf(")"));
                 adminMember = adminMember + ")";
