@@ -2,7 +2,6 @@ package Code;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -12,10 +11,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import Code.Cinema.Admin;
 import Code.Cinema.Cinema;
-import Code.Cinema.CinemaRoom;
-import Code.Cinema.Movie;
 import Code.Cinema.Staff;
-import Code.Client.AdultClient;
 
 public class Main {
     private static final Cinema theOnlyCinema = new Cinema();
@@ -132,71 +128,92 @@ public class Main {
         return staffList;
     }
 
-    private static void staffList_DataWrite() {
-        try {
-            FileOutputStream fout = new FileOutputStream("Code\\textFiles\\StaffInfo.txt");
-            // Can I convert an array to string in one comant like I did with staff_List?
-            // once I figure out how to convert to string the rest of the code will remain
-            // the same
+    // private static void staffList_DataWrite() {
+    //     try {
+    //         FileOutputStream fout = new FileOutputStream("Code\\textFiles\\StaffInfo.txt");
+    //         // Can I convert an array to string in one comant like I did with staff_List?
+    //         // once I figure out how to convert to string the rest of the code will remain
+    //         // the same
 
-            String adminString = theOnlyCinema.getStaffArray().toString();
+    //         String adminString = theOnlyCinema.getStaffArray().toString();
 
-            String[] adminArray = adminString.split("=");
-            String adminMember = "";
-            for (int i = 1; i < adminArray.length; i++) {
-                adminMember = adminArray[i].substring(adminArray[i].indexOf("("),
-                        adminArray[i].indexOf(")"));
-                adminMember = adminMember + ")";
-                System.out.println(adminMember);
-                for (int k = 0; k < adminMember.length(); k++) {
-                    fout.write((int) adminMember.charAt(k));
-                }
-            }
-            fout.close();
-        } catch (Exception e) {
-            // TODO: handle exception
-            System.out.println(e);
-            System.out.println("something went wrong...");
-        }
-    }
+    //         String[] adminArray = adminString.split("=");
+    //         String adminMember = "";
+    //         for (int i = 1; i < adminArray.length; i++) {
+    //             adminMember = adminArray[i].substring(adminArray[i].indexOf("("),
+    //                     adminArray[i].indexOf(")"));
+    //             adminMember = adminMember + ")";
+    //             System.out.println(adminMember);
+    //             for (int k = 0; k < adminMember.length(); k++) {
+    //                 fout.write((int) adminMember.charAt(k));
+    //             }
+    //         }
+    //         fout.close();
+    //     } catch (Exception e) {
+    //         // TODO: handle exception
+    //         System.out.println(e);
+    //         System.out.println("something went wrong...");
+    //     }
+    // }
 
-    private static void adminList_DataWrite() {
-        try {
-            FileOutputStream fout = new FileOutputStream("Code\\textFiles\\AdminInfo.txt");
-            // same as staffList_darawrite
+    // private static void adminList_DataWrite() {
+    //     try {
+    //         FileOutputStream fout = new FileOutputStream("Code\\textFiles\\AdminInfo.txt");
+    //         // same as staffList_darawrite
 
-            String adminString = theOnlyCinema.getAdminArray().toString();
+    //         String adminString = theOnlyCinema.getAdminArray().toString();
 
-            String[] adminArray = adminString.split("=");
-            String adminMember = "";
-            for (int i = 1; i < adminArray.length; i++) {
-                adminMember = adminArray[i].substring(adminArray[i].indexOf("("),
-                        adminArray[i].indexOf(")"));
-                adminMember = adminMember + ")";
-                for (int k = 0; k < adminMember.length(); k++) {
-                    fout.write((int) adminMember.charAt(k));
-                }
-            }
-            fout.close();
-        } catch (Exception e) {
-            // TODO: handle exception
-            System.out.println(e);
-            System.out.println("something went wrong...");
-        }
-    }
+    //         String[] adminArray = adminString.split("=");
+    //         String adminMember = "";
+    //         for (int i = 1; i < adminArray.length; i++) {
+    //             adminMember = adminArray[i].substring(adminArray[i].indexOf("("),
+    //                     adminArray[i].indexOf(")"));
+    //             adminMember = adminMember + ")";
+    //             for (int k = 0; k < adminMember.length(); k++) {
+    //                 fout.write((int) adminMember.charAt(k));
+    //             }
+    //         }
+    //         fout.close();
+    //     } catch (Exception e) {
+    //         // TODO: handle exception
+    //         System.out.println(e);
+    //         System.out.println("something went wrong...");
+    //     }
+    // }
 
     /*----------------------------------JSON Converter Method----------------------------------*/
     public static void cinemaConverter(Cinema cinema) {
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
-        File file = new File("C:\\Users\\zeze3\\OneDrive\\Documents\\GitHub\\W23---Final-project\\Code\\Json",
-                "cinema.json");
+        File file = new File("C:\\Users\\zeze3\\OneDrive\\Documents\\GitHub\\W23---Final-project\\Code\\Json\\cinema.json");
         try {
             mapper.writeValue(file, cinema);
         } catch (IOException e) {
             System.out.println(e);
         }
     }
+
+    // public static void StaffConverter(ArrayList<Staff> staff_List) {
+    //     ObjectMapper mapper = new ObjectMapper();
+    //     mapper.registerModule(new JavaTimeModule());
+    //     File file = new File("C:\\Users\\zeze3\\OneDrive\\Documents\\GitHub\\W23---Final-project\\Code\\Json\\Staff.json");
+    //     try {
+    //         mapper.writeValue(file, staff_List);
+    //     } catch (IOException e) {
+    //         System.out.println(e);
+    //     }
+    // }
+
+    // public static void AdminConverter(ArrayList<Admin> Admin_List) {
+    //     ObjectMapper mapper = new ObjectMapper();
+    //     mapper.registerModule(new JavaTimeModule());
+    //     File file = new File("C:\\Users\\zeze3\\OneDrive\\Documents\\GitHub\\W23---Final-project\\Code\\Json\\Admin.json");
+    //     try {
+    //         mapper.writeValue(file, Admin_List);
+    //     } catch (IOException e) {
+    //         System.out.println(e);
+    //     }
+    // }
 
     // public static void AdultClientConverter(HashMap<String, AdultClient> client_Map) {
     //     ObjectMapper mapper = new ObjectMapper();
