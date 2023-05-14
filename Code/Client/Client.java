@@ -75,7 +75,7 @@ abstract class Client {
 
             System.out.println("Choose Seat: ");
 
-            CinemaRoom r = c.getroom_List().get(selectedRoomNumber);
+            CinemaRoom r = c.getRoom_List().get(selectedRoomNumber);
             r.displaySeat();
         } catch (InputMismatchException e) {
             System.out.println("You Have Entered An Incorrect Option (Code 600)");
