@@ -15,6 +15,7 @@ import Code.Cinema.Cinema;
 import Code.Cinema.CinemaRoom;
 import Code.Cinema.Movie;
 import Code.Cinema.Staff;
+import Code.Client.AdultClient;
 
 public class Main {
     private static final Cinema theOnlyCinema = new Cinema();
@@ -243,6 +244,7 @@ public class Main {
         }
     }
 
+    /*----------------------------------JSON Converter Method----------------------------------*/
     public static void cinemaConverter(Cinema cinema) {
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
@@ -253,4 +255,15 @@ public class Main {
             System.out.println(e);
         }
     }
+
+    // public static void AdultClientConverter(HashMap<String, AdultClient> client_Map) {
+    //     ObjectMapper mapper = new ObjectMapper();
+    //     mapper.registerModule(new JavaTimeModule());
+    //     File file = new File("C:\\Users\\zeze3\\OneDrive\\Documents\\GitHub\\W23---Final-project\\Code\\Json\\AdultClient.json");
+    //     try {
+    //         mapper.writeValue(file, client_Map);
+    //     } catch (IOException e) {
+    //         System.out.println(e);
+    //     }
+    // }
 }
