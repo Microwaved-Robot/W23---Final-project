@@ -1,12 +1,10 @@
 package Code.Cinema;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.InputMismatchException;
 
 public class Admin extends Staff {
-    // I should store a set of values in an array to allow for sorting and searching
-    // algorithms to
-    // be implemented
+    // amind done other than testing
 
     private static boolean isAdmin = true;
 
@@ -20,69 +18,118 @@ public class Admin extends Staff {
 
     public Admin(String name) {
         this.name = name;
-        System.out.println("Enter admin's age: ");
-        int age = input.nextInt();
+        boolean flag = true;
+        do {
+            try {
+                System.out.println("Enter admin's age: ");
+                int age = input.nextInt();
+                flag = false;
+            } catch (InputMismatchException ime) {
+                System.out.println("The age entered must be an intiger.");
+                flag = true;
+            }
+        } while (flag);
         this.cinemaOfEmployement = null;
-        System.out.println("Enter admin's pin: ");
-        this.PIN = input.nextInt();
+        do {
+            try {
+                System.out.println("Enter admin's pin: ");
+                this.PIN = input.nextInt();
+                flag = false;
+            } catch (InputMismatchException ime) {
+                System.out.println("The pin entered must be an intiger.");
+                System.out.println("Please try again.");
+                flag = true;
+            }
+        } while (flag);
+        input.nextLine();
     }
 
     // ------------------------------------- start admin UI
     public void adminUI() {
         int reply = 0;
         String answer = "";
-        try {
+        boolean flag = true;
+        do {
             do {
-                System.out.println(adminOptions());
-                System.out.println("Enter the number that corresponds to the action you would like to perform: ");
-                reply = input.nextInt();
 
-                switch (reply) {
-                    case (0):
-                        System.out.println("something went wrong...");
-                        break;
-                    case (1):
-                        option1();
-                        break;
-                    case (2):
-                        option2();
-                        break;
-                    case (3):
-                        option3();
-                        break;
-                    case (4):
-                        option4();
-                        break;
-                    case (5):
-                        option5();
-                        break;
-                    case (6):
-                        option6();
-                        break;
-                    case (7):
-                        option7();
-                        break;
-                    case (8):
-                        option8();
-                        break;
-                    case (9):
-                        option9();
-                        break;
+                System.out.println(adminOptions());
+                try {
+                    System.out
+                            .println("Enter the number that corresponds to the action you would like to perform: ");
+                    reply = input.nextInt();
+                    if (reply < 0 || reply > 11) {
+                        throw new IllegalArgumentException();
+                    } else {
+                        flag = false;
+                    }
+                } catch (Exception e) {
+                    System.out.println("You must enter an integer between 1 and 11");
+                    System.out.println("Please try again.");
+                    flag = true;
                 }
-                System.out.println("Do you want to perform another action?:(y or n) ");
-                answer = input.nextLine();
-            } while (answer.toLowerCase().equals("y"));
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-        input.nextLine();
+            } while (flag);
+            input.nextLine();
+
+            switch (reply) {
+                case (1):
+                    displayMovieQueue();
+                    break;
+                case (2):
+                    addMovieToQueue();
+                    break;
+                case (3):
+                    removeMovieFromQueue();
+                    break;
+                case (4):
+                    createMovie();
+                    ;
+                    break;
+                case (5):
+                    emptyRoomSeat();
+                    break;
+                case (6):
+                    emptyAllRoomSeats();
+                    break;
+                case (7):
+                    displayRoomSeating();
+                    break;
+                case (8):
+                    changeTicketPrice();
+                    break;
+                case (9):
+                    hireStaff();
+                    break;
+                case (10):
+                    fireStaff();
+                    break;
+                case (11):
+                    resetCinema();
+                    break;
+            }
+            do {
+                try {
+                    System.out.println("do you wish to perform another action(Y or N)? ");
+                    answer = input.nextLine();
+
+                    if (!answer.toLowerCase().equals("y") && !answer.toLowerCase().equals("n")) {
+                        throw new IllegalArgumentException();
+                    } else {
+                        flag = false;
+                    }
+                } catch (IllegalArgumentException iae) {
+                    System.out.println("You did not enter a 'Y' or a 'N'.");
+                    System.out.println("Please try again.");
+                    flag = true;
+                }
+            } while (flag);
+        } while (answer.toLowerCase().equals("y"));
     }
 
     private String adminOptions() {
         String str = options();
-        str += String.format("%s %s\n", "7) ", "Hire Staff.");
-        str += String.format("%s %s\n", "8) ", "Fire Staff.");
-        str += String.format("%s %s\n", "9) ", "Reset Cinema.");
+        str += String.format("%s %s\n", "9) ", "Hire Staff.");
+        str += String.format("%s %s\n", "10) ", "Fire Staff.");
+        str += String.format("%s %s\n", "11) ", "Reset Cinema.");
         return str;
     }
 
@@ -90,31 +137,53 @@ public class Admin extends Staff {
 
     // option 7 is used to hire staff
     // all that's left is to test and exception handling
-    void option7() {
-        System.out.println("Enter the staff member's name: ");
-        String name = input.nextLine();
+    void hireStaff() {
+        String name = "";
+        boolean flag = false;
+        do {
+            try {
+                System.out.println("Enter the staff member's name: ");
+                name = input.nextLine();
+                flag = false;
+            } catch (Exception e) {
+                System.out.println("What you entered was not a string please try again.");
+                flag = true;
+            }
+        } while (flag);
         cinemaOfEmployement.getStaffArray().add(new Staff(name));
         input.nextLine();
     }
 
     // option 8 is used to fire staff
     // all that's left is to test
-    void option8() {
+    void fireStaff() {
         System.out.println(cinemaOfEmployement.getStaffArray().toString());
-        System.out.println("Enter the staff member's username: ");
-        int index = binarySearch(cinemaOfEmployement.getStaffArray(), input.nextLine());
+        int index = -1;
+        boolean flag = true;
+        do {
+            try {
+                System.out.println("Enter the staff member's username: ");
+                index = binarySearch(cinemaOfEmployement.getStaffArray(), input.nextLine());
+                flag = false;
+
+            } catch (InputMismatchException ime) {
+                System.out.println("What you entered is not a string.");
+                flag = true;
+            }
+        } while (flag);
         cinemaOfEmployement.getStaffArray().remove(index);
         input.nextLine();
     }
 
-    // option 9 resets the cinema
+    // option 11 resets the cinema
     // All that's left is test and exception handling
-    void option9() {
-        cinemaOfEmployement.setAdminArray(null);
-        cinemaOfEmployement.setStaffArray(null);
+    void resetCinema() {
+        // cinemaOfEmployement.setAdminArray(null);
+        // cinemaOfEmployement.setStaffArray(null);
         cinemaOfEmployement.setMovie_List(null);
         cinemaOfEmployement.setRoom_List(null);
         System.out.println("The cinema has been reset.");
+        input.nextLine();
     }
 
     // -------------------------------------- end admin UI

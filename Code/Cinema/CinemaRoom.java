@@ -65,40 +65,40 @@ public class CinemaRoom {
 
         // int nb = 0;
         // do {
-        //     try {
-        //         System.out.print("Number of movie to add to the cinema room: ");
-        //         nb = input.nextInt();
-        //         if (roomNumber <= 0) {
-        //             throw new IllegalArgumentException("Negative number");
-        //         }
-        //         input.nextLine();
-        //         flag = false;
-        //     } catch (InputMismatchException e) {
-        //         flag = true;
-        //         System.out.println("The input needs to be a positive number");
-        //     } catch (IllegalArgumentException e) {
-        //         System.out.println("The input needs to be bigger than 0.");
-        //         flag = true;
-        //     }
+        // try {
+        // System.out.print("Number of movie to add to the cinema room: ");
+        // nb = input.nextInt();
+        // if (roomNumber <= 0) {
+        // throw new IllegalArgumentException("Negative number");
+        // }
+        // input.nextLine();
+        // flag = false;
+        // } catch (InputMismatchException e) {
+        // flag = true;
+        // System.out.println("The input needs to be a positive number");
+        // } catch (IllegalArgumentException e) {
+        // System.out.println("The input needs to be bigger than 0.");
+        // flag = true;
+        // }
         // } while (flag);
 
         // for (int i = 0; i < nb; i++) {
-        //     try {
-        //         do {
-        //             System.out.println("Movie " + i + ": ");
-        //             Movie newMovie = new Movie();
-        //             for (Movie movie : movie_List) {
-        //                 flag = movie.equals(newMovie);
-        //                 if (flag) {
-        //                     System.out.println("The movie is already in the Room");
-        //                     break;
-        //                 }
-        //                 movie_List.add(newMovie);
-        //             }
-        //         } while (flag);
-        //     } catch (Exception e) {
-        //         System.out.println(e);
-        //     }
+        // try {
+        // do {
+        // System.out.println("Movie " + i + ": ");
+        // Movie newMovie = new Movie();
+        // for (Movie movie : movie_List) {
+        // flag = movie.equals(newMovie);
+        // if (flag) {
+        // System.out.println("The movie is already in the Room");
+        // break;
+        // }
+        // movie_List.add(newMovie);
+        // }
+        // } while (flag);
+        // } catch (Exception e) {
+        // System.out.println(e);
+        // }
         // }
 
         // Collections.sort(movie_List, new MovieTimeComparator());
@@ -238,7 +238,7 @@ public class CinemaRoom {
         }
         System.out.println("Where X is taken and O is vacant.");
     }
-    
+
     protected void emptySeat(int row, int column) { // will have to be changed to notify the client that had the
                                                     // reserved seat that his ticket is now terminated
         if (seats[row][column] == true) {
@@ -296,5 +296,17 @@ public class CinemaRoom {
 
     public int getRoomNumber() {
         return this.roomNumber;
+    }
+
+    public boolean[][] getSeats() {
+        return seats;
+    }
+
+    public int getSeatsLength() {
+        return seats.length;
+    }
+
+    public int getSeatsWidth() {
+        return seats[0].length;
     }
 }

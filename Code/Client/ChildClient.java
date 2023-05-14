@@ -4,14 +4,13 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import Code.Cinema.Cinema;
+
 public class ChildClient extends Client {
 
     String name;
     String lastName;
     int age;
 
-    
-    
     public ChildClient(String name, String lastName, int age) {
         this.name = name;
         this.lastName = lastName;
@@ -19,17 +18,15 @@ public class ChildClient extends Client {
     }
 
     public ChildClient() {
-        
+
     }
 
-    //driver method for childClient
+    // driver method for childClient
     public void runChildClient(Cinema c) {
         int userChoice = 0;
         Scanner sc = new Scanner(System.in);
 
         do {
-
-            
 
             System.out.println("1. View Showtimes");
             System.out.println("2. Purchase Ticket");
@@ -44,9 +41,7 @@ public class ChildClient extends Client {
                 System.out.println("Please Enter A Valid Input");
             }
 
-            
-
-            switch(userChoice) {
+            switch (userChoice) {
                 case 1:
                     c.showMovies();
                 case 2:
@@ -57,18 +52,17 @@ public class ChildClient extends Client {
                     getAcountInfo();
                 case 5:
                     getPurchasingInfo();
-                default: 
+                default:
                     System.out.println("Enter One Of The Options Listed Above!");
-                
+
             }
 
-        } while(userChoice != 6);
+        } while (userChoice != 6);
 
         sc.close();
 
     }
 
-    
     protected void getAcountInfo() {
         System.out.println("Name: " + name + " " + lastName);
         System.out.println("Age: " + age);
@@ -80,7 +74,8 @@ public class ChildClient extends Client {
         System.out.println("Discount on Tuesdays: " + Ticket.Daydiscount);
         System.out.println("Discount For Children Under 18 " + Ticket.childDiscount);
     }
-    //getters and setters
+
+    // getters and setters
     public String getName() {
         return name;
     }
