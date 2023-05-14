@@ -46,23 +46,26 @@ public class AdultClient extends Client{
             switch(userChoice) {
                 case 1:
                     c.showMovies();
+                    break;
                 case 2:
                     purchaseTicket(c);
+                    break;
                 case 3:
                     displayPurchasedTickets(tickets);
+                    break;
                 case 4:
                     getAcountInfo();
+                    break;
                 case 5:
                     getPurchasingInfo();
+                    break;
                 case 6:
-                    
+                    flag = false;
                 default:
                     System.out.println("Please Enter One Of The Options Listed Above!"); 
-
+                    break;
             }
-
-
-        } while(userChoice != 6);
+        } while(flag);
 
         sc.close();
     }
