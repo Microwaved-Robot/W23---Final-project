@@ -47,8 +47,8 @@ public class Main {
     static void onStart() {
         // theOnlyCinema.setMovie_List(movieList_DataRead());
         // theOnlyCinema.setRoom_List(roomList_DataRead());
-        theOnlyCinema.setStaff_List(staffList_DataRead());
-        theOnlyCinema.setAdmin_List(adminList_DataRead());
+        theOnlyCinema.setStaffArray(staffList_DataRead());
+        theOnlyCinema.setAdminArray(adminList_DataRead());
     }
 
     // change return tipe to Array of admins

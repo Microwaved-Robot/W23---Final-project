@@ -1,6 +1,9 @@
 package Code.Cinema;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
+
+import Code.Client.Ticket;
 
 public class Staff {
     Scanner input = new Scanner(System.in);
@@ -22,143 +25,383 @@ public class Staff {
     }
 
     public Staff(boolean ignore) {
-        System.out.print("Enter the staff member's name: ");
-        this.name = input.nextLine();
-        System.out.print("Enter the Staff member's pin: ");
-        this.PIN = input.nextInt();
-        System.out.print("Enter the staff member's age: ");
-        this.age = input.nextInt();
+        boolean flag = true;
+        do {
+            try {
+                System.out.print("Enter the staff member's name: ");
+                this.name = input.nextLine();
+                flag = false;
+            } catch (Exception e) {
+                System.out.println("What you entered is not a string.");
+                System.out.println("Please try again.");
+                flag = true;
+            }
+        } while (flag);
+        do {
+            try {
+
+                System.out.print("Enter the Staff member's pin: ");
+                this.PIN = input.nextInt();
+                flag = false;
+            } catch (InputMismatchException ime) {
+                System.out.println("What you entered is not an integer.");
+                System.out.println("Please try again.");
+                flag = true;
+            }
+        } while (flag);
+        do {
+            try {
+                System.out.print("Enter the staff member's age: ");
+                this.age = input.nextInt();
+                flag = false;
+            } catch (Exception e) {
+                System.out.println("What you entered is not an integer.");
+                System.out.println("Please try again.");
+                flag = true;
+            }
+        } while (flag);
         this.cinemaOfEmployement = null;
     }
 
     public Staff(String name) {
-        System.out.print("Enter the Staff member's pin: ");
-        this.PIN = input.nextInt();
-        System.out.print("Enter the staff member's age: ");
-        this.age = input.nextInt();
+        boolean flag = true;
+        do {
+            try {
+
+                System.out.print("Enter the Staff member's pin: ");
+                this.PIN = input.nextInt();
+                flag = false;
+            } catch (InputMismatchException ime) {
+                System.out.println("What you entered is not an integer.");
+                System.out.println("Please try again.");
+                flag = true;
+            }
+        } while (flag);
+        do {
+            try {
+                System.out.print("Enter the staff member's age: ");
+                this.age = input.nextInt();
+                flag = false;
+            } catch (Exception e) {
+                System.out.println("What you entered is not an integer.");
+                System.out.println("Please try again.");
+                flag = true;
+            }
+        } while (flag);
         this.cinemaOfEmployement = null;
     }
 
     // --------------------------------------------------------- UI Options Start
     // provides string of options.
     protected String options() {
-        String str = String.format("%s %s\n", "1) ", "Add movie to room queue.");
-        str += String.format("%s %s\n", "2) ", "Remove movie from room queue.");
-        str += String.format("%s %s\n", "3) ", "Empty seat(s) from room.");
-        str += String.format("%s %s\n", "4) ", "Display the room seating.");
-        str += String.format("%s %s\n", "5) ", "Change adult ticket price.");
-        str += String.format("%s %s\n", "6) ", "Change child ticket price.");
+        String str = String.format("%s %s\n", "1) ", "Display movies in room queue.");
+        str += String.format("%s %s\n", "2) ", "Add movie to room queue.");
+        str += String.format("%s %s\n", "3) ", "Remove movie from room queue.");
+        str += String.format("%s %s\n", "4) ", "Empty seat(s) from room.");
+        str += String.format("%s %s\n", "5) ", "Empty all seats from room.");
+        str += String.format("%s %s\n", "6) ", "Display the room seating.");
+        str += String.format("%s %s\n", "7) ", "Change adult ticket price.");
         return str;
     }
 
-    // option 1) add movie to queue options
-    // All that's left is to test and exception handling
-    void option1() {
-
-        String answer = "";
-        do {
-            System.out.println("Which room with you be adding the movie to?");
-            int roomNum = input.nextInt();
-
-            cinemaOfEmployement.getRoom_List().get(roomNum).addMovieToQueue(new Movie());
-
-            System.out.println("Do you want to add another movie?(Y or N): ");
-            answer = input.nextLine();
-
-        } while (answer.toLowerCase().equals("y"));
-
-    }
-
-    // option 2 remove a movie from the queue of movies
-    // all that's left is test and exception handling
-    void option2() {
-        String answer = "";
-        do {
-            System.out.println("Enter name of movie to be removed: ");
-            String nameToBeRemoved = input.nextLine();
-
-            System.out.println("Enter room num of movie to be removed: ");
-            int roomNum = input.nextInt();
-
-            cinemaOfEmployement.getRoom_List().get(roomNum).removeMovieInQueue(nameToBeRemoved);
-            System.out.println("The movie has been removed from queue");
-            System.out.println("Do you want to remove another movie?(y or n): ");
-            answer = input.nextLine();
-
-        } while (answer.toLowerCase().equals("y"));
-    }
-
-    // option 3 remove seats
-    // all that's left is to test and better exception handeling
-    void option3() {
-        String answer = "";
+    // option 1
+    void displayMovieQueue() {
+        boolean flag = false;
+        int roomNum = 0;
         do {
 
             try {
-                System.out.println("Enter room nubmer of seat to be removed: ");
-                int roomNum = input.nextInt();
-
-                cinemaOfEmployement.getRoom_List().get(roomNum).displaySeat();
-
-                System.out.println("Enter the integer corresponding to the seats row: ");
-                int seatRow = input.nextInt();
-
-                System.out.println("Enter the letter corresponding to the seats position: ");
-                int seatCollumn = input.nextInt();
-
-                emptySeat(roomNum, seatRow, seatCollumn);
+                System.out.println("Enter room number of movies to be displayed: ");
+                roomNum = input.nextInt();
+                flag = true;
             } catch (Exception e) {
-                System.out.println("what you entered was not a number please try again");
-                answer = "y";
+                System.out.println("What you enetered was not a number, please try again");
             }
+        } while (!flag);
+        cinemaOfEmployement.getRoom_List().get(roomNum).showMoviesInTheRoom();
+    }
+
+    // option 2) add movie to queue options
+    // All that's left is to test
+    void addMovieToQueue() {
+        boolean flag = true;
+        String answer = "";
+        int roomNum = -1;
+        do {
+            try {
+                System.out.println("Which room with you be adding the movie to?");
+                roomNum = input.nextInt();
+                if (roomNum < 0) {
+                    throw new IllegalArgumentException("Your number must be positive, please try again.");
+                }
+            } catch (IllegalArgumentException iae) {
+                System.out.println(iae.getMessage());
+            } catch (InputMismatchException ime) {
+                System.out.println("You must enter an integer value, please try again.");
+            }
+
+            cinemaOfEmployement.getRoom_List().get(roomNum).addMovieToQueue(new Movie());
+            do {
+
+                try {
+                    System.out.println("Do you want to add another movie?(Y or N): ");
+                    answer = input.nextLine();
+                } catch (InputMismatchException ime) {
+                    System.out.println("What you entered was not a 'Y' or a 'N', please try again.");
+                    // TODO: handle exception
+                    flag = false;
+                }
+                if (answer.toLowerCase().equals("y") || answer.toLowerCase().equals("n")) {
+                    flag = true;
+                }
+            } while (!flag);
+        } while (answer.toLowerCase().equals("y"));
+
+    }
+
+    // option 3 remove a movie from the queue of movies
+    // all that's left is test and exception handling
+    void removeMovieFromQueue() {
+        String answer = "";
+        int roomNum = -1;
+        boolean flag = false;
+        String nameToBeRemoved = "";
+        do {
+            do {
+
+                // input.nextLine() might not throw inputmismatchexception
+                try {
+                    System.out.println("Enter name of movie to be removed: ");
+                    nameToBeRemoved = input.nextLine();
+                    flag = false;
+                } catch (Exception e) {
+                    System.out.println("What you entered was not a string.");
+                    System.out.println("Please try again.");
+                    flag = true;
+                }
+            } while (flag);
+
+            do {
+                try {
+                    System.out.println("Enter room num of movie to be removed: ");
+                    roomNum = input.nextInt();
+                    flag = true;
+                } catch (InputMismatchException ime) {
+                    System.out.println("What you entered  was not an integer.");
+                    System.out.println("Please try again.");
+                    flag = false;
+                }
+            } while (flag);
+            cinemaOfEmployement.getRoom_List().get(roomNum).removeMovieInQueue(nameToBeRemoved);
+            System.out.println("The movie has been removed from queue");
+            System.out.println("Do you want to remove another movie(y or n)? ");
+            answer = input.nextLine();
 
         } while (answer.toLowerCase().equals("y"));
     }
 
-    // option 4 display room seating
-    // all that's left is improve exception handling and test
-    void option4() {
+    // option 4
+    void createMovie() {
+        cinemaOfEmployement.getMovie_List().add(new Movie(true));
+    }
+
+    // option 5 remove seats
+    // all that's left is to test and better exception handeling
+    void emptyRoomSeat() {
         String answer = "";
+        int roomNum = -1;
+        int seatCollumn = -1;
+        int seatRow = -1;
+        boolean flag = false;
+        do {
+            do {
+
+                try {
+                    System.out.println("Enter room nubmer of seat to be removed: ");
+                    roomNum = input.nextInt();
+
+                    if (roomNum < 0) {
+                        throw new IllegalArgumentException();
+                    } else if (roomNum > cinemaOfEmployement.getRoom_List().size()) {
+                        throw new IllegalArgumentException();
+                    } else {
+                        flag = false;
+                    }
+
+                } catch (IllegalArgumentException iae) {
+                    System.out.println("The integer you entered does not correspond to a room number.");
+                    System.out.println(
+                            "Please enter an integer between 0 and " + cinemaOfEmployement.getRoom_List().size());
+                    flag = true;
+                } catch (InputMismatchException ime) {
+                    System.out.println("What you entered was not an integer.");
+                    System.out.println("Please try again.");
+                    flag = true;
+                }
+            } while (flag);
+
+            cinemaOfEmployement.getRoom_List().get(roomNum).displaySeat();
+
+            do {
+
+                try {
+
+                    System.out.println("Enter the integer corresponding to the seats row: ");
+                    seatRow = input.nextInt();
+
+                    if (seatRow < 0) {
+                        throw new IllegalArgumentException();
+                    } else if (seatRow > cinemaOfEmployement.getRoom_List().get(roomNum).getSeatsWidth()) {
+                        throw new IllegalArgumentException();
+                    } else {
+                        flag = false;
+                    }
+                } catch (IllegalArgumentException iae) {
+                    System.out.println("The integer entered does not correspond to anny seat.");
+                    System.out.println("Please enter an integer between 0 and "
+                            + cinemaOfEmployement.getRoom_List().get(roomNum).getSeatsWidth());
+                    flag = true;
+                } catch (InputMismatchException ime) {
+                    System.out.println("What you entered is not an ineger.");
+                    System.out.println("please try again.");
+                    flag = true;
+                }
+            } while (flag);
+            do {
+                try {
+                    System.out.println("Enter the letter corresponding to the seats position(A = 1, B = 2, etc...): ");
+                    seatCollumn = input.nextInt();
+                    if (seatCollumn < 0) {
+                        throw new IllegalArgumentException();
+                    } else if (seatCollumn > cinemaOfEmployement.getRoom_List().get(roomNum).getSeatsLength()) {
+                        throw new IllegalArgumentException();
+                    } else {
+                        flag = false;
+                    }
+                } catch (IllegalArgumentException iae) {
+                    System.out.print("The integer entered does not correspond to anny seat.");
+                    System.out.println("Please enter an integer between 0 and "
+                            + cinemaOfEmployement.getRoom_List().get(roomNum).getSeatsLength());
+                    flag = true;
+                }
+
+            } while (flag);
+
+            emptySeat(roomNum, seatRow, seatCollumn);
+
+            do {
+
+                try {
+                    System.out.println("Do you want to empty another seat?");
+                    answer = input.nextLine();
+
+                    if (!answer.toLowerCase().equals("y") && !answer.toLowerCase().equals("n")) {
+                        throw new IllegalArgumentException();
+                    } else {
+                        flag = false;
+                    }
+                } catch (IllegalArgumentException iae) {
+                    System.out.println("You did not enter a 'Y' or 'N'");
+                    flag = true;
+                }
+            } while (flag);
+        } while (answer.toLowerCase().equals("y"));
+    }
+
+    // option 6
+    protected void emptyAllRoomSeats() {
+        int roomNum = -1;
+        boolean flag = true;
+        do {
+            try {
+                System.out.println("Enter room number of seats to be emptied: ");
+                roomNum = input.nextInt();
+                if (roomNum < 0) {
+                    throw new IllegalArgumentException();
+                } else if (roomNum > cinemaOfEmployement.getRoom_List().size()) {
+                    throw new IllegalArgumentException();
+                } else {
+                    flag = false;
+                }
+
+            } catch (InputMismatchException e) {
+                System.out.println("What you entered is not an intiger: ");
+                System.out.println("Please try again.");
+                flag = true;
+            } catch (IllegalArgumentException iae) {
+                System.out.println("The integer you entered does not correspond to a cinema room.");
+                System.out.println("Please enter a number between 0 and " + cinemaOfEmployement.getRoom_List().size());
+                flag = true;
+            }
+        } while (flag);
+        cinemaOfEmployement.getRoom_List().get(roomNum).emptyAllSeat();
+    }
+
+    // option 7 display room seating
+    // all that's left is improve exception handling and test
+    protected void displayRoomSeating() {
+        String answer = "";
+        int roomNum = -1;
+        boolean flag = true;
         do {
             try {
                 System.out.print("Enter room nubmer of seating to be viewed: ");
-                int roomNum = input.nextInt();
+                roomNum = input.nextInt();
+                if (roomNum < 0) {
+                    throw new IllegalArgumentException();
+                } else if (roomNum > cinemaOfEmployement.getRoom_List().size()) {
+                    throw new IllegalArgumentException();
+                } else {
+                    flag = false;
+                }
 
-                cinemaOfEmployement.getRoom_List().get(roomNum).displaySeat();
-                System.out.print("Would you like to view the seating of another room?(y or n): ");
-                answer = input.nextLine();
-            } catch (Exception e) {
-                System.out.println("there was a mistake while retreving your room's seating, please try again...");
-                answer = "y";
+            } catch (IllegalArgumentException iae) {
+                System.out.println("The integer you entered does not correspond to a room number.");
+                System.out
+                        .println("Please enter an integer between 0 and " + cinemaOfEmployement.getRoom_List().size());
+                flag = true;
+            } catch (InputMismatchException ime) {
+                System.out.println("What you entered was not an integer.");
+                System.out.println("Please try again.");
+                flag = true;
             }
+            while (flag)
+                ;
+
+            cinemaOfEmployement.getRoom_List().get(roomNum).displaySeat();
+            do {
+                try {
+                    System.out.print("Would you like to view the seating of another room?(y or n): ");
+                    answer = input.nextLine();
+                    flag = false;
+                } catch (Exception e) {
+                    System.out.println("What you entered was not a string, please try again.");
+                    flag = true;
+                }
+            } while (flag);
 
         } while (answer.toLowerCase().equals("y"));
     }
 
-    // option 5 change adult ticket price
+    // option 8 change adult ticket price
     // call set price method.
     // only need one set price method as mackenzie has made it so that people
     // recieve discounts rather than adults and children having different prices
-    void option5() {
-        String answer = "";
+    void changeTicketPrice() {
+        boolean flag = false;
+        double newTicketPrice = 0;
         do {
             try {
                 System.out.println("Enter new adult ticket price: ");
-                int newTicketPrice = input.nextInt();
-
-            } catch (Exception e) {
-                System.out.println("Something went wrong please try again...");
-                answer = "y";
+                newTicketPrice = input.nextInt();
+                flag = false;
+            } catch (IllegalArgumentException iae) {
+                System.out.println("What you entered is not an integer.");
+                System.out.println("Please try again.");
+                flag = true;
             }
-
-        } while (answer.toLowerCase().equals("y"));
-    }
-
-    // option 6 change child price ticket
-    // option 6 has the same issue as option 5 and will be resolved once I discuss
-    // done as much as possible
-    void option6() {
-
+        } while (flag);
+        Ticket.setPrice(newTicketPrice);
     }
 
     // ------------------------------------------------------------ UI Options End
@@ -166,6 +409,7 @@ public class Staff {
     // user interaction for Staff class
     public void staffUI() {
         String cont = "";
+        boolean flag = true;
         do {
             int reply = 0;
             System.out.println(options());
@@ -183,27 +427,47 @@ public class Staff {
                     System.out.println("something went wrong...");
                     break;
                 case (1):
-                    option1();
+                    displayMovieQueue();
                     break;
                 case (2):
-                    option2();
+                    addMovieToQueue();
                     break;
                 case (3):
-                    option3();
+                    removeMovieFromQueue();
                     break;
                 case (4):
-                    option4();
+                    emptyRoomSeat();
                     break;
                 case (5):
-                    option5();
+                    emptyAllRoomSeats();
                     break;
                 case (6):
-                    option6();
+                    displayRoomSeating();
+                    break;
+                case (7):
+                    changeTicketPrice();
+                    break;
+                case (8):
+                    displayMovieQueue();
                     break;
             }
 
-            System.out.println("do you wish to continue?(Y or N) ");
-            cont = input.nextLine();
+            do {
+                try {
+                    System.out.println("do you wish to perform another action(Y or N)? ");
+                    cont = input.nextLine();
+
+                    if (cont.toLowerCase().equals("y") || cont.toLowerCase().equals("n")) {
+                        throw new IllegalArgumentException();
+                    } else {
+                        flag = false;
+                    }
+                } catch (IllegalArgumentException iae) {
+                    System.out.println("You did not enter a 'Y' or a 'N'.");
+                    System.out.println("Please try again.");
+                    flag = true;
+                }
+            } while (flag);
 
         } while (cont.toLowerCase().equals("y"));
     }
@@ -242,7 +506,4 @@ public class Staff {
     public String toString() {
         return "(" + name + "," + age + "," + "theOnlyCinema" + "," + PIN + ")";
     }
-
-    // Things that go in main
-
 }

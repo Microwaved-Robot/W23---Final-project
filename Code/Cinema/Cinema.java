@@ -2,7 +2,6 @@ package Code.Cinema;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -46,7 +45,7 @@ public class Cinema { // do a update all room for cinema room
 
         for (int i = 0; i < number; i++) {
             Staff staff = new Staff();
-            staff_List.put(staff.getName(), staff);
+            StaffArray.add(staff);
         }
         System.out.println();
 
@@ -133,7 +132,7 @@ public class Cinema { // do a update all room for cinema room
             ArrayList<Staff> StaffArray, ArrayList<Admin> AdminArray) {
 
         this.branchNumber = branchNumber;
-        this.StaffArray = StaffArray;
+        Cinema.StaffArray = StaffArray;
         this.movie_List = movie_List;
         this.room_List = room_List;
         this.AdminArray = AdminArray;
@@ -259,8 +258,6 @@ public class Cinema { // do a update all room for cinema room
         return -1;
     }
 
-    }
-
     protected void addStaff() {
         Staff staff = new Staff();
         StaffArray.add(staff);
@@ -308,7 +305,7 @@ public class Cinema { // do a update all room for cinema room
     }
 
     public void setStaffArray(ArrayList<Staff> StaffArray) {
-        this.StaffArray = StaffArray;
+        Cinema.StaffArray = StaffArray;
     }
 
     public ArrayList<Admin> getAdminArray() {
