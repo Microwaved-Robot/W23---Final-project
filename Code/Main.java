@@ -1,10 +1,8 @@
 package Code;
 
 import java.io.File;
-// import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.HashMap;
-// import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -12,9 +10,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
-// import Code.Cinema.Admin;
 import Code.Cinema.Cinema;
-// import Code.Cinema.Staff;
 import Code.Client.AdultClient;
 import Code.Client.ChildClient;
 
