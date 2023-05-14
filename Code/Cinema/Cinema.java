@@ -11,8 +11,8 @@ public class Cinema { // do a update all room for cinema room
     protected int numberOfRoom = 0;
     protected ArrayList<Movie> movie_List;
     protected ArrayList<CinemaRoom> room_List;
-    protected static ArrayList<Staff> StaffArray;
-    protected static ArrayList<Admin> AdminArray;
+    protected ArrayList<Staff> StaffArray;
+    protected ArrayList<Admin> AdminArray;
 
     static Scanner input = new Scanner(System.in);
 
@@ -163,10 +163,10 @@ public class Cinema { // do a update all room for cinema room
     // change constructor parameters from hashmap to Array
     protected Cinema(ArrayList<Movie> movie_List, ArrayList<CinemaRoom> room_List,
             ArrayList<Staff> StaffArray, ArrayList<Admin> AdminArray) {
-        Cinema.StaffArray = StaffArray;
+        this.StaffArray = StaffArray;
         this.movie_List = movie_List;
         this.room_List = room_List;
-        Cinema.AdminArray = AdminArray;
+        this.AdminArray = AdminArray;
         numberOfRoom = room_List.size();
     }
 
@@ -281,7 +281,6 @@ public class Cinema { // do a update all room for cinema room
     } // ---------------------------------------------- do this one (not finished)
 
     // search all rooms to see which room the movie is playing in
-
     public int searchCinemaRooms(Movie t) {
         for (CinemaRoom m : room_List) {
             for (int i = 0; i < m.getMovie_List().size(); i++) {
@@ -290,7 +289,6 @@ public class Cinema { // do a update all room for cinema room
                 }
             }
         }
-
         return -1;
     }
 
@@ -307,53 +305,7 @@ public class Cinema { // do a update all room for cinema room
         StaffArray.remove(index);
     }
 
-    /*----------------------------------Getter and Setters----------------------------------*/
-    public int getBranchNumber() {
-        return this.branchNumber;
-    }
-
-    public int getNumberOfRoom() {
-        return numberOfRoom;
-    }
-
-    public ArrayList<Movie> getMovie_List() {
-        return this.movie_List;
-    }
-
-    public void setMovie_List(ArrayList<Movie> movie_List) {
-        this.movie_List = movie_List;
-    }
-
-    public ArrayList<CinemaRoom> getRoom_List() {
-        return room_List;
-    }
-
-    public String getCinemaName() {
-        return this.cinemaName;
-    }
-
-    public void setRoom_List(ArrayList<CinemaRoom> room_List) {
-        this.room_List = room_List;
-    }
-
-    public static ArrayList<Staff> getStaffArray() {
-        return StaffArray;
-    }
-
-    public void setStaffArray(ArrayList<Staff> StaffArray) {
-        Cinema.StaffArray = StaffArray;
-    }
-
-    public static ArrayList<Admin> getAdminArray() {
-        return AdminArray;
-    }
-
-    public void setAdminArray(ArrayList<Admin> AdminArray) {
-        Cinema.AdminArray = AdminArray;
-    }
-
-    // ------------------------- search and sort methods
-
+    /*----------------------------------Search and Sort Methods----------------------------------*/
     public void bubbleSort(ArrayList<Staff> staff) {
         for (int i = 1; i < staff.size(); i++) {
             for (int j = 0; j < staff.size() - 1; j++) {
@@ -424,7 +376,7 @@ public class Cinema { // do a update all room for cinema room
         return index;
     }
 
-    public static Staff staffLogIn() {
+    public Staff staffLogIn() {
         int realPin = 0;
         int pin = 0;
         String answer = "";
@@ -485,7 +437,7 @@ public class Cinema { // do a update all room for cinema room
         return getStaffArray().get(binarySearch(StaffArray, userName));
     }
 
-    public static Admin AdminLogIn() {
+    public Admin AdminLogIn() {
         int pin = -1;
         String answer = "";
         String userName = "";
@@ -544,5 +496,50 @@ public class Cinema { // do a update all room for cinema room
         } while (realPin != pin);
         System.out.println("Welcome back " + userName);
         return getAdminArray().get(AdminBinarySearch(getAdminArray(), userName));
+    }
+
+    /*----------------------------------Getter and Setters----------------------------------*/
+    public int getBranchNumber() {
+        return this.branchNumber;
+    }
+
+    public int getNumberOfRoom() {
+        return numberOfRoom;
+    }
+
+    public ArrayList<Movie> getMovie_List() {
+        return this.movie_List;
+    }
+
+    public void setMovie_List(ArrayList<Movie> movie_List) {
+        this.movie_List = movie_List;
+    }
+
+    public ArrayList<CinemaRoom> getRoom_List() {
+        return room_List;
+    }
+
+    public String getCinemaName() {
+        return this.cinemaName;
+    }
+
+    public void setRoom_List(ArrayList<CinemaRoom> room_List) {
+        this.room_List = room_List;
+    }
+
+    public ArrayList<Staff> getStaffArray() {
+        return StaffArray;
+    }
+
+    public void setStaffArray(ArrayList<Staff> StaffArray) {
+        this.StaffArray = StaffArray;
+    }
+
+    public ArrayList<Admin> getAdminArray() {
+        return AdminArray;
+    }
+
+    public void setAdminArray(ArrayList<Admin> AdminArray) {
+        this.AdminArray = AdminArray;
     }
 }

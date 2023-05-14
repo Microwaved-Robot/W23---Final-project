@@ -6,6 +6,7 @@ import java.util.Scanner;
 import Code.Cinema.Cinema;
 
 public class ChildClient extends Client {
+    Scanner input = new Scanner(System.in);
 
     String name;
     String lastName;
@@ -15,6 +16,30 @@ public class ChildClient extends Client {
         this.name = name;
         this.lastName = lastName;
         this.age = age;
+    }
+
+    public ChildClient(String name) {
+        this.name = name;
+        System.out.print("Enter your last name: ");
+        lastName = input.nextLine();
+        boolean flag = false;
+        
+        do {
+            try {
+                System.out.print("Enter your age: ");
+                age = input.nextInt();
+                if (age < 0) {
+                    throw new IllegalArgumentException("Negative number");
+                }
+                flag = false;
+            } catch (IllegalArgumentException e) {
+                System.out.println("The input needs to be bigger than 0.");
+                flag = true;
+            } catch (InputMismatchException e) {
+                System.out.println("The input needs to be a number.");
+                flag = true;
+            }
+        } while (flag);
     }
 
     public ChildClient() {
