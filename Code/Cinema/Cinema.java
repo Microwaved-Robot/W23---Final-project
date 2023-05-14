@@ -22,7 +22,8 @@ public class Cinema { // do a update all room for cinema room
     }
 
     // Manual adding
-    public Cinema(int branchNumber) {
+    //The boolean parameter doesnt do anything, it is there to distinguish from default
+    public Cinema(boolean isNotDefault) {
         int number = 0;
         boolean flag = false;
 
@@ -128,10 +129,8 @@ public class Cinema { // do a update all room for cinema room
     // no problem in element of the parameter
 
     // change constructor parameters from hashmap to Array
-    protected Cinema(int branchNumber, ArrayList<Movie> movie_List, ArrayList<CinemaRoom> room_List,
+    protected Cinema(ArrayList<Movie> movie_List, ArrayList<CinemaRoom> room_List,
             ArrayList<Staff> StaffArray, ArrayList<Admin> AdminArray) {
-
-        this.branchNumber = branchNumber;
         Cinema.StaffArray = StaffArray;
         this.movie_List = movie_List;
         this.room_List = room_List;
