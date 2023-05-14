@@ -30,7 +30,8 @@ public class Main {
         userIdentifier(cinema, child_Data, adult_Data);
     }
 
-    static void userIdentifier(Cinema cinema, HashMap<String, ChildClient> child_Data, HashMap<String, AdultClient> adult_Data) {
+    static void userIdentifier(Cinema cinema, HashMap<String, ChildClient> child_Data,
+            HashMap<String, AdultClient> adult_Data) {
         boolean flag = true, flag2 = true;
         int reply = 0;
         do {
@@ -174,7 +175,7 @@ public class Main {
             System.out.println(e);
         }
     }
-    
+
     public static void adultClientConverter(HashMap<String, AdultClient> client_Map) {
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());

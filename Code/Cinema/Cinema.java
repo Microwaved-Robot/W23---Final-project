@@ -438,11 +438,11 @@ public class Cinema { // do a update all room for cinema room
     }
 
     public Admin AdminLogIn() {
-        int pin = -1;
+        int pin = 0;
         String answer = "";
         String userName = "";
         boolean flag = true;
-        int realPin = -1;
+        int realPin = 0;
         do {
             do {
                 try {

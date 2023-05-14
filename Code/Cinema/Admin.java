@@ -237,6 +237,10 @@ public class Admin extends Staff {
         Admin.isAdmin = isAdmin;
     }
 
+    public int getPin() {
+        return PIN;
+    }
+
     public String toString() {
         return "(" + name + "," + age + "," + "theOnlyCinema" + "," + PIN + ")";
     }
