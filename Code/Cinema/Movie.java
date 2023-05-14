@@ -19,7 +19,7 @@ public class Movie {
     }
 
     protected Movie() {
-        //default
+        // default
     }
 
     // Create a new movie obj

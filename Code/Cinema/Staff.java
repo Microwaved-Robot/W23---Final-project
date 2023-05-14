@@ -17,7 +17,7 @@ public class Staff {
         this.PIN = pin;
         this.name = name;
         this.age = age;
-        this.cinemaOfEmployement = null;
+        this.cinemaOfEmployement = cinema;
     }
 
     public Staff() {
@@ -97,10 +97,11 @@ public class Staff {
         String str = String.format("%s %s\n", "1) ", "Display movies in room queue.");
         str += String.format("%s %s\n", "2) ", "Add movie to room queue.");
         str += String.format("%s %s\n", "3) ", "Remove movie from room queue.");
-        str += String.format("%s %s\n", "4) ", "Empty seat(s) from room.");
-        str += String.format("%s %s\n", "5) ", "Empty all seats from room.");
-        str += String.format("%s %s\n", "6) ", "Display the room seating.");
-        str += String.format("%s %s\n", "7) ", "Change adult ticket price.");
+        str += String.format("%s %s\n", "4) ", "Add movie to cinema.");
+        str += String.format("%s %s\n", "5) ", "Empty seat(s) from room.");
+        str += String.format("%s %s\n", "6) ", "Empty all seats from room.");
+        str += String.format("%s %s\n", "7) ", "Display the room seating.");
+        str += String.format("%s %s\n", "8) ", "Change ticket price.");
         return str;
     }
 
@@ -119,6 +120,7 @@ public class Staff {
             }
         } while (!flag);
         cinemaOfEmployement.getRoom_List().get(roomNum).showMoviesInTheRoom();
+        input.nextLine();
     }
 
     // option 2) add movie to queue options
@@ -156,7 +158,7 @@ public class Staff {
                 }
             } while (!flag);
         } while (answer.toLowerCase().equals("y"));
-
+        input.nextLine();
     }
 
     // option 3 remove a movie from the queue of movies
@@ -198,11 +200,13 @@ public class Staff {
             answer = input.nextLine();
 
         } while (answer.toLowerCase().equals("y"));
+        input.nextLine();
     }
 
     // option 4
     void createMovie() {
         cinemaOfEmployement.getMovie_List().add(new Movie(true));
+        input.nextLine();
     }
 
     // option 5 remove seats
@@ -306,6 +310,7 @@ public class Staff {
                 }
             } while (flag);
         } while (answer.toLowerCase().equals("y"));
+        input.nextLine();
     }
 
     // option 6
@@ -335,6 +340,7 @@ public class Staff {
             }
         } while (flag);
         cinemaOfEmployement.getRoom_List().get(roomNum).emptyAllSeat();
+        input.nextLine();
     }
 
     // option 7 display room seating
@@ -381,6 +387,7 @@ public class Staff {
             } while (flag);
 
         } while (answer.toLowerCase().equals("y"));
+        input.nextLine();
     }
 
     // option 8 change adult ticket price
@@ -392,16 +399,17 @@ public class Staff {
         double newTicketPrice = 0;
         do {
             try {
-                System.out.println("Enter new adult ticket price: ");
-                newTicketPrice = input.nextInt();
+                System.out.println("Enter new ticket price: ");
+                newTicketPrice = input.nextDouble();
                 flag = false;
-            } catch (IllegalArgumentException iae) {
-                System.out.println("What you entered is not an integer.");
+            } catch (InputMismatchException ime) {
+                System.out.println("What you entered is not a number.");
                 System.out.println("Please try again.");
                 flag = true;
             }
         } while (flag);
         Ticket.setPrice(newTicketPrice);
+        input.nextLine();
     }
 
     // ------------------------------------------------------------ UI Options End
@@ -410,18 +418,26 @@ public class Staff {
     public void staffUI() {
         String cont = "";
         boolean flag = true;
+        int reply = 0;
         do {
-            int reply = 0;
+
             System.out.println(options());
-            try {
-                System.out.println(
-                        "Please select the number that corresponds to the action you would like to perform: ");
-                options();
-                reply = input.nextInt();
-                input.nextLine();
-            } catch (Exception e) {
-                System.out.println();
-            }
+            do {
+                try {
+                    System.out.println("Enter the number that corresponds to the action you would like to perform: ");
+                    reply = input.nextInt();
+                    if (reply < 0 || reply > 8) {
+                        throw new IllegalArgumentException();
+                    } else {
+                        flag = false;
+                    }
+                } catch (Exception e) {
+                    System.out.println("You must enter an integer between 0 and 8");
+                    System.out.println("Please try again.");
+                    flag = true;
+                }
+            } while (flag);
+            input.nextLine();
             switch (reply) {
                 case (0):
                     System.out.println("something went wrong...");
@@ -436,19 +452,20 @@ public class Staff {
                     removeMovieFromQueue();
                     break;
                 case (4):
-                    emptyRoomSeat();
+                    createMovie();
+                    ;
                     break;
                 case (5):
-                    emptyAllRoomSeats();
+                    emptyRoomSeat();
                     break;
                 case (6):
-                    displayRoomSeating();
+                    emptyAllRoomSeats();
                     break;
                 case (7):
-                    changeTicketPrice();
+                    displayRoomSeating();
                     break;
                 case (8):
-                    displayMovieQueue();
+                    changeTicketPrice();
                     break;
             }
 
@@ -457,7 +474,7 @@ public class Staff {
                     System.out.println("do you wish to perform another action(Y or N)? ");
                     cont = input.nextLine();
 
-                    if (cont.toLowerCase().equals("y") || cont.toLowerCase().equals("n")) {
+                    if (!cont.toLowerCase().equals("y") && !cont.toLowerCase().equals("n")) {
                         throw new IllegalArgumentException();
                     } else {
                         flag = false;
@@ -474,6 +491,7 @@ public class Staff {
 
     private void emptySeat(int roomNum, int row, int column) {
         cinemaOfEmployement.getRoom_List().get(roomNum).emptySeat(row, column);
+        input.nextLine();
     }
 
     // ------------------------- getters and setters
