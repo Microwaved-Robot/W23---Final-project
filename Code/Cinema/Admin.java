@@ -17,15 +17,14 @@ public class Admin extends Staff {
     }
 
     public Admin(String name) {
-        this.name = name;
         boolean flag = true;
         do {
             try {
                 System.out.println("Enter admin's age: ");
-                int age = input.nextInt();
+                this.age = input.nextInt();
                 flag = false;
             } catch (InputMismatchException ime) {
-                System.out.println("The age entered must be an intiger.");
+                System.out.println("The age entered must be an integer.");
                 flag = true;
             }
         } while (flag);
@@ -150,20 +149,20 @@ public class Admin extends Staff {
                 flag = true;
             }
         } while (flag);
-        cinemaOfEmployement.getStaffArray().add(new Staff(name));
+        Cinema.getStaffArray().add(new Staff(name));
         input.nextLine();
     }
 
     // option 8 is used to fire staff
     // all that's left is to test
     void fireStaff() {
-        System.out.println(cinemaOfEmployement.getStaffArray().toString());
+        System.out.println(Cinema.getStaffArray().toString());
         int index = -1;
         boolean flag = true;
         do {
             try {
                 System.out.println("Enter the staff member's username: ");
-                index = binarySearch(cinemaOfEmployement.getStaffArray(), input.nextLine());
+                index = binarySearch(Cinema.getStaffArray(), input.nextLine());
                 flag = false;
 
             } catch (InputMismatchException ime) {
@@ -171,7 +170,7 @@ public class Admin extends Staff {
                 flag = true;
             }
         } while (flag);
-        cinemaOfEmployement.getStaffArray().remove(index);
+        Cinema.getStaffArray().remove(index);
         input.nextLine();
     }
 

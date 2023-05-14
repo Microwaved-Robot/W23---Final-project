@@ -30,6 +30,30 @@ public class Cinema { // do a update all room for cinema room
 
         do {
             try {
+                System.out.print("Enter the number of Staff: ");
+                number = input.nextInt();
+                if (number <= 0) {
+                    throw new IllegalArgumentException("Negative number");
+                }
+                flag = false;
+            } catch (IllegalArgumentException e) {
+                System.out.println("The input needs to be bigger than 0.");
+                flag = true;
+            } catch (InputMismatchException e) {
+                System.out.println("The input needs to be a number.");
+                flag = true;
+            }
+        } while (flag);
+
+        StaffArray = new ArrayList<>();
+        for (int i = 0; i < number; i++) {
+            Staff staff = new Staff();
+            StaffArray.add(staff);
+        }
+        System.out.println();
+
+        do {
+            try {
                 System.out.print("Enter the number of Admin: ");
                 number = input.nextInt();
                 if (number <= 0) {
@@ -45,9 +69,10 @@ public class Cinema { // do a update all room for cinema room
             }
         } while (flag);
 
+        AdminArray = new ArrayList<>();
         for (int i = 0; i < number; i++) {
-            Staff staff = new Staff();
-            StaffArray.add(staff);
+            Admin admin = new Admin();
+            StaffArray.add(admin);
         }
         System.out.println();
 
@@ -97,10 +122,22 @@ public class Cinema { // do a update all room for cinema room
         }
         System.out.println();
 
-        System.out.println("There is " + numberOfRoom + " room in the cinema.");
         for (Movie movie : movie_List) {
-            System.out.print("In which room do you want to put it? : ");
-            number = input.nextInt() - 1;
+            do {
+                try {
+                    System.out.println("There is " + numberOfRoom + " room in the cinema.");
+                    System.out.println("For the movie " + movie.getName() + ":");
+                    System.out.print("In which room do you want to put it? : ");
+                    number = input.nextInt() - 1;
+                    flag = false;
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("The input needs to be between 1 and " + numberOfRoom + ".");
+                    flag = true;
+                } catch (InputMismatchException e) {
+                    System.out.println("The input needs to be a number.");
+                    flag = true;
+                }
+            } while (flag);
             room_List.get(number).addMovieToQueue(movie);
         }
 
@@ -135,7 +172,7 @@ public class Cinema { // do a update all room for cinema room
         Cinema.StaffArray = StaffArray;
         this.movie_List = movie_List;
         this.room_List = room_List;
-        this.AdminArray = AdminArray;
+        Cinema.AdminArray = AdminArray;
         numberOfRoom = room_List.size();
     }
 
@@ -168,7 +205,6 @@ public class Cinema { // do a update all room for cinema room
 
         return result;
     }
-
 
     // Adds ONE movie and check for duplicates
     protected void addMovie() {
@@ -261,8 +297,6 @@ public class Cinema { // do a update all room for cinema room
             }
         }
 
-        
-
         return -1;
     }
 
@@ -321,7 +355,7 @@ public class Cinema { // do a update all room for cinema room
     }
 
     public void setAdminArray(ArrayList<Admin> AdminArray) {
-        this.AdminArray = AdminArray;
+        Cinema.AdminArray = AdminArray;
     }
 
     // ------------------------- search and sort methods

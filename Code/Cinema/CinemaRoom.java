@@ -301,12 +301,4 @@ public class CinemaRoom {
     public boolean[][] getSeats() {
         return seats;
     }
-
-    public int getSeatsLength() {
-        return seats.length;
-    }
-
-    public int getSeatsWidth() {
-        return seats[0].length;
-    }
 }

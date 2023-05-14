@@ -58,7 +58,7 @@ public class ChildClient extends Client {
                 case 5:
                     getPurchasingInfo();
                     break;
-                case 6;
+                case 6:
                     flag = false;
                     break;
                 default:

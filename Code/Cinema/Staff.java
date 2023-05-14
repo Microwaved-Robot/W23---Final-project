@@ -255,7 +255,7 @@ public class Staff {
 
                     if (seatRow < 0) {
                         throw new IllegalArgumentException();
-                    } else if (seatRow > cinemaOfEmployement.getRoom_List().get(roomNum).getSeatsWidth()) {
+                    } else if (seatRow > cinemaOfEmployement.getRoom_List().get(roomNum).getSeats()[0].length) {
                         throw new IllegalArgumentException();
                     } else {
                         flag = false;
@@ -263,7 +263,7 @@ public class Staff {
                 } catch (IllegalArgumentException iae) {
                     System.out.println("The integer entered does not correspond to anny seat.");
                     System.out.println("Please enter an integer between 0 and "
-                            + cinemaOfEmployement.getRoom_List().get(roomNum).getSeatsWidth());
+                            + cinemaOfEmployement.getRoom_List().get(roomNum).getSeats()[0].length);
                     flag = true;
                 } catch (InputMismatchException ime) {
                     System.out.println("What you entered is not an ineger.");
@@ -277,7 +277,7 @@ public class Staff {
                     seatCollumn = input.nextInt();
                     if (seatCollumn < 0) {
                         throw new IllegalArgumentException();
-                    } else if (seatCollumn > cinemaOfEmployement.getRoom_List().get(roomNum).getSeatsLength()) {
+                    } else if (seatCollumn > cinemaOfEmployement.getRoom_List().get(roomNum).getSeats().length) {
                         throw new IllegalArgumentException();
                     } else {
                         flag = false;
@@ -285,7 +285,7 @@ public class Staff {
                 } catch (IllegalArgumentException iae) {
                     System.out.print("The integer entered does not correspond to anny seat.");
                     System.out.println("Please enter an integer between 0 and "
-                            + cinemaOfEmployement.getRoom_List().get(roomNum).getSeatsLength());
+                            + cinemaOfEmployement.getRoom_List().get(roomNum).getSeats().length);
                     flag = true;
                 }
 
@@ -352,7 +352,7 @@ public class Staff {
         do {
             try {
                 System.out.print("Enter room number of seating to be viewed: ");
-                int roomNum = input.nextInt();
+                roomNum = input.nextInt();
                 input.nextLine();
               
                 if (roomNum < 0) {

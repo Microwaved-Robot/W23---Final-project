@@ -1,43 +1,39 @@
 package Code;
 
 import java.io.File;
-import java.io.FileInputStream;
+// import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
+// import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
-import Code.Cinema.Admin;
+// import Code.Cinema.Admin;
 import Code.Cinema.Cinema;
-import Code.Cinema.Staff;
+// import Code.Cinema.Staff;
 
 public class Main {
-    public static Cinema theOnlyCinema = new Cinema();
     static Scanner input = new Scanner(System.in);
 
     public static void main(String[] args) {
         // To import the cinema file that is already existing
-        File file = new File(
-                "C:\\Users\\zeze3\\OneDrive\\Documents\\GitHub\\W23---Final-project\\Code\\Json\\cinema.json");
-        ObjectMapper om = new ObjectMapper();
-        om.registerModule(new JavaTimeModule());
-        Cinema cinema;
-        try {
-            cinema = om.readValue(file, Cinema.class);
-        } catch (Exception e) {
-            System.out.println(e);
+        Cinema cinema = onStart();
+
+        if (cinema == null) {
+            System.out.println("null cinema error");
+            System.exit(1);
         }
 
+        System.out.println(cinema.getNumberOfRoom());
         // ask if staff or client
 
         // ask for name
         // ask for pin
-        onStart();
+        // onStart();
 
-        userIdentifier();
+        // userIdentifier();
 
         // onEnd();
     }
@@ -77,13 +73,24 @@ public class Main {
         input.nextLine();
     }
 
-    static void onStart() {
+    static Cinema onStart() {
         // theOnlyCinema.setMovie_List(movieList_DataRead());
         // theOnlyCinema.setRoom_List(roomList_DataRead());
-        theOnlyCinema.setStaffArray(staffList_DataRead());
-        theOnlyCinema.bubbleSort(theOnlyCinema.getStaffArray());
-        theOnlyCinema.setAdminArray(adminList_DataRead());
-        theOnlyCinema.adminBubbleSort(theOnlyCinema.getAdminArray());
+        // theOnlyCinema.setStaffArray(staffList_DataRead());
+        // theOnlyCinema.bubbleSort(Cinema.getStaffArray());
+        // theOnlyCinema.setAdminArray(adminList_DataRead());
+        // theOnlyCinema.adminBubbleSort(Cinema.getAdminArray());
+        File file = new File("C:\\Users\\zeze3\\OneDrive\\Documents\\GitHub\\W23---Final-project\\Code\\Json\\cinema.json");
+        ObjectMapper om = new ObjectMapper();
+        om.registerModule(new JavaTimeModule());
+        Cinema cinema = null;
+        try {
+            cinema = om.readValue(file, Cinema.class);
+        } catch (Exception e) {
+            System.out.println(e);
+            System.exit(1);
+        }
+        return cinema;
     }
 
     // static void onEnd() {
@@ -92,84 +99,84 @@ public class Main {
     // }
 
     // change return tipe to Array of admins
-    private static ArrayList<Admin> adminList_DataRead() {
-        // this part's EZ
-        ArrayList<Admin> Ad = new ArrayList<>();
-        try {
-            FileInputStream fin = new FileInputStream("Code\\textFiles\\AdminInfo.txt");
-            int i = 0;
-            while ((i = fin.read()) != -1) {
-                String str = "";
-                if ((char) i == '(') {
+    // private static ArrayList<Admin> adminList_DataRead() {
+    //     // this part's EZ
+    //     ArrayList<Admin> Ad = new ArrayList<>();
+    //     try {
+    //         FileInputStream fin = new FileInputStream("Code\\textFiles\\AdminInfo.txt");
+    //         int i = 0;
+    //         while ((i = fin.read()) != -1) {
+    //             String str = "";
+    //             if ((char) i == '(') {
 
-                    while ((char) (i = fin.read()) != ')') {
-                        str += (char) i;
+    //                 while ((char) (i = fin.read()) != ')') {
+    //                     str += (char) i;
 
-                    }
-                    if ((char) i == ')') {
-                        String[] parts = str.split(",");
+    //                 }
+    //                 if ((char) i == ')') {
+    //                     String[] parts = str.split(",");
 
-                        for (String part : parts) {
-                            part.trim();
-                        }
-                        // make a new int incrementor that increases for every admin that you add to the
-                        // array starting at 0,
-                        // then add to array by using array[incrementor] = ...
-                        Ad.add(new Admin(parts[0], Integer.parseInt(parts[1]), theOnlyCinema,
-                                Integer.parseInt(parts[3])));
+    //                     for (String part : parts) {
+    //                         part.trim();
+    //                     }
+    //                     // make a new int incrementor that increases for every admin that you add to the
+    //                     // array starting at 0,
+    //                     // then add to array by using array[incrementor] = ...
+    //                     Ad.add(new Admin(parts[0], Integer.parseInt(parts[1]), theOnlyCinema,
+    //                             Integer.parseInt(parts[3])));
 
-                    }
-                }
+    //                 }
+    //             }
 
-            }
-            fin.close();
+    //         }
+    //         fin.close();
 
-        } catch (Exception e) {
-            // TODO: handle exception
-            System.out.println(e);
-            System.out.println("something went wrong...");
-        }
-        return Ad;
-    }
+    //     } catch (Exception e) {
+    //         // TODO: handle exception
+    //         System.out.println(e);
+    //         System.out.println("something went wrong...");
+    //     }
+    //     return Ad;
+    // }
 
-    // do same here as did in admin dataRead
-    private static ArrayList<Staff> staffList_DataRead() {
-        ArrayList<Staff> staffList = new ArrayList<>();
-        try {
-            FileInputStream fin = new FileInputStream("Code\\textFiles\\StaffInfo.txt");
+    // // do same here as did in admin dataRead
+    // private static ArrayList<Staff> staffList_DataRead() {
+    //     ArrayList<Staff> staffList = new ArrayList<>();
+    //     try {
+    //         FileInputStream fin = new FileInputStream("Code\\textFiles\\StaffInfo.txt");
 
-            int i = 0;
-            while ((i = fin.read()) != -1) {
-                String str = "";
-                if ((char) i == '(') {
+    //         int i = 0;
+    //         while ((i = fin.read()) != -1) {
+    //             String str = "";
+    //             if ((char) i == '(') {
 
-                    while ((char) (i = fin.read()) != ')') {
-                        str += (char) i;
+    //                 while ((char) (i = fin.read()) != ')') {
+    //                     str += (char) i;
 
-                    }
-                    if ((char) i == ')') {
-                        String[] parts = str.split(",");
+    //                 }
+    //                 if ((char) i == ')') {
+    //                     String[] parts = str.split(",");
 
-                        for (String part : parts) {
-                            part.trim();
-                        }
-                        staffList.add(
-                                new Staff(parts[0], Integer.parseInt(parts[1]), theOnlyCinema,
-                                        Integer.parseInt(parts[3])));
+    //                     for (String part : parts) {
+    //                         part.trim();
+    //                     }
+    //                     staffList.add(
+    //                             new Staff(parts[0], Integer.parseInt(parts[1]), theOnlyCinema,
+    //                                     Integer.parseInt(parts[3])));
 
-                    }
-                }
+    //                 }
+    //             }
 
-            }
-            fin.close();
+    //         }
+    //         fin.close();
 
-        } catch (Exception e) {
-            // TODO: handle exception
-            System.out.println(e);
-            System.out.println("something went wrong...");
-        }
-        return staffList;
-    }
+    //     } catch (Exception e) {
+    //         // TODO: handle exception
+    //         System.out.println(e);
+    //         System.out.println("something went wrong...");
+    //     }
+    //     return staffList;
+    // }
 
     // private static void staffList_DataWrite() {
     //     try {
