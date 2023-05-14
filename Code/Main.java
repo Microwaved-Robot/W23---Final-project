@@ -22,11 +22,9 @@ public class Main {
         Cinema cinema = onStart();
 
         if (cinema == null) {
-            System.out.println("null cinema error");
-            System.exit(1);
+            cinema = new Cinema(false);
         }
 
-        System.out.println(cinema.getNumberOfRoom());
         // ask if staff or client
 
         // ask for name

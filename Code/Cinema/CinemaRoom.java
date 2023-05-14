@@ -106,12 +106,18 @@ public class CinemaRoom {
 
     /*----------------------------------Methods----------------------------------*/
 
-    protected void addMovieToQueue(Movie newMovie) {
+    protected boolean addMovieToQueue(Movie newMovie) {
         boolean flag = false;
         for (Movie movie : movie_List) {
             flag = movie.equals(newMovie);
             if (flag) {
-                break;
+                System.out.println("The movie is already playing at that time.");
+                return false;
+            }
+            flag = movie.isTimeRepeated(newMovie);
+            if (flag) {
+                System.out.println("There is a movie playing at that time already.");
+                return false;
             }
         }
         if (flag == false) {
@@ -119,6 +125,7 @@ public class CinemaRoom {
             System.out.println("Movie added to queue. ");
         }
         Collections.sort(movie_List, new MovieTimeComparator());
+        return true;
     }
 
     protected void removeMovieInQueue(Movie movie) {

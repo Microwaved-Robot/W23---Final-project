@@ -16,6 +16,49 @@ public class Admin extends Staff {
         super(name, age, cinemaOfEmployment, PIN);
     }
 
+    public Admin(Cinema cinema) {
+        boolean flag = true;
+
+        do {
+            try {
+                System.out.print("Enter the admin's name: ");
+                this.name = input.nextLine();
+                flag = false;
+            } catch (Exception e) {
+                System.out.println("What you entered is not a string.");
+                System.out.println("Please try again.");
+                flag = true;
+            }
+
+        } while (flag);
+
+        do {
+            try {
+                System.out.print("Enter admin's age: ");
+                this.age = input.nextInt();
+                flag = false;
+            } catch (InputMismatchException ime) {
+                System.out.println("The age entered must be an integer.");
+                flag = true;
+            }
+        } while (flag);
+
+        this.cinemaOfEmployement = cinema;
+
+        do {
+            try {
+                System.out.print("Enter admin's pin: ");
+                this.PIN = input.nextInt();
+                flag = false;
+            } catch (InputMismatchException ime) {
+                System.out.println("The pin entered must be an intiger.");
+                System.out.println("Please try again.");
+                flag = true;
+            }
+        } while (flag);
+        input.nextLine();
+    }
+
     public Admin(String name) {
         boolean flag = true;
         do {

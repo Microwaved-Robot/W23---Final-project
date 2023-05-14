@@ -1,7 +1,0 @@
-                /* note */
-For the boolean[][] seats : first [] is the letter and the second [] is a number
-
-
-                /* Optional stuff */
-Solve ressource leak for scanners (Cinema) 
-add a limit to cinemaRoom seats so its not infinitly big and break the display (max 26 vertically)

@@ -30,30 +30,6 @@ public class Cinema { // do a update all room for cinema room
 
         do {
             try {
-                System.out.print("Enter the number of Staff: ");
-                number = input.nextInt();
-                if (number <= 0) {
-                    throw new IllegalArgumentException("Negative number");
-                }
-                flag = false;
-            } catch (IllegalArgumentException e) {
-                System.out.println("The input needs to be bigger than 0.");
-                flag = true;
-            } catch (InputMismatchException e) {
-                System.out.println("The input needs to be a number.");
-                flag = true;
-            }
-        } while (flag);
-
-        StaffArray = new ArrayList<>();
-        for (int i = 0; i < number; i++) {
-            Staff staff = new Staff();
-            StaffArray.add(staff);
-        }
-        System.out.println();
-
-        do {
-            try {
                 System.out.print("Enter the number of Admin: ");
                 number = input.nextInt();
                 if (number <= 0) {
@@ -68,13 +44,39 @@ public class Cinema { // do a update all room for cinema room
                 flag = true;
             }
         } while (flag);
-
+        System.out.println();
         AdminArray = new ArrayList<>();
         for (int i = 0; i < number; i++) {
-            Admin admin = new Admin();
-            StaffArray.add(admin);
+            System.out.println("For the " + (i + 1) + " admin: ");
+            Admin admin = new Admin(this);
+            AdminArray.add(admin);
+            System.out.println();
         }
+
+        do {
+            try {
+                System.out.print("Enter the number of Staff: ");
+                number = input.nextInt();
+                if (number <= 0) {
+                    throw new IllegalArgumentException("Negative number");
+                }
+                flag = false;
+            } catch (IllegalArgumentException e) {
+                System.out.println("The input needs to be bigger than 0.");
+                flag = true;
+            } catch (InputMismatchException e) {
+                System.out.println("The input needs to be a number.");
+                flag = true;
+            }
+        } while (flag);
         System.out.println();
+        StaffArray = new ArrayList<>();
+        for (int i = 0; i < number; i++) {
+            System.out.println("For the " + (i + 1) + " staff: ");
+            Staff staff = new Staff(false);
+            StaffArray.add(staff);
+            System.out.println();
+        }
 
         do {
             try {
@@ -92,12 +94,13 @@ public class Cinema { // do a update all room for cinema room
                 flag = true;
             }
         } while (flag);
-
-        movie_List = new ArrayList<>();
-        for (int i = 0; i < number; i++) {
-            movie_List.add(new Movie(true));
-        }
         System.out.println();
+        movie_List = new ArrayList<>();
+        for (int i = 1; i < number + 1; i++) {
+            System.out.println("For the " + i + " movie: ");
+            movie_List.add(new Movie(true));
+            System.out.println();
+        }
 
         do {
             try {
@@ -115,49 +118,40 @@ public class Cinema { // do a update all room for cinema room
                 flag = true;
             }
         } while (flag);
-
+        System.out.println();
         room_List = new ArrayList<>();
         for (int i = 0; i < numberOfRoom; i++) {
+            System.out.println("For the " + (i + 1) + " room: ");
             room_List.add(new CinemaRoom(numberOfRoom));
+            System.out.println();
         }
-        System.out.println();
 
         for (Movie movie : movie_List) {
             do {
                 try {
-                    System.out.println("There is " + numberOfRoom + " room in the cinema.");
+                    System.out.println("There is " + numberOfRoom + " room in the cinema.\n");
                     System.out.println("For the movie " + movie.getName() + ":");
                     System.out.print("In which room do you want to put it? : ");
                     number = input.nextInt() - 1;
+                    if (number < 0 || number > numberOfRoom) {
+                        throw new IndexOutOfBoundsException("out of bound");
+                    }
+                    if (!room_List.get(number).addMovieToQueue(movie)) {
+                        throw new Exception();
+                    }
                     flag = false;
-                } catch (IndexOutOfBoundsException e) {
-                    System.out.println("The input needs to be between 1 and " + numberOfRoom + ".");
-                    flag = true;
                 } catch (InputMismatchException e) {
-                    System.out.println("The input needs to be a number.");
+                    System.out.println("The input needs to be a number.\n");
+                    flag = true;
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("The input needs to be between 1 and " + numberOfRoom + ".\n");
+                    flag = true;
+                } catch (Exception e) {
                     flag = true;
                 }
             } while (flag);
             room_List.get(number).addMovieToQueue(movie);
         }
-
-        // ????? its the admin class
-        // do {
-        // try {
-        // System.out.print("Enter the number of Staff: ");
-        // number = input.nextInt();
-        // if (numberOfRoom <= 0) {
-        // throw new IllegalArgumentException("Negative number");
-        // }
-        // flag = false;
-        // } catch (IllegalArgumentException e) {
-        // System.out.println("The input needs to be bigger than 0.");
-        // flag = true;
-        // } catch (InputMismatchException e) {
-        // System.out.println("The input needs to be a number.");
-        // flag = true;
-        // }
-        // } while (flag);
 
         // Make sure next line is not skipped
         input.nextLine();

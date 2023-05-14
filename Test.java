@@ -10,7 +10,7 @@ import Code.Client.AdultClient;
 public class Test {
     public static void main(String[] args) {
         Cinema cinema = new Cinema(true);
-        cinemaConverter(cinema);
+        // cinemaConverter(cinema);
 
         // HashMap<String, AdultClient> map = new HashMap<>();
         // AdultClient c = new AdultClient("John", "Adam", 44);
