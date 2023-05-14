@@ -1,8 +1,0 @@
-(JJ,19,theOnlyCinema,123) 
-(Brie,18,theOnlyCinema,5435) 
-(Andrew,15,theOnlyCinema,1234)
-(Mackenzie,3000,theOnlyCinema,123)
-(Jess,18,theOnlyCinema,1235)
-(Ze,3000,theOnlyCinema,123)
-(Niki,18,theOnlyCinema,4321)
-(Jacob,17,theOnlyCinema,8356)
