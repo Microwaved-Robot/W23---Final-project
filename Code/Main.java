@@ -1,10 +1,11 @@
 package Code;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -15,14 +16,16 @@ import Code.Cinema.Cinema;
 import Code.Cinema.CinemaRoom;
 import Code.Cinema.Movie;
 import Code.Cinema.Staff;
+import Code.Client.AdultClient;
 
 public class Main {
-    private static final Cinema theOnlyCinema = new Cinema();
+    public static Cinema theOnlyCinema = new Cinema();
     static Scanner input = new Scanner(System.in);
 
     public static void main(String[] args) {
-        //To import the cinema file that is already existing
-        File file = new File("C:\\Users\\zeze3\\OneDrive\\Documents\\GitHub\\W23---Final-project\\Code\\Json\\cinema.json");
+        // To import the cinema file that is already existing
+        File file = new File(
+                "C:\\Users\\zeze3\\OneDrive\\Documents\\GitHub\\W23---Final-project\\Code\\Json\\cinema.json");
         ObjectMapper om = new ObjectMapper();
         om.registerModule(new JavaTimeModule());
         Cinema cinema;
@@ -38,83 +41,66 @@ public class Main {
         // ask for pin
         onStart();
 
-        // staffLogIn().staffUI();
+        userIdentifier();
 
-        // onEnd();
+        onEnd();
+    }
+
+    static void userIdentifier() {
+        boolean flag = true;
+        int reply = 0;
+        do {
+            try {
+                System.out.printf("%s\n%s\n%s\n%s\n", "Welcome, are you a:", "1) Client", "2) Staff member",
+                        "3) Administrator");
+                reply = input.nextInt();
+                if (reply < 1 || reply > 3) {
+                    throw new IllegalArgumentException();
+                } else {
+                    flag = false;
+                }
+            } catch (InputMismatchException ime) {
+                System.out.println("What you entered was not an integer.");
+                System.out.println("Please try again.");
+                flag = true;
+            } catch (IllegalArgumentException iae) {
+                System.out.println("You must enter an integer between 1 and 3.");
+                System.out.println("Please try again.");
+                flag = true;
+            }
+        } while (flag);
+        switch (reply) {
+            case (1):
+                break;
+            case (2):
+                Cinema.staffLogIn().staffUI();
+                break;
+            case (3):
+                Cinema.AdminLogIn().adminUI();
+        }
+        input.nextLine();
     }
 
     static void onStart() {
         // theOnlyCinema.setMovie_List(movieList_DataRead());
         // theOnlyCinema.setRoom_List(roomList_DataRead());
-        theOnlyCinema.setStaff_List(staffList_DataRead());
-        theOnlyCinema.setAdmin_List(adminList_DataRead());
+        theOnlyCinema.setStaffArray(staffList_DataRead());
+        theOnlyCinema.bubbleSort(theOnlyCinema.getStaffArray());
+        theOnlyCinema.setAdminArray(adminList_DataRead());
+        theOnlyCinema.adminBubbleSort(theOnlyCinema.getAdminArray());
     }
 
-    static Staff staffLogIn() {
-        // since I only want to test staff class rn I will assume user is staff
-
-        int realPin;
-        int pin;
-        String answer;
-        String userName;
-
-        System.out.print("Enter your userName: ");
-        userName = input.nextLine();
-
-        realPin = theOnlyCinema.getStaff_List().get(userName).getPin();
-        do {
-            System.out.println("Enter your pin: ");
-            pin = input.nextInt();
-            input.nextLine();
-
-            if (realPin != pin) {
-                System.out.println("The pin you entered is incorrect...");
-                System.out.println("Would you like to try again(Y or N)?");
-                answer = input.nextLine();
-                if (answer.toLowerCase().equals("n")) {
-                    System.exit(1);
-                }
-            }
-
-        } while (realPin != pin);
-        System.out.println("Welcome back " + userName);
-        return theOnlyCinema.getStaff_List().get(userName);
+    static void onEnd() {
+        staffList_DataWrite();
+        adminList_DataWrite();
     }
 
-    static Staff AdminLogIn() {
-        // since I only want to test staff class rn I will assume user is staff
-        int pin;
-        String answer;
-
-        System.out.print("Enter your userName: ");
-        String userName = input.nextLine();
-
-        int realPin = theOnlyCinema.getAdmin_List().get(userName).getPin();
-
-        do {
-            System.out.println("Enter your pin: ");
-            pin = input.nextInt();
-            input.nextLine();
-
-            if (realPin != pin) {
-                System.out.println("The pin you entered is incorrect...");
-                System.out.println("Would you like to try again(Y or N)?");
-                answer = input.nextLine();
-                if (answer.toLowerCase().equals("n")) {
-                    System.exit(1);
-                }
-            }
-
-        } while (realPin != pin);
-        System.out.println("Welcome back " + userName);
-        return theOnlyCinema.getAdmin_List().get(userName);
-    }
-
-    private static HashMap<String, Admin> adminList_DataRead() {
-        HashMap<String, Admin> Ad = new HashMap<>();
+    // change return tipe to Array of admins
+    private static ArrayList<Admin> adminList_DataRead() {
+        // this part's EZ
+        ArrayList<Admin> Ad = new ArrayList<>();
         try {
-            FileInputStream fin = new FileInputStream("AdminInfo.txt");
-
+            FileInputStream fin = new FileInputStream("Code\\textFiles\\AdminInfo.txt");
             int i = 0;
             while ((i = fin.read()) != -1) {
                 String str = "";
@@ -130,9 +116,11 @@ public class Main {
                         for (String part : parts) {
                             part.trim();
                         }
-                        Ad.put(parts[0],
-                                new Admin(parts[0], Integer.parseInt(parts[1]), theOnlyCinema,
-                                        Integer.parseInt(parts[3])));
+                        // make a new int incrementor that increases for every admin that you add to the
+                        // array starting at 0,
+                        // then add to array by using array[incrementor] = ...
+                        Ad.add(new Admin(parts[0], Integer.parseInt(parts[1]), theOnlyCinema,
+                                Integer.parseInt(parts[3])));
 
                     }
                 }
@@ -148,10 +136,11 @@ public class Main {
         return Ad;
     }
 
-    private static HashMap<String, Staff> staffList_DataRead() {
-        HashMap<String, Staff> Ad = new HashMap<>();
+    // do same here as did in admin dataRead
+    private static ArrayList<Staff> staffList_DataRead() {
+        ArrayList<Staff> staffList = new ArrayList<>();
         try {
-            FileInputStream fin = new FileInputStream("StaffInfo.txt");
+            FileInputStream fin = new FileInputStream("Code\\textFiles\\StaffInfo.txt");
 
             int i = 0;
             while ((i = fin.read()) != -1) {
@@ -168,7 +157,7 @@ public class Main {
                         for (String part : parts) {
                             part.trim();
                         }
-                        Ad.put(parts[0],
+                        staffList.add(
                                 new Staff(parts[0], Integer.parseInt(parts[1]), theOnlyCinema,
                                         Integer.parseInt(parts[3])));
 
@@ -183,22 +172,23 @@ public class Main {
             System.out.println(e);
             System.out.println("something went wrong...");
         }
-        return Ad;
+        return staffList;
     }
 
     private static void staffList_DataWrite() {
         try {
-            FileOutputStream fout = new FileOutputStream("StaffInfo.txt");
-            // goal convert each staff member into string of values seperated by only comas
-            // and () at beginning and end
-            // I'll just do this in a loop and then write each character and then println
-            // and repeat
+            FileOutputStream fout = new FileOutputStream("Code\\textFiles\\StaffInfo.txt");
+            // Can I convert an array to string in one comant like I did with staff_List?
+            // once I figure out how to convert to string the rest of the code will remain
+            // the same
 
-            String adminString = theOnlyCinema.getStaff_List().toString();
+            String adminString = theOnlyCinema.getStaffArray().toString();
 
-            String[] adminArray = adminString.split("=");
+            System.out.println(adminString);
+            String[] adminArray = adminString.split(",");
+            System.out.println(adminArray);
             String adminMember = "";
-            for (int i = 1; i < adminArray.length; i++) {
+            for (int i = 0; i < adminArray.length; i++) {
                 adminMember = adminArray[i].substring(adminArray[i].indexOf("("),
                         adminArray[i].indexOf(")"));
                 adminMember = adminMember + ")";
@@ -217,13 +207,10 @@ public class Main {
 
     private static void adminList_DataWrite() {
         try {
-            FileOutputStream fout = new FileOutputStream("StaffInfo.txt");
-            // goal convert each staff member into string of values seperated by only comas
-            // and () at beginning and end
-            // I'll just do this in a loop and then write each character and then println
-            // and repeat
+            FileOutputStream fout = new FileOutputStream("Code\\textFiles\\AdminInfo.txt");
+            // same as staffList_darawrite
 
-            String adminString = theOnlyCinema.getAdmin_List().toString();
+            String adminString = theOnlyCinema.getAdminArray().toString();
 
             String[] adminArray = adminString.split("=");
             String adminMember = "";
@@ -243,14 +230,27 @@ public class Main {
         }
     }
 
+    /*----------------------------------JSON Converter Method----------------------------------*/
     public static void cinemaConverter(Cinema cinema) {
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
-        File file = new File("C:\\Users\\zeze3\\OneDrive\\Documents\\GitHub\\W23---Final-project\\Code\\Json", "cinema.json");
+        File file = new File("C:\\Users\\zeze3\\OneDrive\\Documents\\GitHub\\W23---Final-project\\Code\\Json",
+                "cinema.json");
         try {
             mapper.writeValue(file, cinema);
         } catch (IOException e) {
             System.out.println(e);
         }
     }
+
+    // public static void AdultClientConverter(HashMap<String, AdultClient> client_Map) {
+    //     ObjectMapper mapper = new ObjectMapper();
+    //     mapper.registerModule(new JavaTimeModule());
+    //     File file = new File("C:\\Users\\zeze3\\OneDrive\\Documents\\GitHub\\W23---Final-project\\Code\\Json\\AdultClient.json");
+    //     try {
+    //         mapper.writeValue(file, client_Map);
+    //     } catch (IOException e) {
+    //         System.out.println(e);
+    //     }
+    // }
 }

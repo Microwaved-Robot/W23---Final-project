@@ -4,14 +4,13 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import Code.Cinema.Cinema;
+
 public class ChildClient extends Client {
 
     String name;
     String lastName;
     int age;
 
-    
-    
     public ChildClient(String name, String lastName, int age) {
         this.name = name;
         this.lastName = lastName;
@@ -22,14 +21,13 @@ public class ChildClient extends Client {
 
     }
 
-    //driver method for childClient
+    // driver method for childClient
     public void runChildClient(Cinema c) {
         int userChoice = 0;
+        boolean flag = true;
         Scanner sc = new Scanner(System.in);
 
         do {
-
-            
 
             System.out.println("1. View Showtimes");
             System.out.println("2. Purchase Ticket");
@@ -44,32 +42,34 @@ public class ChildClient extends Client {
                 System.out.println("Please Enter A Valid Input");
             }
 
-            if(userChoice == 1) {
-                System.out.println(c.showMovies());
-            } else if (userChoice == 2) {
-                purchaseTicket(c);
-            }else if (userChoice == 3) {
-                displayPurchasedTickets(tickets);
-            }else if (userChoice == 4) {
-                getAcountInfo();
-            }else if (userChoice == 5) {
-                getPurchasingInfo();
-            }else if (userChoice == 6) {
-                break;
-            } else {
-                System.out.println("Enter An Option Listed Above");
+            switch (userChoice) {
+                case 1:
+                    System.out.println(c.showMovies());
+                    break;
+                case 2:
+                    purchaseTicket(c);
+                    break;
+                case 3:
+                    displayPurchasedTickets(tickets);
+                    break;
+                case 4:
+                    getAcountInfo();
+                    break;
+                case 5:
+                    getPurchasingInfo();
+                    break;
+                case 6;
+                    flag = false;
+                    break;
+                default:
+                    System.out.println("Enter One Of The Options Listed Above!");
+                    break;
             }
-            
-
-            
-
-        } while(true);
+        } while (flag);
 
         sc.close();
-
     }
 
-    
     protected void getAcountInfo() {
         System.out.println();
         System.out.println("Account Info: ");
@@ -88,7 +88,8 @@ public class ChildClient extends Client {
         System.out.println("Discount For Children Under 18: " + Ticket.childDiscount);
         System.out.println();
     }
-    //getters and setters
+
+    // getters and setters
     public String getName() {
         return name;
     }

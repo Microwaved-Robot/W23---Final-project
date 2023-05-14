@@ -19,11 +19,12 @@ public class Movie {
     }
 
     protected Movie() {
-        //default
+        // default
     }
 
-    // Create a new movie obj
-    protected Movie(boolean ignore) {
+    // Create a new movie obj 
+    //The boolean parameter doesnt do anything, it is there to distinguish from default
+    protected Movie(boolean isNotDefault) {
         boolean flag = false;
 
         do {

@@ -2,7 +2,6 @@ package Code.Cinema;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -12,18 +11,20 @@ public class Cinema { // do a update all room for cinema room
     protected int numberOfRoom = 0;
     protected ArrayList<Movie> movie_List;
     protected ArrayList<CinemaRoom> room_List;
-    protected HashMap<String, Staff> staff_List;
-    protected HashMap<String, Admin> admin_List;
+    protected static ArrayList<Staff> StaffArray;
+    protected static ArrayList<Admin> AdminArray;
 
-    Scanner input = new Scanner(System.in);
+    static Scanner input = new Scanner(System.in);
 
     /*----------------------------------Constructors----------------------------------*/
     public Cinema() {
-        //default
+        // default
     }
 
     // Manual adding
-    public Cinema(int branchNumber) {
+    // The boolean parameter doesnt do anything, it is there to distinguish from
+    // default
+    public Cinema(boolean isNotDefault) {
         int number = 0;
         boolean flag = false;
 
@@ -44,34 +45,9 @@ public class Cinema { // do a update all room for cinema room
             }
         } while (flag);
 
-        admin_List = new HashMap<>();
         for (int i = 0; i < number; i++) {
-            Admin admin = new Admin();
-            admin_List.put(admin.getName(), admin);
-        }
-        System.out.println();
-
-        do {
-            try {
-                System.out.print("Enter the number of staff in the cinema: ");
-                number = input.nextInt();
-                if (number <= 0) {
-                    throw new IllegalArgumentException("Negative number");
-                }
-                flag = false;
-            } catch (IllegalArgumentException e) {
-                System.out.println("The input needs to be bigger than 0.");
-                flag = true;
-            } catch (InputMismatchException e) {
-                System.out.println("The input needs to be a number.");
-                flag = true;
-            }
-        } while (flag);
-
-        staff_List = new HashMap<>();
-        for (int i = 0; i < number; i++) {
-            Staff staff = new Staff(true);
-            staff_List.put(staff.getName(), staff);
+            Staff staff = new Staff();
+            StaffArray.add(staff);
         }
         System.out.println();
 
@@ -114,7 +90,7 @@ public class Cinema { // do a update all room for cinema room
                 flag = true;
             }
         } while (flag);
-      
+
         room_List = new ArrayList<>();
         for (int i = 0; i < numberOfRoom; i++) {
             room_List.add(new CinemaRoom(numberOfRoom));
@@ -130,34 +106,36 @@ public class Cinema { // do a update all room for cinema room
 
         // ????? its the admin class
         // do {
-        //     try {
-        //         System.out.print("Enter the number of Staff: ");
-        //         number = input.nextInt();
-        //         if (numberOfRoom <= 0) {
-        //             throw new IllegalArgumentException("Negative number");
-        //         }
-        //         flag = false;
-        //     } catch (IllegalArgumentException e) {
-        //         System.out.println("The input needs to be bigger than 0.");
-        //         flag = true;
-        //     } catch (InputMismatchException e) {
-        //         System.out.println("The input needs to be a number.");
-        //         flag = true;
-        //     }
+        // try {
+        // System.out.print("Enter the number of Staff: ");
+        // number = input.nextInt();
+        // if (numberOfRoom <= 0) {
+        // throw new IllegalArgumentException("Negative number");
+        // }
+        // flag = false;
+        // } catch (IllegalArgumentException e) {
+        // System.out.println("The input needs to be bigger than 0.");
+        // flag = true;
+        // } catch (InputMismatchException e) {
+        // System.out.println("The input needs to be a number.");
+        // flag = true;
+        // }
         // } while (flag);
 
         // Make sure next line is not skipped
         input.nextLine();
     }
 
-    // Bulk Adding for CinemaRoom, movie_List and staff_List assuming that there is
+    // Bulk Adding for CinemaRoom, movie_List and StaffArray assuming that there is
     // no problem in element of the parameter
-    protected Cinema(int branchNumber, ArrayList<Movie> movie_List, ArrayList<CinemaRoom> room_List, HashMap<String, Staff> staff_List, HashMap<String, Admin> Admin_List) {
-  
-        this.staff_List = staff_List;
+
+    // change constructor parameters from hashmap to Array
+    protected Cinema(ArrayList<Movie> movie_List, ArrayList<CinemaRoom> room_List,
+            ArrayList<Staff> StaffArray, ArrayList<Admin> AdminArray) {
+        Cinema.StaffArray = StaffArray;
         this.movie_List = movie_List;
         this.room_List = room_List;
-        this.admin_List = Admin_List;
+        this.AdminArray = AdminArray;
         numberOfRoom = room_List.size();
     }
 
@@ -174,13 +152,12 @@ public class Cinema { // do a update all room for cinema room
         return s_List;
     }
 
-    public Movie searchMovieListByName(ArrayList<Movie> m, String  movieName){
-        
-        for(int i = 0; i < m.size(); i++) {
+    public Movie searchMovieListByName(ArrayList<Movie> m, String movieName) {
 
-            if(m.get(i).getName() == movieName.toLowerCase()) {
+        for (int i = 0; i < m.size(); i++) {
+            if (m.get(i).getName().equalsIgnoreCase(movieName)) {
                 return m.get(i);
-            }   
+            }
         }
 
         return null;
@@ -271,15 +248,14 @@ public class Cinema { // do a update all room for cinema room
         }
         // To Make sure we can read the nxt line after this method
         input.nextLine();
-    } //---------------------------------------------- do this one (not finished)
+    } // ---------------------------------------------- do this one (not finished)
 
-    //search all rooms to see which room the movie is playing in
+    // search all rooms to see which room the movie is playing in
 
     public int searchCinemaRooms(Movie t) {
-        
-        for(CinemaRoom m : room_List) {
-            for(int i = 0; i < m.getMovie_List().size(); i++) {
-                if(m.getMovieFromList(i).equals(t)) {
+        for (CinemaRoom m : room_List) {
+            for (int i = 0; i < m.getMovie_List().size(); i++) {
+                if (m.getMovieFromList(i).equals(t)) {
                     return room_List.get(i).getRoomNumber();
                 }
             }
@@ -289,19 +265,18 @@ public class Cinema { // do a update all room for cinema room
 
         return -1;
     }
- 
-
-    
 
     protected void addStaff() {
-        Staff staff = new Staff(true);
-        staff_List.put(staff.getName(), staff);
+        Staff staff = new Staff();
+        StaffArray.add(staff);
     }
 
+    // check with google maybe move to main class?
     protected void removeStaff() {
         System.out.print("Enter the name of the staff you want to fire: ");
         String name = input.nextLine();
-        staff_List.remove(name);
+        int index = binarySearch(StaffArray, name);
+        StaffArray.remove(index);
     }
 
     /*----------------------------------Getter and Setters----------------------------------*/
@@ -333,19 +308,213 @@ public class Cinema { // do a update all room for cinema room
         this.room_List = room_List;
     }
 
-    public HashMap<String, Staff> getStaff_List() {
-        return this.staff_List;
+    public static ArrayList<Staff> getStaffArray() {
+        return StaffArray;
     }
 
-    public void setStaff_List(HashMap<String, Staff> staff_List) {
-        this.staff_List = staff_List;
+    public void setStaffArray(ArrayList<Staff> StaffArray) {
+        Cinema.StaffArray = StaffArray;
     }
 
-    public HashMap<String, Admin> getAdmin_List() {
-        return admin_List;
+    public static ArrayList<Admin> getAdminArray() {
+        return AdminArray;
     }
 
-    public void setAdmin_List(HashMap<String, Admin> admin_List) {
-        this.admin_List = admin_List;
+    public void setAdminArray(ArrayList<Admin> AdminArray) {
+        this.AdminArray = AdminArray;
+    }
+
+    // ------------------------- search and sort methods
+
+    public void bubbleSort(ArrayList<Staff> staff) {
+        for (int i = 1; i < staff.size(); i++) {
+            for (int j = 0; j < staff.size() - 1; j++) {
+                if ((staff.get(j).getName().compareTo(staff.get(j + 1).getName())) > 0) {
+                    Staff temp = staff.get(j);
+
+                    staff.set(j, staff.get(j + 1));
+                    staff.set(j + 1, temp);
+                }
+            }
+        }
+    }
+
+    public static int binarySearch(ArrayList<Staff> staffArray, String name) {
+        int index = -1;
+        int first = 0;
+        int last = staffArray.size() - 1;
+        int mid = (first + last) / 2;
+        while (first <= last) {
+            if ((staffArray.get(mid).getName().compareTo(name)) < 0) {
+                first = mid + 1;
+            } else if (staffArray.get(mid).getName().equals(name)) {
+                index = mid;
+                break;
+            } else {
+                last = mid - 1;
+            }
+            mid = (first + last) / 2;
+        }
+        if (first > last) {
+            System.out.println("Element is not found!");
+        }
+        return index;
+    }
+
+    public void adminBubbleSort(ArrayList<Admin> admin) {
+        for (int i = 1; i < admin.size(); i++) {
+            for (int j = 0; j < admin.size() - 1; j++) {
+                if ((admin.get(j).getName().compareTo(admin.get(j + 1).getName())) > 0) {
+                    Admin temp = admin.get(j);
+
+                    admin.set(j, admin.get(j + 1));
+                    admin.set(j + 1, temp);
+                }
+            }
+        }
+    }
+
+    public static int AdminBinarySearch(ArrayList<Admin> admins, String name) {
+        int index = -1;
+        int first = 0;
+        int last = admins.size() - 1;
+        int mid = (first + last) / 2;
+        while (first <= last) {
+            if ((admins.get(mid).getName().compareTo(name)) < 0) {
+                first = mid + 1;
+            } else if (admins.get(mid).getName().equals(name)) {
+                index = mid;
+                break;
+            } else {
+                last = mid - 1;
+            }
+            mid = (first + last) / 2;
+        }
+        if (first > last) {
+            System.out.println("Element is not found!");
+        }
+        return index;
+    }
+
+    public static Staff staffLogIn() {
+        int realPin = 0;
+        int pin = 0;
+        String answer = "";
+        String userName = "";
+        boolean flag = false;
+        do {
+            try {
+                System.out.print("Enter your userName: ");
+                userName = input.nextLine();
+                flag = false;
+                realPin = getStaffArray().get(binarySearch(getStaffArray(), userName)).getPin();
+            } catch (IndexOutOfBoundsException iobe) {
+                System.out.println("The name you entered does not match that of any staff member at the cinema.");
+                System.out.println("Please try again.");
+                flag = true;
+            }
+        } while (flag);
+        do {
+            do {
+
+                try {
+                    System.out.println("Enter your pin: ");
+                    pin = input.nextInt();
+                    flag = false;
+                } catch (InputMismatchException ime) {
+                    System.out.println("What you entered is not an integer.");
+                    System.out.println("Please try again.");
+                    flag = true;
+                }
+                input.nextLine();
+            } while (flag);
+
+            if (realPin != pin) {
+                System.out.println("The pin you entered is incorrect...");
+                do {
+
+                    try {
+                        System.out.println("Would you like to try again(Y or N)?");
+                        answer = input.nextLine();
+                        if (!answer.toLowerCase().equals("y") && !answer.toLowerCase().equals("n")) {
+                            throw new IllegalArgumentException();
+                        } else {
+                            flag = false;
+                        }
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("You must enter a 'Y' or a 'N'.");
+                        System.out.println("Please try again.");
+                        flag = true;
+                    }
+                } while (flag);
+                if (answer.toLowerCase().equals("n")) {
+                    System.exit(1);
+                }
+            }
+
+        } while (realPin != pin);
+        System.out.println("Welcome back " + userName);
+        return getStaffArray().get(binarySearch(StaffArray, userName));
+    }
+
+    public static Admin AdminLogIn() {
+        int pin = -1;
+        String answer = "";
+        String userName = "";
+        boolean flag = true;
+        int realPin = -1;
+        do {
+            do {
+                try {
+                    System.out.print("Enter your userName: ");
+                    userName = input.nextLine();
+                    flag = false;
+                    realPin = getAdminArray().get(AdminBinarySearch(getAdminArray(), userName)).getPin();
+                } catch (IndexOutOfBoundsException iobe) {
+                    System.out.println("The name you entered does not match that of any admin at the cinema.");
+                    System.out.println("Please try again.");
+                    flag = true;
+                }
+            } while (flag);
+
+            do {
+
+                try {
+                    System.out.println("Enter your pin: ");
+                    pin = input.nextInt();
+                    flag = false;
+                } catch (InputMismatchException ime) {
+                    System.out.println("What you entered is not an integer.");
+                    System.out.println("Please try again.");
+                    flag = true;
+                }
+                input.nextLine();
+            } while (flag);
+
+            if (realPin != pin) {
+                System.out.println("The pin you entered is incorrect...");
+                do {
+
+                    try {
+                        System.out.println("Would you like to try again(Y or N)?");
+                        answer = input.nextLine();
+                        if (!answer.toLowerCase().equals("y") && !answer.toLowerCase().equals("n")) {
+                            throw new IllegalArgumentException();
+                        } else {
+                            flag = false;
+                        }
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("You must enter a 'Y' or a 'N'.");
+                        System.out.println("Please try again.");
+                        flag = true;
+                    }
+                } while (flag);
+                if (answer.toLowerCase().equals("n")) {
+                    System.exit(1);
+                }
+            }
+        } while (realPin != pin);
+        System.out.println("Welcome back " + userName);
+        return getAdminArray().get(AdminBinarySearch(getAdminArray(), userName));
     }
 }
