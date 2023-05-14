@@ -211,6 +211,10 @@ public class Admin extends Staff {
             } catch (InputMismatchException ime) {
                 System.out.println("What you entered is not a string.");
                 flag = true;
+            } catch (IndexOutOfBoundsException iobe) {
+                System.out.println(
+                        "The name you entered does not belong to a staff member currently employed at the cinema please try again.");
+                flag = true;
             }
         } while (flag);
         cinema.getStaffArray().remove(index);
