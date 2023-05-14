@@ -5,6 +5,7 @@ import java.util.Scanner;
 import Code.Cinema.Cinema;
 
 public class AdultClient extends Client{
+    Scanner input = new Scanner(System.in);
 
     String name;
     String lastName;
@@ -19,14 +20,19 @@ public class AdultClient extends Client{
 
     }
 
+    public AdultClient(String name, int age) {
+        this.name = name;
+        this.age = age;
+        System.out.print("Enter your last name: ");
+        lastName = input.nextLine();
+    }
+
     public void runAdultClient(Cinema c) {
         int userChoice = 0;
+        boolean flag = true;
 
         Scanner sc = new Scanner(System.in);
         do {
-
-            
-
             System.out.println("1. View Showtimes");
             System.out.println("2. Purchase Ticket");
             System.out.println("3. Display Purchased Tickets");
@@ -35,6 +41,7 @@ public class AdultClient extends Client{
             System.out.println("6. Exit ");
 
             userChoice = sc.nextInt();
+            sc.nextLine();
 
             switch(userChoice) {
                 case 1:
@@ -47,6 +54,8 @@ public class AdultClient extends Client{
                     getAcountInfo();
                 case 5:
                     getPurchasingInfo();
+                case 6:
+                    
                 default:
                     System.out.println("Please Enter One Of The Options Listed Above!"); 
 

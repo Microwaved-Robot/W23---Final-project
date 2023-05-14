@@ -18,28 +18,11 @@ public class ChildClient extends Client {
         this.age = age;
     }
 
-    public ChildClient(String name) {
+    public ChildClient(String name, int age) {
         this.name = name;
+        this.age = age;
         System.out.print("Enter your last name: ");
         lastName = input.nextLine();
-        boolean flag = false;
-        
-        do {
-            try {
-                System.out.print("Enter your age: ");
-                age = input.nextInt();
-                if (age < 0) {
-                    throw new IllegalArgumentException("Negative number");
-                }
-                flag = false;
-            } catch (IllegalArgumentException e) {
-                System.out.println("The input needs to be bigger than 0.");
-                flag = true;
-            } catch (InputMismatchException e) {
-                System.out.println("The input needs to be a number.");
-                flag = true;
-            }
-        } while (flag);
     }
 
     public ChildClient() {
@@ -63,6 +46,7 @@ public class ChildClient extends Client {
 
             try {
                 userChoice = sc.nextInt();
+                sc.nextLine();
             } catch (InputMismatchException e) {
                 System.out.println("Please Enter A Valid Input");
             }

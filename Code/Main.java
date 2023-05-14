@@ -148,14 +148,19 @@ public class Main {
                         String name = input.nextLine();
                         if (child_Data.get(name) == null) {
                             System.out.println("You are a new client!!!");
-                            ChildClient client = new ChildClient();
-                            
+                            ChildClient client = new ChildClient(name, age);
+                            child_Data.put(name, client);
                         }
                         child_Data.get(name).runChildClient(cinema);
                     }
                     if (age > 18) {
                         System.out.println("Enter your first name");
                         String name = input.nextLine();
+                        if (child_Data.get(name) == null) {
+                            System.out.println("You are a new client!!!");
+                            AdultClient client = new AdultClient(name, age);
+                            adult_Data.put(name, client);
+                        }
                         adult_Data.get(name).runAdultClient(cinema);
                     }
                     break;
@@ -175,7 +180,7 @@ public class Main {
 
     static Cinema readJsonCinema() {
         File file = new File(
-                "C:\\Users\\zeze3\\OneDrive\\Documents\\GitHub\\W23---Final-project\\Code\\Json\\cinema.json");
+                "Code\\Json\\cinema.json");
         ObjectMapper om = new ObjectMapper();
         om.registerModule(new JavaTimeModule());
         Cinema cinema = null;
@@ -190,7 +195,7 @@ public class Main {
 
     static HashMap<String, AdultClient> readJsonAdult() {
         File file = new File(
-                "C:\\Users\\zeze3\\OneDrive\\Documents\\GitHub\\W23---Final-project\\Code\\Json\\AdultClient.json");
+                "Code\\Json\\AdultClient.json");
         ObjectMapper om = new ObjectMapper();
         om.registerModule(new JavaTimeModule());
         HashMap<String, AdultClient> client_Map = null;
@@ -207,7 +212,7 @@ public class Main {
 
     static HashMap<String, ChildClient> readJsonChild() {
         File file = new File(
-                "C:\\Users\\zeze3\\OneDrive\\Documents\\GitHub\\W23---Final-project\\Code\\Json\\ChildClient.json");
+                "Code\\Json\\ChildClient.json");
         ObjectMapper om = new ObjectMapper();
         om.registerModule(new JavaTimeModule());
         HashMap<String, ChildClient> client_Map = null;
@@ -371,7 +376,7 @@ public class Main {
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
         File file = new File(
-                "C:\\Users\\zeze3\\OneDrive\\Documents\\GitHub\\W23---Final-project\\Code\\Json\\cinema.json");
+                "Code\\Json\\cinema.json");
         try {
             mapper.writeValue(file, cinema);
         } catch (IOException e) {
@@ -407,7 +412,7 @@ public class Main {
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
         File file = new File(
-                "C:\\Users\\zeze3\\OneDrive\\Documents\\GitHub\\W23---Final-project\\Code\\Json\\AdultClient.json");
+                "Code\\Json\\AdultClient.json");
         try {
             mapper.writeValue(file, client_Map);
         } catch (IOException e) {
@@ -419,7 +424,7 @@ public class Main {
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
         File file = new File(
-                "C:\\Users\\zeze3\\OneDrive\\Documents\\GitHub\\W23---Final-project\\Code\\Json\\ChildClient.json");
+                "Code\\Json\\ChildClient.json");
         try {
             mapper.writeValue(file, client_Map);
         } catch (IOException e) {
