@@ -351,8 +351,10 @@ public class Staff {
         boolean flag = true;
         do {
             try {
-                System.out.print("Enter room nubmer of seating to be viewed: ");
-                roomNum = input.nextInt();
+                System.out.print("Enter room number of seating to be viewed: ");
+                int roomNum = input.nextInt();
+                input.nextLine();
+              
                 if (roomNum < 0) {
                     throw new IllegalArgumentException();
                 } else if (roomNum > cinemaOfEmployement.getRoom_List().size()) {
@@ -360,19 +362,16 @@ public class Staff {
                 } else {
                     flag = false;
                 }
-
             } catch (IllegalArgumentException iae) {
                 System.out.println("The integer you entered does not correspond to a room number.");
-                System.out
-                        .println("Please enter an integer between 0 and " + cinemaOfEmployement.getRoom_List().size());
+                System.out.println("Please enter an integer between 0 and " + cinemaOfEmployement.getRoom_List().size());
                 flag = true;
             } catch (InputMismatchException ime) {
                 System.out.println("What you entered was not an integer.");
                 System.out.println("Please try again.");
                 flag = true;
             }
-            while (flag)
-                ;
+            while (flag);
 
             cinemaOfEmployement.getRoom_List().get(roomNum).displaySeat();
             do {

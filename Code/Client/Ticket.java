@@ -1,12 +1,11 @@
 package Code.Client;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import Code.Cinema.Movie;
 
 public class Ticket extends Client implements TicketPrice {
 
-    protected Date datePurchased;
+    protected String datePurchased;
     protected Movie movie;
     protected LocalDateTime movieDate;
     static public double price = 20.00; // this is the price of all movies
@@ -16,7 +15,7 @@ public class Ticket extends Client implements TicketPrice {
 
     // constructor
 
-    public Ticket(Date datePurchased, Movie movie, LocalDateTime movieDate, String seat) {
+    public Ticket(String datePurchased, Movie movie, LocalDateTime movieDate, String seat) {
         this.datePurchased = datePurchased;
         this.movie = movie;
         this.movieDate = movieDate;
@@ -83,13 +82,7 @@ public class Ticket extends Client implements TicketPrice {
 
     // getters and setters
 
-    public Date getDatePurchased() {
-        return datePurchased;
-    }
-
-    public void setDatePurchased(Date datePurchased) {
-        this.datePurchased = datePurchased;
-    }
+    
 
     public Movie getMovie() {
         return movie;
@@ -130,5 +123,17 @@ public class Ticket extends Client implements TicketPrice {
     public void setSeat(String seat) {
         this.seat = seat;
     }
+
+    public String getDatePurchased() {
+        return datePurchased;
+    }
+
+    public void setDatePurchased(String datePurchased) {
+        this.datePurchased = datePurchased;
+    }
+
+    public static double getChilddiscount() {
+        return childDiscount;
+    }    
 
 }

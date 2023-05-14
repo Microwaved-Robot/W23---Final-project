@@ -15,10 +15,8 @@ public class AdultClient extends Client{
         this.lastName = lastName;
         this.age = age;
     }
-
-
     public AdultClient() {
-        
+
     }
 
     public void runAdultClient(Cinema c) {
@@ -98,6 +96,4 @@ public class AdultClient extends Client{
         this.age = age;
     }
     
-
-
 }

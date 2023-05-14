@@ -155,7 +155,6 @@ public class Cinema { // do a update all room for cinema room
     public Movie searchMovieListByName(ArrayList<Movie> m, String movieName) {
 
         for (int i = 0; i < m.size(); i++) {
-
             if (m.get(i).getName().equalsIgnoreCase(movieName)) {
                 return m.get(i);
             }
@@ -163,6 +162,13 @@ public class Cinema { // do a update all room for cinema room
 
         return null;
     }
+
+    public Movie searchMovieList(ArrayList<Movie> m, int target) {
+        Movie result = m.get(target);
+
+        return result;
+    }
+
 
     // Adds ONE movie and check for duplicates
     protected void addMovie() {
@@ -254,6 +260,8 @@ public class Cinema { // do a update all room for cinema room
                 }
             }
         }
+
+        
 
         return -1;
     }
