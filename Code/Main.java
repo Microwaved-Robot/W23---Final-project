@@ -103,7 +103,7 @@ public class Main {
                     cinema.staffLogIn().staffUI();
                     break;
                 case (3):
-                    cinema.AdminLogIn().adminUI();
+                    cinema.AdminLogIn().adminUI(cinema);
                     break;
                 case 4:
                     flag2 = false;

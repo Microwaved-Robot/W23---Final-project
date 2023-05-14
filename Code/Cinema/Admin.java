@@ -87,7 +87,7 @@ public class Admin extends Staff {
     }
 
     // ------------------------------------- start admin UI
-    public void adminUI() {
+    public void adminUI(Cinema cinema) {
         int reply = 0;
         String answer = "";
         boolean flag = true;
@@ -139,10 +139,10 @@ public class Admin extends Staff {
                     changeTicketPrice();
                     break;
                 case (9):
-                    hireStaff();
+                    hireStaff(cinema);
                     break;
                 case (10):
-                    fireStaff();
+                    fireStaff(cinema);
                     break;
                 case (11):
                     resetCinema();
@@ -179,7 +179,7 @@ public class Admin extends Staff {
 
     // option 7 is used to hire staff
     // all that's left is to test and exception handling
-    void hireStaff() {
+    void hireStaff(Cinema cinema) {
         String name = "";
         boolean flag = false;
         do {
@@ -192,20 +192,20 @@ public class Admin extends Staff {
                 flag = true;
             }
         } while (flag);
-        Cinema.getStaffArray().add(new Staff(name));
+        cinema.getStaffArray().add(new Staff(name));
         input.nextLine();
     }
 
     // option 8 is used to fire staff
     // all that's left is to test
-    void fireStaff() {
-        System.out.println(Cinema.getStaffArray().toString());
+    void fireStaff(Cinema cinema) {
+        System.out.println(cinema.getStaffArray().toString());
         int index = -1;
         boolean flag = true;
         do {
             try {
                 System.out.println("Enter the staff member's username: ");
-                index = binarySearch(Cinema.getStaffArray(), input.nextLine());
+                index = binarySearch(cinema.getStaffArray(), input.nextLine());
                 flag = false;
 
             } catch (InputMismatchException ime) {
@@ -213,7 +213,7 @@ public class Admin extends Staff {
                 flag = true;
             }
         } while (flag);
-        Cinema.getStaffArray().remove(index);
+        cinema.getStaffArray().remove(index);
         input.nextLine();
     }
 
