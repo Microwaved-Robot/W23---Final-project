@@ -11,8 +11,6 @@ public class Cinema { // do a update all room for cinema room
     protected int numberOfRoom = 0;
     protected ArrayList<Movie> movie_List;
     protected ArrayList<CinemaRoom> room_List;
-    protected ArrayList<Staff> StaffArray;
-    protected ArrayList<Admin> AdminArray;
 
     static Scanner input = new Scanner(System.in);
 
@@ -292,19 +290,6 @@ public class Cinema { // do a update all room for cinema room
         return -1;
     }
 
-    protected void addStaff() {
-        Staff staff = new Staff();
-        StaffArray.add(staff);
-    }
-
-    // check with google maybe move to main class?
-    protected void removeStaff() {
-        System.out.print("Enter the name of the staff you want to fire: ");
-        String name = input.nextLine();
-        int index = binarySearch(StaffArray, name);
-        StaffArray.remove(index);
-    }
-
     /*----------------------------------Search and Sort Methods----------------------------------*/
     public static void staffBubbleSort(ArrayList<Staff> staff) {
         for (int i = 1; i < staff.size(); i++) {
@@ -376,128 +361,6 @@ public class Cinema { // do a update all room for cinema room
         return index;
     }
 
-    public Staff staffLogIn() {
-        int realPin = 0;
-        int pin = 0;
-        String answer = "";
-        String userName = "";
-        boolean flag = false;
-        do {
-            try {
-                System.out.print("Enter your userName: ");
-                userName = input.nextLine();
-                flag = false;
-                realPin = getStaffArray().get(binarySearch(getStaffArray(), userName)).getPin();
-            } catch (IndexOutOfBoundsException iobe) {
-                System.out.println("The name you entered does not match that of any staff member at the cinema.");
-                System.out.println("Please try again.");
-                flag = true;
-            }
-        } while (flag);
-        do {
-            do {
-
-                try {
-                    System.out.println("Enter your pin: ");
-                    pin = input.nextInt();
-                    flag = false;
-                } catch (InputMismatchException ime) {
-                    System.out.println("What you entered is not an integer.");
-                    System.out.println("Please try again.");
-                    flag = true;
-                }
-                input.nextLine();
-            } while (flag);
-
-            if (realPin != pin) {
-                System.out.println("The pin you entered is incorrect...");
-                do {
-
-                    try {
-                        System.out.println("Would you like to try again(Y or N)?");
-                        answer = input.nextLine();
-                        if (!answer.toLowerCase().equals("y") && !answer.toLowerCase().equals("n")) {
-                            throw new IllegalArgumentException();
-                        } else {
-                            flag = false;
-                        }
-                    } catch (IllegalArgumentException e) {
-                        System.out.println("You must enter a 'Y' or a 'N'.");
-                        System.out.println("Please try again.");
-                        flag = true;
-                    }
-                } while (flag);
-                if (answer.toLowerCase().equals("n")) {
-                    System.exit(1);
-                }
-            }
-
-        } while (realPin != pin);
-        System.out.println("Welcome back " + userName);
-        return getStaffArray().get(binarySearch(StaffArray, userName));
-    }
-
-    public Admin AdminLogIn() {
-        int pin = 0;
-        String answer = "";
-        String userName = "";
-        boolean flag = true;
-        int realPin = 0;
-        do {
-            do {
-                try {
-                    System.out.print("Enter your userName: ");
-                    userName = input.nextLine();
-                    flag = false;
-                    realPin = getAdminArray().get(AdminBinarySearch(getAdminArray(), userName)).getPin();
-                } catch (IndexOutOfBoundsException iobe) {
-                    System.out.println("The name you entered does not match that of any admin at the cinema.");
-                    System.out.println("Please try again.");
-                    flag = true;
-                }
-            } while (flag);
-
-            do {
-
-                try {
-                    System.out.println("Enter your pin: ");
-                    pin = input.nextInt();
-                    flag = false;
-                } catch (InputMismatchException ime) {
-                    System.out.println("What you entered is not an integer.");
-                    System.out.println("Please try again.");
-                    flag = true;
-                }
-                input.nextLine();
-            } while (flag);
-
-            if (realPin != pin) {
-                System.out.println("The pin you entered is incorrect...");
-                do {
-
-                    try {
-                        System.out.println("Would you like to try again(Y or N)?");
-                        answer = input.nextLine();
-                        if (!answer.toLowerCase().equals("y") && !answer.toLowerCase().equals("n")) {
-                            throw new IllegalArgumentException();
-                        } else {
-                            flag = false;
-                        }
-                    } catch (IllegalArgumentException e) {
-                        System.out.println("You must enter a 'Y' or a 'N'.");
-                        System.out.println("Please try again.");
-                        flag = true;
-                    }
-                } while (flag);
-                if (answer.toLowerCase().equals("n")) {
-                    System.exit(1);
-                }
-            }
-        } while (realPin != pin);
-        System.out.println("Welcome back " + userName);
-        return getAdminArray().get(AdminBinarySearch(getAdminArray(), userName));
-    }
-
     /*----------------------------------Getter and Setters----------------------------------*/
     public int getBranchNumber() {
         return this.branchNumber;
@@ -525,21 +388,5 @@ public class Cinema { // do a update all room for cinema room
 
     public void setRoom_List(ArrayList<CinemaRoom> room_List) {
         this.room_List = room_List;
-    }
-
-    public ArrayList<Staff> getStaffArray() {
-        return StaffArray;
-    }
-
-    public void setStaffArray(ArrayList<Staff> StaffArray) {
-        this.StaffArray = StaffArray;
-    }
-
-    public ArrayList<Admin> getAdminArray() {
-        return AdminArray;
-    }
-
-    public void setAdminArray(ArrayList<Admin> AdminArray) {
-        this.AdminArray = AdminArray;
     }
 }

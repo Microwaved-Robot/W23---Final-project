@@ -34,6 +34,132 @@ public class Main {
         userIdentifier(cinema, child_Data, adult_Data);
     }
 
+    public Staff staffLogIn(ArrayList<Staff> staffArray) {
+        int realPin = 0;
+        int pin = 0;
+        String answer = "";
+        String userName = "";
+        boolean flag = false;
+        do {
+            try {
+                System.out.print("Enter your userName: ");
+                userName = input.nextLine();
+                flag = false;
+                realPin = staffArray.get(Cinema.binarySearch(staffArray, userName)).getPin();
+            } catch (IndexOutOfBoundsException iobe) {
+                System.out.println("The name you entered does not match that of any staff member at the cinema.");
+                System.out.println("Please try again.");
+                flag = true;
+            }
+        } while (flag);
+        do {
+            do {
+
+                try {
+                    System.out.println("Enter your pin: ");
+                    pin = input.nextInt();
+                    flag = false;
+                } catch (InputMismatchException ime) {
+                    System.out.println("What you entered is not an integer.");
+                    System.out.println("Please try again.");
+                    flag = true;
+                }
+                input.nextLine();
+            } while (flag);
+
+            if (realPin != pin) {
+                System.out.println("The pin you entered is incorrect...");
+                do {
+
+                    try {
+                        System.out.println("Would you like to try again(Y or N)?");
+                        answer = input.nextLine();
+                        if (!answer.toLowerCase().equals("y") && !answer.toLowerCase().equals("n")) {
+                            throw new IllegalArgumentException();
+                        } else {
+                            flag = false;
+                        }
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("You must enter a 'Y' or a 'N'.");
+                        System.out.println("Please try again.");
+                        flag = true;
+                    }
+                } while (flag);
+                if (answer.toLowerCase().equals("n")) {
+                    System.exit(1);
+                }
+            }
+
+        } while (realPin != pin);
+        System.out.println("Welcome back " + userName);
+        return staffArray.get(Cinema.binarySearch(staffArray, userName));
+    }
+
+    public Admin AdminLogIn(ArrayList<Admin> adminArray) {
+        int pin = 0;
+        String answer = "";
+        String userName = "";
+        boolean flag = true;
+        int realPin = 0;
+        do {
+            do {
+                try {
+                    System.out.print("Enter your userName: ");
+                    userName = input.nextLine();
+                    flag = false;
+                    realPin = adminArray.get(Cinema.AdminBinarySearch(adminArray, userName)).getPin();
+                } catch (IndexOutOfBoundsException iobe) {
+                    System.out.println("The name you entered does not match that of any admin at the cinema.");
+                    System.out.println("Please try again.");
+                    flag = true;
+                } catch (InputMismatchException ime) {
+                    System.out.println("What you entered is not an intiger.");
+                    System.out.println("Please try again.");
+                    flag = true;
+                }
+            } while (flag);
+
+            do {
+
+                try {
+                    System.out.println("Enter your pin: ");
+                    pin = input.nextInt();
+                    flag = false;
+                } catch (InputMismatchException ime) {
+                    System.out.println("What you entered is not an integer.");
+                    System.out.println("Please try again.");
+                    flag = true;
+                }
+                input.nextLine();
+            } while (flag);
+
+            if (realPin != pin) {
+                System.out.println("The pin you entered is incorrect...");
+                do {
+
+                    try {
+                        System.out.println("Would you like to try again(Y or N)?");
+                        answer = input.nextLine();
+                        if (!answer.toLowerCase().equals("y") && !answer.toLowerCase().equals("n")) {
+                            throw new IllegalArgumentException();
+                        } else {
+                            flag = false;
+                        }
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("You must enter a 'Y' or a 'N'.");
+                        System.out.println("Please try again.");
+                        flag = true;
+                    }
+                } while (flag);
+                if (answer.toLowerCase().equals("n")) {
+                    System.exit(1);
+                }
+            }
+        } while (realPin != pin);
+        System.out.println("Welcome back " + userName);
+        return adminArray.get(Cinema.AdminBinarySearch(adminArray, userName));
+    }
+
     static void sorter(ArrayList<Admin> admins, ArrayList<Staff> staff) {
         Cinema.adminBubbleSort(admins);
         Cinema.staffBubbleSort(staff);
@@ -110,10 +236,10 @@ public class Main {
                     }
                     break;
                 case (2):
-                    cinema.staffLogIn().staffUI();
+                    staffLogIn(staffArray).staffUI();
                     break;
                 case (3):
-                    cinema.AdminLogIn().adminUI(cinema);
+                    AdminLogIn(staffArray).adminUI(cinema);
                     break;
                 case 4:
                     flag2 = false;
