@@ -46,7 +46,7 @@ public class Cinema { // do a update all room for cinema room
         AdminArray = new ArrayList<>();
         for (int i = 0; i < number; i++) {
             System.out.println("For the " + (i + 1) + " admin: ");
-            Admin admin = new Admin(this);
+            Admin admin = new Admin();
             AdminArray.add(admin);
             System.out.println();
         }
@@ -71,7 +71,7 @@ public class Cinema { // do a update all room for cinema room
         StaffArray = new ArrayList<>();
         for (int i = 0; i < number; i++) {
             System.out.println("For the " + (i + 1) + " staff: ");
-            Staff staff = new Staff(false);
+            Staff staff = new Staff(this);
             StaffArray.add(staff);
             System.out.println();
         }
@@ -159,12 +159,9 @@ public class Cinema { // do a update all room for cinema room
     // no problem in element of the parameter
 
     // change constructor parameters from hashmap to Array
-    protected Cinema(ArrayList<Movie> movie_List, ArrayList<CinemaRoom> room_List,
-            ArrayList<Staff> StaffArray, ArrayList<Admin> AdminArray) {
-        this.StaffArray = StaffArray;
+    protected Cinema(ArrayList<Movie> movie_List, ArrayList<CinemaRoom> room_List) {
         this.movie_List = movie_List;
         this.room_List = room_List;
-        this.AdminArray = AdminArray;
         numberOfRoom = room_List.size();
     }
 
