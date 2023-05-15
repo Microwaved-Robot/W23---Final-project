@@ -22,7 +22,7 @@ public class Cinema { // do a update all room for cinema room
     // Manual adding
     // The boolean parameter doesnt do anything, it is there to distinguish from
     // default
-    public Cinema(boolean isNotDefault, ArrayList<Admin> AdminArray, ArrayList<Staff> StaffArray) {
+    public Cinema(boolean isNotDefault) {
         int number = 0;
         boolean flag = false;
 
@@ -165,7 +165,7 @@ public class Cinema { // do a update all room for cinema room
     }
 
     public Movie searchMovieList(ArrayList<Movie> m, int target) {
-        Movie result = m.get(target);
+        Movie result = m.get(target- 1);
 
         return result;
     }
@@ -254,7 +254,7 @@ public class Cinema { // do a update all room for cinema room
     public int searchCinemaRooms(Movie t) {
         for (CinemaRoom m : room_List) {
             for (int i = 0; i < m.getMovie_List().size(); i++) {
-                if (m.getMovieFromList(i).equals(t)) {
+                if (m.getMovieFromList(i).getName().equals(t.getName())) {
                     return room_List.get(i).getRoomNumber();
                 }
             }

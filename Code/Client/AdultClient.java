@@ -1,10 +1,11 @@
 package Code.Client;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import Code.Cinema.Cinema;
 
-public class AdultClient extends Client{
+public class AdultClient extends Client {
     Scanner input = new Scanner(System.in);
     Scanner sc = new Scanner(System.in);
 
@@ -17,9 +18,6 @@ public class AdultClient extends Client{
         this.lastName = lastName;
         this.age = age;
     }
-    public AdultClient() {
-
-    }
 
     public AdultClient(String name, int age) {
         this.name = name;
@@ -28,24 +26,37 @@ public class AdultClient extends Client{
         lastName = input.nextLine();
     }
 
+    public AdultClient() {
+
+    }
+
+    // driver method for AdultClient
     public void runAdultClient(Cinema c) {
         int userChoice = 0;
         boolean flag = true;
-        
+
         do {
+
             System.out.println("1. View Showtimes");
             System.out.println("2. Purchase Ticket");
             System.out.println("3. Display Purchased Tickets");
             System.out.println("4. Account");
             System.out.println("5. Purchasing Info");
-            System.out.println("6. Exit ");
+            System.out.println("6. Exit");
 
-            userChoice = sc.nextInt();
-            sc.nextLine();
+            try {
+                userChoice = sc.nextInt();
+                System.out.println("Choice: " + userChoice);
+            } catch (InputMismatchException e) {
+                System.out.println("Please Enter A Valid Input");
+            }
 
-            switch(userChoice) {
+
+
+            switch (userChoice) {
                 case 1:
-                    c.showMovies();
+                    System.out.println("Hello");
+                    displayShowtimes(c);
                     break;
                 case 2:
                     purchaseTicket(c);
@@ -61,27 +72,33 @@ public class AdultClient extends Client{
                     break;
                 case 6:
                     flag = false;
+                    break;
                 default:
-                    System.out.println("Please Enter One Of The Options Listed Above!"); 
+                    System.out.println("Enter One Of The Options Listed Above!");
                     break;
             }
-        } while(flag);
+        } while (flag);
     }
 
-    
     protected void getAcountInfo() {
+        System.out.println();
+        System.out.println("Account Info: ");
         System.out.println("Name: " + name + " " + lastName);
         System.out.println("Age: " + age);
         System.out.println("Number of Tickets Purchased: " + tickets.size());
+        System.out.println();
     }
 
     protected void getPurchasingInfo() {
+        System.out.println();
+        System.out.println("Purchasing Info: ");
+        System.out.println();
         System.out.println("Standard Rate for Movie: " + Ticket.price);
         System.out.println("Discount on Tuesdays: " + Ticket.Daydiscount);
-        System.out.println("Discount For Children Under 18 " + Ticket.childDiscount);
+        System.out.println();
     }
 
-    //getters and setters
+    // getters and setters
     public String getName() {
         return name;
     }
@@ -105,5 +122,4 @@ public class AdultClient extends Client{
     public void setAge(int age) {
         this.age = age;
     }
-    
 }
