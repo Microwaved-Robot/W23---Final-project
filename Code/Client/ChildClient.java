@@ -46,14 +46,17 @@ public class ChildClient extends Client {
 
             try {
                 userChoice = sc.nextInt();
-                sc.nextLine();
+                System.out.println("Choice: " + userChoice);
             } catch (InputMismatchException e) {
                 System.out.println("Please Enter A Valid Input");
             }
 
+
+
             switch (userChoice) {
                 case 1:
-                    System.out.println(c.showMovies());
+                    System.out.println("Hello");
+                    displayShowtimes(c);
                     break;
                 case 2:
                     purchaseTicket(c);

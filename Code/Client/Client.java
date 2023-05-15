@@ -40,11 +40,17 @@ abstract class Client {
      * }
      * 
      */
+
+     protected void displayShowtimes(Cinema c) {
+        System.out.println("Showtimes: \n");
+        System.out.println(c.showMovies());
+     }
+
     protected void purchaseTicket(Cinema c) {
 
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("Currently The Standard Movie Rate is " + Ticket.price);
+        System.out.println("Currently The Standard Movie Rate is $" + Ticket.price);
 
         System.out.println("Showtimes: ");
 
@@ -83,7 +89,7 @@ abstract class Client {
 
             System.out.println("Choose Seat: ");
 
-            CinemaRoom r = c.getRoom_List().get(selectedRoomNumber);
+            CinemaRoom r = c.getRoom_List().get(selectedRoomNumber - 1);
             r.displaySeat();
         } catch (InputMismatchException e) {
             System.out.println("You Have Entered An Incorrect Option (Code 600)");
@@ -102,11 +108,11 @@ abstract class Client {
         try {
             int row = sc.nextInt();
 
-            System.out.println("Enter the Colomn Of the Seat You Would Like To Purchase");
+            System.out.println("Enter the Colomn Letter Of the Seat You Would Like To Purchase");
             // gets first letter user types
             char column = sc.next().charAt(0);
 
-            seat = row + " " + column;
+            seat = row + "" + column;
 
             System.out.println("Seat Selected: " + seat);
         } catch (InputMismatchException e) {
@@ -116,20 +122,20 @@ abstract class Client {
         System.out.println("Confirm Purchase? Y/N");
 
         try {
-            comfirmation = sc.nextLine();
+
+            Scanner scan = new Scanner(System.in);
+            comfirmation = scan.nextLine();
             if (comfirmation.equalsIgnoreCase("y")) {
                 System.out.println("Ticket Purchased");
                 tickets.add(new Ticket(todaysDate, m, m.getTime(), seat));
                 System.out.println("Your Ticket: \n");
 
-                tickets.get(tickets.size()).displayTicket();
+                tickets.get(tickets.size() - 1).displayTicket();
             }
 
         } catch (InputMismatchException e) {
             System.out.println("You Have Entered An Incorrect Option (Code 600)");
         }
-
-        sc.close();
 
     }
 
