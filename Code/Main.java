@@ -290,7 +290,7 @@ public class Main {
         staffArray = new ArrayList<>();
         for (int i = 0; i < number; i++) {
             System.out.println("For the " + (i + 1) + " staff: ");
-            Staff staff = new Staff(true);
+            Staff staff = new Staff(cinema);
             staffArray.add(staff);
             System.out.println();
         }
