@@ -49,14 +49,15 @@ abstract class Client {
 
     protected void purchaseTicket(Cinema c) {
 
+        Scanner sc = new Scanner(System.in);
+
         System.out.println("Currently The Standard Movie Rate is $" + Ticket.price);
 
         System.out.println("Showtimes: ");
 
         System.out.println(c.showMovies());
 
-        int movieSelection;
-        String comfirmation;
+        int movieSelection = 0;
 
         // gets todays date
         Date d = new Date();
@@ -65,9 +66,17 @@ abstract class Client {
 
 
         System.out.println("Enter Movie Index To Purchase Ticket: ");
-        movieSelection = scan.nextInt();
-        scan.nextLine();
 
+
+
+        try {
+            movieSelection = sc.nextInt();
+        } catch (InputMismatchException e) {
+            System.out.println("Enter a valid Number Next Time!");
+            return;
+        }
+
+        
         Movie m = null;
 
         int selectedRoomNumber = 0;
@@ -104,37 +113,53 @@ abstract class Client {
         String seat = "";
 
         try {
-            int row = scan.nextInt();
+            int row = sc.nextInt();
+
+            if(row > 26) {
+                return;
+            }
 
             System.out.println("Enter the Colomn Letter Of the Seat You Would Like To Purchase");
             // gets first letter user types
-            char column = scan.next().charAt(0);
+            char column = sc.next().charAt(0);
 
             c.getRoom_List().get(selectedRoomNumber - 1).selectSeat(row, column);
+            if (!c.getRoom_List().get(selectedRoomNumber - 1).selectSeat(row, column)) {
+                System.out.println("The seat has been taken ;-;");
+                return;
+            }   
             seat = row + "" + column;
+
+            if (seat.length() > 3) {
+                return;
+            }
 
             System.out.println("Seat Selected: " + seat);
         } catch (InputMismatchException e) {
             System.out.println("You Have Entered An Incorrect Option (Code 600)");
         }
 
-        System.out.println("Confirm Purchase? Y/N");
-
         try {
-            comfirmation = scan.nextLine();
-            if (comfirmation.equalsIgnoreCase("y")) {
+            
+                if(seat == "") {
+                    return;
+                }
                 System.out.println("Ticket Purchased");
+
+                
+
                 tickets.add(new Ticket(todaysDate, m, m.getTime(), seat));
                 System.out.println("Your Ticket: \n");
 
                 tickets.get(tickets.size() - 1).displayTicket(age);
+            } catch (Exception e) {
+                System.out.println("An Error Has Occcured (Code 600)");
+                return;
             }
 
-        } catch (InputMismatchException e) {
-            System.out.println("You Have Entered An Incorrect Option (Code 600)");
-        }
+        } 
 
-    }
+    
 
     protected void displayPurchasedTickets(ArrayList<Ticket> t) {
         

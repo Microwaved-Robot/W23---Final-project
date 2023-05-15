@@ -113,7 +113,7 @@ public class Movie {
     // Check if the time of the movie is repeated by checking for the whole movie
     // duration
     protected boolean isTimeRepeated(Movie m) {
-        if (this.getTime().isBefore(m.getTime()) && this.getTime().plusMinutes(length).isBefore(m.getTime())) {
+        if (this.getTime().isAfter(m.getTime()) && this.getTime().plusMinutes(length).isBefore(m.getTime())) {
             this.getTime().minusMinutes(length);
             return true;
         } else {

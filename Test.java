@@ -12,30 +12,26 @@ public class Test {
     public static void main(String[] args) {
         // Cinema cinema = new Cinema(true);
         // cinemaConverter(cinema);
+        Cinema cinema = readJsonCinema();
+        cinema.getRoom_List().get(1).displaySeat();
+        cinema.getRoom_List().get(1).emptySeat(0, 1);
+        cinema.getRoom_List().get(1).displaySeat();
 
-        // HashMap<String, AdultClient> map = new HashMap<>();
-        // AdultClient c = new AdultClient("Zeyu", "Huang", 19);
-        // AdultClient c2 = new AdultClient("Machk", "Donaldo", 21);
-        // map.put(c.getName(), c);
-        // map.put(c2.getName(), c2);
-        // AdultClientConverter(map);
+    }
 
-        // HashMap<String, ChildClient> map2 = new HashMap<>();
-        // ChildClient a = new ChildClient("Samuel", "Boulay", 2);
-        // ChildClient a2 = new ChildClient("Ligma", "bowls", 14);
-        // map2.put(a.getName(), a);
-        // map2.put(a2.getName(), a2);
-        // childClientConverter(map2);
-
-        File file = new File("C:\\Users\\zeze3\\OneDrive\\Documents\\GitHub\\W23---Final-project\\Code\\Json\\cinema.json");
+    static Cinema readJsonCinema() {
+        File file = new File(
+                "Code\\Json\\cinema.json");
         ObjectMapper om = new ObjectMapper();
         om.registerModule(new JavaTimeModule());
-        Cinema cinema2 = null;
+        Cinema cinema = null;
         try {
-            cinema2 = om.readValue(file, Cinema.class);
+            cinema = om.readValue(file, Cinema.class);
         } catch (Exception e) {
             System.out.println(e);
+            System.exit(1);
         }
+        return cinema;
     }
 
     public static void cinemaConverter(Cinema cinema) {
