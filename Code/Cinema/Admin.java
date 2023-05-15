@@ -139,7 +139,7 @@ public class Admin extends Staff {
                     changeTicketPrice();
                     break;
                 case (9):
-                    hireStaff(staffArray, cinema);;
+                    hireStaff(staffArray, cinema);
                     break;
                 case (10):
                     fireStaff(staffArray);
@@ -210,6 +210,10 @@ public class Admin extends Staff {
 
             } catch (InputMismatchException ime) {
                 System.out.println("What you entered is not a string.");
+                flag = true;
+            } catch (IndexOutOfBoundsException iobe) {
+                System.out.println(
+                        "The name you entered does not belong to a staff member currently employed at the cinema please try again.");
                 flag = true;
             }
         } while (flag);

@@ -288,7 +288,7 @@ public class Cinema { // do a update all room for cinema room
     }
 
     /*----------------------------------Search and Sort Methods----------------------------------*/
-    public void bubbleSort(ArrayList<Staff> staff) {
+    public static void staffBubbleSort(ArrayList<Staff> staff) {
         for (int i = 1; i < staff.size(); i++) {
             for (int j = 0; j < staff.size() - 1; j++) {
                 if ((staff.get(j).getName().compareTo(staff.get(j + 1).getName())) > 0) {
@@ -323,7 +323,7 @@ public class Cinema { // do a update all room for cinema room
         return index;
     }
 
-    public void adminBubbleSort(ArrayList<Admin> admin) {
+    public static void adminBubbleSort(ArrayList<Admin> admin) {
         for (int i = 1; i < admin.size(); i++) {
             for (int j = 0; j < admin.size() - 1; j++) {
                 if ((admin.get(j).getName().compareTo(admin.get(j + 1).getName())) > 0) {
@@ -356,128 +356,6 @@ public class Cinema { // do a update all room for cinema room
             System.out.println("Element is not found!");
         }
         return index;
-    }
-
-    public Staff staffLogIn() {
-        int realPin = 0;
-        int pin = 0;
-        String answer = "";
-        String userName = "";
-        boolean flag = false;
-        do {
-            try {
-                System.out.print("Enter your userName: ");
-                userName = input.nextLine();
-                flag = false;
-                realPin = getStaffArray().get(binarySearch(getStaffArray(), userName)).getPin();
-            } catch (IndexOutOfBoundsException iobe) {
-                System.out.println("The name you entered does not match that of any staff member at the cinema.");
-                System.out.println("Please try again.");
-                flag = true;
-            }
-        } while (flag);
-        do {
-            do {
-
-                try {
-                    System.out.println("Enter your pin: ");
-                    pin = input.nextInt();
-                    flag = false;
-                } catch (InputMismatchException ime) {
-                    System.out.println("What you entered is not an integer.");
-                    System.out.println("Please try again.");
-                    flag = true;
-                }
-                input.nextLine();
-            } while (flag);
-
-            if (realPin != pin) {
-                System.out.println("The pin you entered is incorrect...");
-                do {
-
-                    try {
-                        System.out.println("Would you like to try again(Y or N)?");
-                        answer = input.nextLine();
-                        if (!answer.toLowerCase().equals("y") && !answer.toLowerCase().equals("n")) {
-                            throw new IllegalArgumentException();
-                        } else {
-                            flag = false;
-                        }
-                    } catch (IllegalArgumentException e) {
-                        System.out.println("You must enter a 'Y' or a 'N'.");
-                        System.out.println("Please try again.");
-                        flag = true;
-                    }
-                } while (flag);
-                if (answer.toLowerCase().equals("n")) {
-                    System.exit(1);
-                }
-            }
-
-        } while (realPin != pin);
-        System.out.println("Welcome back " + userName);
-        return getStaffArray().get(binarySearch(StaffArray, userName));
-    }
-
-    public Admin AdminLogIn() {
-        int pin = 0;
-        String answer = "";
-        String userName = "";
-        boolean flag = true;
-        int realPin = 0;
-        do {
-            do {
-                try {
-                    System.out.print("Enter your userName: ");
-                    userName = input.nextLine();
-                    flag = false;
-                    realPin = getAdminArray().get(AdminBinarySearch(getAdminArray(), userName)).getPin();
-                } catch (IndexOutOfBoundsException iobe) {
-                    System.out.println("The name you entered does not match that of any admin at the cinema.");
-                    System.out.println("Please try again.");
-                    flag = true;
-                }
-            } while (flag);
-
-            do {
-
-                try {
-                    System.out.println("Enter your pin: ");
-                    pin = input.nextInt();
-                    flag = false;
-                } catch (InputMismatchException ime) {
-                    System.out.println("What you entered is not an integer.");
-                    System.out.println("Please try again.");
-                    flag = true;
-                }
-                input.nextLine();
-            } while (flag);
-
-            if (realPin != pin) {
-                System.out.println("The pin you entered is incorrect...");
-                do {
-
-                    try {
-                        System.out.println("Would you like to try again(Y or N)?");
-                        answer = input.nextLine();
-                        if (!answer.toLowerCase().equals("y") && !answer.toLowerCase().equals("n")) {
-                            throw new IllegalArgumentException();
-                        } else {
-                            flag = false;
-                        }
-                    } catch (IllegalArgumentException e) {
-                        System.out.println("You must enter a 'Y' or a 'N'.");
-                        System.out.println("Please try again.");
-                        flag = true;
-                    }
-                } while (flag);
-                if (answer.toLowerCase().equals("n")) {
-                    System.exit(1);
-                }
-            }
-        } while (realPin != pin);
-        System.out.println("Welcome back " + userName);
-        return getAdminArray().get(AdminBinarySearch(getAdminArray(), userName));
     }
 
     /*----------------------------------Getter and Setters----------------------------------*/
