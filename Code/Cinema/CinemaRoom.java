@@ -165,17 +165,20 @@ public class CinemaRoom {
         }
     }
 
-    public void selectSeat(int row, char letter) {
+    public boolean selectSeat(int row, char letter) {
         letter = Character.toUpperCase(letter);
         int column = (int) letter - 65;
+        row--;
         if (isFull()) {
             System.out.println("The room is full :( ");
-            return;
+            return false;
         } else if (seats[column][row] == false) {
             seats[column][row] = true;
             System.out.println("Seat has been reserved :)");
+            return true;
         } else {
-            System.out.println("The seat has been taken ;-; ");
+            // System.out.println("The seat has been taken ;-; ");
+            return false;
         }
     }
 
@@ -263,11 +266,11 @@ public class CinemaRoom {
         System.out.println("Where X is taken and O is vacant.");
     }
 
-    protected void emptySeat(int row, int column) { // will have to be changed to notify the client that had the
+    public void emptySeat(int row, int column) { // will have to be changed to notify the client that had the
                                                     // reserved seat that his ticket is now terminated
-        if (seats[row][column] == true) {
+        // if (seats[row][column] == true) {
             seats[row][column] = false;
-        }
+        // }
     }
 
     protected void emptyAllSeat() {

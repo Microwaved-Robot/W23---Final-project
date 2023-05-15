@@ -124,6 +124,10 @@ abstract class Client {
             char column = sc.next().charAt(0);
 
             c.getRoom_List().get(selectedRoomNumber - 1).selectSeat(row, column);
+            if (!c.getRoom_List().get(selectedRoomNumber - 1).selectSeat(row, column)) {
+                System.out.println("The seat has been taken ;-;");
+                return;
+            }   
             seat = row + "" + column;
 
             if (seat.length() > 3) {

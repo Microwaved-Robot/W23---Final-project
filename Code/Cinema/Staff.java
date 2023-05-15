@@ -234,9 +234,10 @@ public class Staff {
     void emptyRoomSeat(Cinema cinema) {
         String answer = "";
         int roomNum = -1;
-        int seatCollumn = -1;
+        char seatCollumn = '\0';
         int seatRow = -1;
         boolean flag = false;
+        int column = 0;
         do {
             do {
 
@@ -273,7 +274,8 @@ public class Staff {
 
                     System.out.println("Enter the integer corresponding to the seats row: ");
                     seatRow = input.nextInt();
-
+                    input.nextLine();
+                    seatRow--;
                     if (seatRow < 0) {
                         throw new IllegalArgumentException();
                     } else if (seatRow > cinema.getRoom_List().get(roomNum).getSeats()[0].length) {
@@ -295,24 +297,27 @@ public class Staff {
             do {
                 try {
                     System.out.println("Enter the letter corresponding to the seats position(A = 1, B = 2, etc...): ");
-                    seatCollumn = input.nextInt();
-                    if (seatCollumn < 0) {
+                    seatCollumn = input.nextLine().charAt(0);
+                    Character.toUpperCase(seatCollumn);
+                    column = (int)seatCollumn - 65;
+                    if (column < 0) {
                         throw new IllegalArgumentException();
-                    } else if (seatCollumn > cinema.getRoom_List().get(roomNum).getSeats().length) {
+                    } else if (column > cinema.getRoom_List().get(roomNum).getSeats().length) {
                         throw new IllegalArgumentException();
                     } else {
                         flag = false;
                     }
                 } catch (IllegalArgumentException iae) {
-                    System.out.print("The integer entered does not correspond to anny seat.");
-                    System.out.println("Please enter an integer between 0 and "
-                            + cinema.getRoom_List().get(roomNum).getSeats().length);
+                    System.out.print("The letter entered does not correspond to any seat. ");
+                    System.out.println("Please enter an letter between A and "
+                            + (char)(cinema.getRoom_List().get(roomNum).getSeats().length) + 65);
                     flag = true;
                 }
 
             } while (flag);
 
-            emptySeat(cinema, roomNum, seatRow, seatCollumn);
+            System.out.println(column + " " + seatRow);
+            emptySeat(cinema, roomNum, seatRow, column);
 
             do {
 
@@ -518,7 +523,9 @@ public class Staff {
     }
 
     private void emptySeat(Cinema cinema, int roomNum, int row, int column) {
-        cinema.getRoom_List().get(roomNum).emptySeat(row, column);
+        cinema.getRoom_List().get(roomNum).emptySeat(column, row);
+        cinema.getRoom_List().get(roomNum).displaySeat();
+        System.out.println(row + " " + column);
     }
 
     // ------------------------- getters and setters
