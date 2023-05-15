@@ -25,32 +25,7 @@ public class Cinema { // do a update all room for cinema room
     public Cinema(boolean isNotDefault) {
         int number = 0;
         boolean flag = false;
-
-        do {
-            try {
-                System.out.print("Enter the number of Staff: ");
-                number = input.nextInt();
-                if (number <= 0) {
-                    throw new IllegalArgumentException("Negative number");
-                }
-                flag = false;
-            } catch (IllegalArgumentException e) {
-                System.out.println("The input needs to be bigger than 0.");
-                flag = true;
-            } catch (InputMismatchException e) {
-                System.out.println("The input needs to be a number.");
-                flag = true;
-            }
-        } while (flag);
-        System.out.println();
-        StaffArray = new ArrayList<>();
-        for (int i = 0; i < number; i++) {
-            System.out.println("For the " + (i + 1) + " staff: ");
-            Staff staff = new Staff(true);
-            StaffArray.add(staff);
-            System.out.println();
-        }
-
+        
         do {
             try {
                 System.out.print("Enter the number of Movie the cinema is showing: ");
