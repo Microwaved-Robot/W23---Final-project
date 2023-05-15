@@ -33,10 +33,10 @@ public class Main {
         }
         sorter(cinema.getAdminArray(), cinema.getStaffArray());
 
-        userIdentifier(cinema, child_Data, adult_Data);
+        userIdentifier(cinema, child_Data, adult_Data, adminArray, staffArray);
     }
 
-    public Staff staffLogIn(ArrayList<Staff> staffArray) {
+    public static Staff staffLogIn(ArrayList<Staff> staffArray) {
         int realPin = 0;
         int pin = 0;
         String answer = "";
@@ -97,7 +97,7 @@ public class Main {
         return staffArray.get(Cinema.binarySearch(staffArray, userName));
     }
 
-    public Admin AdminLogIn(ArrayList<Admin> adminArray) {
+    public static Admin AdminLogIn(ArrayList<Admin> adminArray) {
         int pin = 0;
         String answer = "";
         String userName = "";
@@ -168,7 +168,7 @@ public class Main {
     }
 
     static void userIdentifier(Cinema cinema, HashMap<String, ChildClient> child_Data,
-            HashMap<String, AdultClient> adult_Data) {
+            HashMap<String, AdultClient> adult_Data, ArrayList<Admin> adminArray, ArrayList<Staff> staffArray) {
         boolean flag = true, flag2 = true;
         int reply = 0;
         do {
@@ -242,7 +242,7 @@ public class Main {
                     staffLogIn(staffArray).staffUI();
                     break;
                 case (3):
-                    AdminLogIn(staffArray).adminUI(cinema);
+                    AdminLogIn(adminArray).adminUI(cinema, staffArray);
                     break;
                 case 4:
                     flag2 = false;
