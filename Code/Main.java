@@ -27,11 +27,11 @@ public class Main {
         HashMap<String, AdultClient> adult_Data = readJsonAdult();
         ArrayList<Admin> adminArray = readJsonAdmin();
         ArrayList<Staff> staffArray = readJsonStaff();
-
+      
         if (cinema == null) {
-            cinema = new Cinema(false);
+            cinema = new Cinema(false, adminArray, staffArray);
         }
-        // sorter(cinema.getAdminArray(), cinema.getStaffArray());
+        sorter(adminArray, staffArray);
 
         userIdentifier(cinema, child_Data, adult_Data, adminArray, staffArray);
     }
@@ -241,7 +241,7 @@ public class Main {
                     }
                     break;
                 case (2):
-                    staffLogIn(staffArray).staffUI();
+                    staffLogIn(staffArray).staffUI(cinema);
                     break;
                 case (3):
                     AdminLogIn(adminArray).adminUI(cinema, staffArray);

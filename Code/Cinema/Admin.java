@@ -12,8 +12,8 @@ public class Admin extends Staff {
         super();
     }
 
-    public Admin(String name, int age, Cinema cinemaOfEmployment, int PIN) {
-        super(name, age, cinemaOfEmployment, PIN);
+    public Admin(String name, int age, int PIN) {
+        super(name, age, PIN);
     }
 
     public Admin(Cinema cinema) {
@@ -43,8 +43,6 @@ public class Admin extends Staff {
             }
         } while (flag);
 
-        this.cinemaOfEmployement = cinema;
-
         do {
             try {
                 System.out.print("Enter admin's pin: ");
@@ -71,7 +69,6 @@ public class Admin extends Staff {
                 flag = true;
             }
         } while (flag);
-        this.cinemaOfEmployement = null;
         do {
             try {
                 System.out.println("Enter admin's pin: ");
@@ -114,37 +111,37 @@ public class Admin extends Staff {
 
             switch (reply) {
                 case (1):
-                    displayMovieQueue();
+                    displayMovieQueue(cinema);
                     break;
                 case (2):
-                    addMovieToQueue();
+                    addMovieToQueue(cinema);
                     break;
                 case (3):
-                    removeMovieFromQueue();
+                    removeMovieFromQueue(cinema);
                     break;
                 case (4):
-                    createMovie();
+                    createMovie(cinema);
                     break;
                 case (5):
-                    emptyRoomSeat();
+                    emptyRoomSeat(cinema);
                     break;
                 case (6):
-                    emptyAllRoomSeats();
+                    emptyAllRoomSeats(cinema);
                     break;
                 case (7):
-                    displayRoomSeating();
+                    displayRoomSeating(cinema);
                     break;
                 case (8):
                     changeTicketPrice();
                     break;
                 case (9):
-                    hireStaff(staffArray, cinema);
+                    hireStaff(staffArray);
                     break;
                 case (10):
                     fireStaff(staffArray);
                     break;
                 case (11):
-                    resetCinema();
+                    resetCinema(cinema);
                     break;
             }
             do {
@@ -178,7 +175,7 @@ public class Admin extends Staff {
 
     // option 7 is used to hire staff
     // all that's left is to test and exception handling
-    void hireStaff(ArrayList<Staff> staffArray, Cinema cinema) {
+    void hireStaff(ArrayList<Staff> staffArray) {
         String name = "";
         boolean flag = false;
         do {
@@ -191,7 +188,7 @@ public class Admin extends Staff {
                 flag = true;
             }
         } while (flag);
-        staffArray.add(new Staff(name, cinema));
+        staffArray.add(new Staff(name));
         input.nextLine();
     }
 
@@ -221,12 +218,9 @@ public class Admin extends Staff {
     }
 
     // option 11 resets the cinema
-    // All that's left is test and exception handling
-    void resetCinema() {
-        // cinemaOfEmployement.setAdminArray(null);
-        // cinemaOfEmployement.setStaffArray(null);
-        cinemaOfEmployement.setMovie_List(null);
-        cinemaOfEmployement.setRoom_List(null);
+    void resetCinema(Cinema cinema) {
+        cinema.setMovie_List(null);
+        cinema.setRoom_List(null);
         System.out.println("The cinema has been reset.");
         input.nextLine();
     }
