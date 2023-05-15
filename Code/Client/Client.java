@@ -14,6 +14,7 @@ abstract class Client {
     protected String name;
     protected int age;
     protected ArrayList<Ticket> tickets = new ArrayList<>();
+    Scanner scan = new Scanner(System.in);
 
     /*
      * protected static int LinearSearchForTicketsByMovieName(ArrayList<Ticket> t,
@@ -48,8 +49,6 @@ abstract class Client {
 
     protected void purchaseTicket(Cinema c) {
 
-        Scanner sc = new Scanner(System.in);
-
         System.out.println("Currently The Standard Movie Rate is $" + Ticket.price);
 
         System.out.println("Showtimes: ");
@@ -66,7 +65,8 @@ abstract class Client {
 
 
         System.out.println("Enter Movie Index To Purchase Ticket: ");
-        movieSelection = sc.nextInt();
+        movieSelection = scan.nextInt();
+        scan.nextLine();
 
         Movie m = null;
 
@@ -93,11 +93,9 @@ abstract class Client {
             r.displaySeat();
         } catch (InputMismatchException e) {
             System.out.println("You Have Entered An Incorrect Option (Code 600)");
-            sc.close();
             return;
         } catch (RuntimeException e) {
             System.out.println("An Error Has Occured! (Code 601)");
-            sc.close();
             return;
         }
 
@@ -106,11 +104,11 @@ abstract class Client {
         String seat = "";
 
         try {
-            int row = sc.nextInt();
+            int row = scan.nextInt();
 
             System.out.println("Enter the Colomn Letter Of the Seat You Would Like To Purchase");
             // gets first letter user types
-            char column = sc.next().charAt(0);
+            char column = scan.next().charAt(0);
 
             seat = row + "" + column;
 
@@ -122,8 +120,6 @@ abstract class Client {
         System.out.println("Confirm Purchase? Y/N");
 
         try {
-
-            Scanner scan = new Scanner(System.in);
             comfirmation = scan.nextLine();
             if (comfirmation.equalsIgnoreCase("y")) {
                 System.out.println("Ticket Purchased");

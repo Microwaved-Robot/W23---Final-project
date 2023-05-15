@@ -1,14 +1,1 @@
-{
-    "Machk": {
-        "name": "Machk",
-        "age": 21,
-        "tickets": [],
-        "lastName": "Donaldo"
-    },
-    "Zeyu": {
-        "name": "Zeyu",
-        "age": 19,
-        "tickets": [],
-        "lastName": "Huang"
-    }
-}
+{"Machk":{"name":"Machk","age":21,"tickets":[],"lastName":"Donaldo"},"Zeyu":{"name":"Zeyu","age":19,"tickets":[],"lastName":"Huang"}}

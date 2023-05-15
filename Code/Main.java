@@ -34,6 +34,18 @@ public class Main {
         sorter(adminArray, staffArray);
 
         userIdentifier(cinema, child_Data, adult_Data, adminArray, staffArray);
+        saveAll(cinema, child_Data, adult_Data, adminArray, staffArray);
+
+        System.out.println("Have a good day :)");
+    }
+
+    public static void saveAll(Cinema cinema, HashMap<String, ChildClient> child_Data,
+            HashMap<String, AdultClient> adult_Data, ArrayList<Admin> adminArray, ArrayList<Staff> staffArray) {
+        cinemaConverter(cinema);
+        adminConverter(adminArray);
+        staffConverter(staffArray);
+        adultClientConverter(adult_Data);
+        childClientConverter(child_Data);        
     }
 
     public static Staff staffLogIn(ArrayList<Staff> staffArray) {

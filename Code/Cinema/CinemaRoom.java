@@ -230,9 +230,9 @@ public class CinemaRoom {
                 // Print X or O depending on the seat available : X meaning not available and O
                 // the contrary
                 if (seats[i][j] == false) {
-                    System.out.print(" X");
-                } else {
                     System.out.print(" O");
+                } else {
+                    System.out.print(" X");
                 }
                 if (flag == false) {
                     j++;
