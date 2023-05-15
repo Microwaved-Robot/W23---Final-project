@@ -1,8 +1,8 @@
 [
     {
-        "name": "Zeyu",
+        "name": "Mackenzie",
         "age": 17,
-        "pin": 777
+        "pin": 123
     },
     {
         "name": "Samuel",
@@ -10,8 +10,8 @@
         "pin": 12345
     },
     {
-        "name": "Mackenzie",
+        "name": "Zeyu",
         "age": 17,
-        "pin": 123
+        "pin": 777
     }
 ]
