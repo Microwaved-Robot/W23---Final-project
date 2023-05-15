@@ -25,8 +25,8 @@ public class Main {
         Cinema cinema = readJsonCinema();
         HashMap<String, ChildClient> child_Data = readJsonChild();
         HashMap<String, AdultClient> adult_Data = readJsonAdult();
-        ArrayList<Admin> AdminArray = readJsonAdmin();
-        ArrayList<Staff> StaffArray = readJsonStaff();
+        ArrayList<Admin> adminArray = readJsonAdmin();
+        ArrayList<Staff> staffArray = readJsonStaff();
 
         if (cinema == null) {
             cinema = new Cinema(false);

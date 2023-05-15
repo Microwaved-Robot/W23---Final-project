@@ -87,7 +87,7 @@ public class Admin extends Staff {
     }
 
     // ------------------------------------- start admin UI
-    public void adminUI(Cinema cinema) {
+    public void adminUI(Cinema cinema, ArrayList<Staff> staffArray) {
         int reply = 0;
         String answer = "";
         boolean flag = true;
@@ -139,10 +139,10 @@ public class Admin extends Staff {
                     changeTicketPrice();
                     break;
                 case (9):
-                    hireStaff(cinema);
+                    hireStaff(staffArray, cinema);;
                     break;
                 case (10):
-                    fireStaff(cinema);
+                    fireStaff(staffArray);
                     break;
                 case (11):
                     resetCinema();
@@ -179,7 +179,7 @@ public class Admin extends Staff {
 
     // option 7 is used to hire staff
     // all that's left is to test and exception handling
-    void hireStaff(Cinema cinema) {
+    void hireStaff(ArrayList<Staff> staffArray, Cinema cinema) {
         String name = "";
         boolean flag = false;
         do {
@@ -192,20 +192,20 @@ public class Admin extends Staff {
                 flag = true;
             }
         } while (flag);
-        cinema.getStaffArray().add(new Staff(name, cinema));
+        staffArray.add(new Staff(name, cinema));
         input.nextLine();
     }
 
     // option 8 is used to fire staff
     // all that's left is to test
-    void fireStaff(Cinema cinema) {
-        System.out.println(cinema.getStaffArray().toString());
+    void fireStaff(ArrayList<Staff> staffArray) {
+        System.out.println(staffArray.toString());
         int index = -1;
         boolean flag = true;
         do {
             try {
                 System.out.println("Enter the staff member's username: ");
-                index = binarySearch(cinema.getStaffArray(), input.nextLine());
+                index = binarySearch(staffArray, input.nextLine());
                 flag = false;
 
             } catch (InputMismatchException ime) {
@@ -213,7 +213,7 @@ public class Admin extends Staff {
                 flag = true;
             }
         } while (flag);
-        cinema.getStaffArray().remove(index);
+        staffArray.remove(index);
         input.nextLine();
     }
 
