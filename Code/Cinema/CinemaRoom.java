@@ -270,8 +270,8 @@ public class CinemaRoom {
                     + " at " + movie_List.getFirst().getTime());
         } else {
             System.out.println("The movies are : ");
-            for (int i = 0; i < movie_List.size(); i++) {
-                if (i != movie_List.size() - 1) {
+            for (int i = 0; i < movie_List.size() - 1; i++) {
+                if (i != movie_List.size() - 2) {
                     System.out.print(movie_List.get(i).getName() + " at " + movie_List.get(i).getTime() + " && ");
                 } else {
                     System.out.println(movie_List.get(i).getName() + " at " + movie_List.getLast().getTime());
