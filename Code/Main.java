@@ -28,15 +28,10 @@ public class Main {
         ArrayList<Admin> adminArray = readJsonAdmin();
         ArrayList<Staff> staffArray = readJsonStaff();
 
-        // if (cinema == null) {
-        // cinema = new Cinema(false);
-        // }
-        // // sorter(cinema.getAdminArray(), cinema.getStaffArray());
-
         if (cinema == null) {
-            cinema = new Cinema(false, adminArray, staffArray);
+            cinema = new Cinema(false);
         }
-        sorter(adminArray, staffArray);
+        sorter(cinema.getAdminArray(), cinema.getStaffArray());
 
         userIdentifier(cinema, child_Data, adult_Data, adminArray, staffArray);
     }
@@ -183,6 +178,7 @@ public class Main {
                     System.out.printf("%s\n%s\n%s\n%s\n%s\n", "Welcome, are you a:", "1) Client", "2) Staff member",
                             "3) Administrator", "4) Exit");
                     reply = input.nextInt();
+                    input.nextLine();
                     if (reply < 1 || reply > 4) {
                         throw new IllegalArgumentException();
                     } else {
@@ -255,7 +251,6 @@ public class Main {
                     break;
             }
         } while (flag2);
-        input.nextLine();
     }
 
     public static ArrayList<Staff> addStaff(Cinema cinema) {
