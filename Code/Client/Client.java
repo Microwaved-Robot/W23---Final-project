@@ -130,7 +130,7 @@ abstract class Client {
                 tickets.add(new Ticket(todaysDate, m, m.getTime(), seat));
                 System.out.println("Your Ticket: \n");
 
-                tickets.get(tickets.size() - 1).displayTicket();
+                tickets.get(tickets.size() - 1).displayTicket(age);
             }
 
         } catch (InputMismatchException e) {
@@ -151,12 +151,9 @@ abstract class Client {
             
             System.out.println(i+1 + ".");
             System.out.println();
-            System.out.println("--------------------");
+            t.get(i).displayTicket(this.age);
             System.out.println();
-            t.get(i).displayTicket();
-            System.out.println();
-            System.out.println("--------------------");
-            System.out.println();
+            
 
             
 

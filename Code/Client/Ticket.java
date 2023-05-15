@@ -10,7 +10,7 @@ public class Ticket extends Client implements TicketPrice {
     protected LocalDateTime movieDate;
     static public double price = 20.00; // this is the price of all movies
     final static public double Daydiscount = 5.0; // how much the day discount is, how much money will be discounted
-    final static public double childDiscount = 10.0; // how much money will be discounted because the client is a child
+    
     protected String seat;
 
     // constructor
@@ -36,7 +36,7 @@ public class Ticket extends Client implements TicketPrice {
             result = price + calculateTax(price) - Daydiscount(m);
         } else {
             // return kid price of movie
-            result = price + calculateTax(price) - ChildDiscount() - Daydiscount(m);
+            result = price + calculateTax(price) - Daydiscount(m);
         }
 
         if (result > 1.00) {
@@ -67,12 +67,8 @@ public class Ticket extends Client implements TicketPrice {
     }
 
     @Override
-    public double ChildDiscount() {
-        return childDiscount;
-    }
+    public void displayTicket(int age) {
 
-    @Override
-    public void displayTicket() {
         System.out.println("-----------------------------------");
         System.out.println("Date purchased: " + datePurchased);
         System.out.println("Movie: " + movie);
@@ -114,9 +110,7 @@ public class Ticket extends Client implements TicketPrice {
         return Daydiscount;
     }
 
-    public double getChildDiscount() {
-        return childDiscount;
-    }
+    
 
     public String getSeat() {
         return seat;
@@ -134,8 +128,6 @@ public class Ticket extends Client implements TicketPrice {
         this.datePurchased = datePurchased;
     }
 
-    public static double getChilddiscount() {
-        return childDiscount;
-    }    
+       
 
 }

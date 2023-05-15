@@ -95,7 +95,6 @@ public class ChildClient extends Client {
         System.out.println();
         System.out.println("Standard Rate for Movie: " + Ticket.price);
         System.out.println("Discount on Tuesdays: " + Ticket.Daydiscount);
-        System.out.println("Discount For Children Under 18: " + Ticket.childDiscount);
         System.out.println();
     }
 
