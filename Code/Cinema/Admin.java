@@ -124,7 +124,6 @@ public class Admin extends Staff {
                     break;
                 case (4):
                     createMovie();
-                    ;
                     break;
                 case (5):
                     emptyRoomSeat();
