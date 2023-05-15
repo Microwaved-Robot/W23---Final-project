@@ -22,7 +22,7 @@ public class Staff {
         // default
     }
 
-    public Staff(boolean ignore) {
+    public Staff(Cinema cinema) {
         boolean flag = true;
         do {
             try {
