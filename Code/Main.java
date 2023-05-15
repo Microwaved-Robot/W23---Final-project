@@ -208,50 +208,52 @@ public class Main {
             } while (flag);
             switch (reply) {
                 case (1):
-                    int age = -1;
-                    do {
-                        try {
-                            System.out.print("Enter you age: ");
-                            age = input.nextInt();
-                            input.nextLine();
-                            if (age > 116) {
-                                System.out.println("Wow you are the oldest human alive o_o");
-                            }
-                            if (age <= 0) {
-                                throw new IllegalArgumentException("Negative age");
-                            }
+                int age = -1;
+                flag = true;
+                
+                do {
+                    try {
+                        System.out.print("Enter your age: ");
+                        age = input.nextInt();
+                        input.nextLine();
+                
+                        if (age > 116) {
+                            System.out.println("Wow, you are the oldest human alive o_o");
+                        } else if (age <= 0) {
+                            throw new IllegalArgumentException("Age must be positive.");
+                        } else {
                             flag = false;
-                        } catch (InputMismatchException e) {
-                            System.out.println("Enter a integer");
-                            flag = true;
-                        } catch (IllegalArgumentException e) {
-                            System.out.println("Enter a number above 0");
-                            flag = true;
                         }
-                    } while (flag);
-
-                    if (age < 18) {
-                        System.out.print("Enter your first name: ");
-                        String name = input.nextLine();
-                        if (child_Data.get(name) == null) {
-                            System.out.println("You are a new client!!!");
-                            ChildClient client = new ChildClient(name, age);
-                            child_Data.put(name, client);
-                        }
-                        System.out.println();
-                        child_Data.get(name).runChildClient(cinema);
+                    } catch (InputMismatchException e) {
+                        System.out.println("Please enter an integer.");
+                        input.nextLine(); // consume the invalid input
+                    } catch (IllegalArgumentException e) {
+                        System.out.println(e.getMessage());
                     }
-                    if (age > 18) {
-                        System.out.println("Enter your first name");
-                        String name = input.nextLine();
-                        if (child_Data.get(name) == null) {
-                            System.out.println("You are a new client!!!");
-                            AdultClient client = new AdultClient(name, age);
-                            adult_Data.put(name, client);
-                        }
-                        adult_Data.get(name).runAdultClient(cinema);
+                } while (flag);
+                
+                if (age < 18) {
+                    System.out.print("Enter your first name: ");
+                    String name = input.nextLine();
+                    if (child_Data.get(name) == null) {
+                        System.out.println("You are a new client!!!");
+                        ChildClient client = new ChildClient(name, age);
+                        child_Data.put(name, client);
                     }
-                    break;
+                    System.out.println();
+                    child_Data.get(name).runChildClient(cinema);
+                } else {
+                    System.out.println("Enter your first name: ");
+                    String name = input.nextLine();
+                    if (adult_Data.get(name) == null) {
+                        System.out.println("You are a new client!!!");
+                        AdultClient client = new AdultClient(name, age);
+                        adult_Data.put(name, client);
+                    }
+                    adult_Data.get(name).runAdultClient(cinema);
+                }
+                
+                break;
                 case (2):
                     staffLogIn(staffArray).staffUI(cinema);
                     break;

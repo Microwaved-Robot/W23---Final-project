@@ -49,6 +49,8 @@ abstract class Client {
 
     protected void purchaseTicket(Cinema c) {
 
+        Scanner sc = new Scanner(System.in);
+
         System.out.println("Currently The Standard Movie Rate is $" + Ticket.price);
 
         System.out.println("Showtimes: ");
@@ -68,7 +70,7 @@ abstract class Client {
 
 
         try {
-            movieSelection = scan.nextInt();
+            movieSelection = sc.nextInt();
         } catch (InputMismatchException e) {
             System.out.println("Enter a valid Number Next Time!");
             return;
@@ -111,14 +113,22 @@ abstract class Client {
         String seat = "";
 
         try {
-            int row = scan.nextInt();
+            int row = sc.nextInt();
+
+            if(row > 26) {
+                return;
+            }
 
             System.out.println("Enter the Colomn Letter Of the Seat You Would Like To Purchase");
             // gets first letter user types
-            char column = scan.next().charAt(0);
+            char column = sc.next().charAt(0);
 
             c.getRoom_List().get(selectedRoomNumber - 1).selectSeat(row, column);
             seat = row + "" + column;
+
+            if (seat.length() > 3) {
+                return;
+            }
 
             System.out.println("Seat Selected: " + seat);
         } catch (InputMismatchException e) {
@@ -127,7 +137,13 @@ abstract class Client {
 
         try {
             
+                if(seat == "") {
+                    return;
+                }
                 System.out.println("Ticket Purchased");
+
+                
+
                 tickets.add(new Ticket(todaysDate, m, m.getTime(), seat));
                 System.out.println("Your Ticket: \n");
 
