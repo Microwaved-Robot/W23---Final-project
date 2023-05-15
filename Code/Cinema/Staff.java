@@ -128,6 +128,31 @@ public class Staff {
 
     // option 2) add movie to queue options
     // All that's left is to test
+    void addMovieToQueue(Cinema cinema, Movie movie) {
+        String answer = "";
+        int roomNum = -1;
+        do {
+            try {
+                System.out.println("Which room with you be adding the movie to? (enter intiger from 1 to "
+                        + cinema.getRoom_List().size() + "): ");
+                roomNum = input.nextInt() - 1;
+                cinema.getRoom_List().get(roomNum).addMovieToQueue(movie);
+                if (roomNum < 0) {
+                    throw new IllegalArgumentException("Your number must be positive, please try again.");
+                } else {
+                    input.nextLine();
+                }
+            } catch (IllegalArgumentException iae) {
+                System.out.println(iae.getMessage());
+            } catch (InputMismatchException ime) {
+                System.out.println("You must enter an integer value, please try again.");
+            } catch (NullPointerException npe) {
+
+            }
+        } while (answer.toLowerCase().equals("y"));
+        input.nextLine();
+    }
+
     void addMovieToQueue(Cinema cinema) {
         boolean flag = true;
         String answer = "";
@@ -137,7 +162,9 @@ public class Staff {
                 System.out.println("Which room with you be adding the movie to? (enter intiger from 1 to "
                         + cinema.getRoom_List().size() + "): ");
                 roomNum = input.nextInt() - 1;
-                cinema.getRoom_List().get(roomNum).addMovieToQueue(new Movie(false));
+                Movie movie = new Movie(true);
+                cinema.getRoom_List().get(roomNum).addMovieToQueue(movie);
+                cinema.getMovie_List().add(movie);
                 if (roomNum < 0) {
                     throw new IllegalArgumentException("Your number must be positive, please try again.");
                 } else {
@@ -225,8 +252,9 @@ public class Staff {
 
     // option 4
     void createMovie(Cinema cinema) {
-        cinema.getMovie_List().add(new Movie(true));
-        input.nextLine();
+        Movie movie = new Movie(true);
+        cinema.getMovie_List().add(movie);
+        addMovieToQueue(cinema, movie);
     }
 
     // option 5 remove seats

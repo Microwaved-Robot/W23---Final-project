@@ -97,7 +97,7 @@ public class Admin extends Staff {
                             .println("Enter the number that corresponds to the action you would like to perform: ");
                     reply = input.nextInt();
                     input.nextLine();
-                    if (reply < 0 || reply > 10) {
+                    if (reply < 0 || reply > 11) {
                         throw new IllegalArgumentException();
                     } else {
                         flag = false;
