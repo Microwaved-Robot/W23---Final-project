@@ -252,6 +252,38 @@ public class Main {
         input.nextLine();
     }
 
+    public ArrayList<Admin> addAdmin(Cinema cinema) {
+        int number = 0;
+        boolean flag = false;
+        ArrayList<Admin> adminArray = new ArrayList<>();
+
+        do {
+            try {
+                System.out.print("Enter the number of Admin: ");
+                number = input.nextInt();
+                if (number <= 0) {
+                    throw new IllegalArgumentException("Negative number");
+                }
+                flag = false;
+            } catch (IllegalArgumentException e) {
+                System.out.println("The input needs to be bigger than 0.");
+                flag = true;
+            } catch (InputMismatchException e) {
+                System.out.println("The input needs to be a number.");
+                flag = true;
+            }
+        } while (flag);
+        System.out.println();
+        for (int i = 0; i < number; i++) {
+            System.out.println("For the " + (i + 1) + " admin: ");
+            Admin admin = new Admin(cinema);
+            adminArray.add(admin);
+            System.out.println();
+        }
+        return adminArray;
+    }
+
+    /*----------------------------------JSON read Method----------------------------------*/
     static Cinema readJsonCinema() {
         File file = new File(
                 "Code\\Json\\cinema.json");
