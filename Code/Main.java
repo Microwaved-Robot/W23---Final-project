@@ -25,6 +25,8 @@ public class Main {
         Cinema cinema = readJsonCinema();
         HashMap<String, ChildClient> child_Data = readJsonChild();
         HashMap<String, AdultClient> adult_Data = readJsonAdult();
+        ArrayList<Admin> adminArray = readJsonAdmin();
+        ArrayList<Staff> staffArray = readJsonStaff();
 
         if (cinema == null) {
             cinema = new Cinema(false);
@@ -215,13 +217,14 @@ public class Main {
                     } while (flag);
 
                     if (age < 18) {
-                        System.out.println("Enter your first name");
+                        System.out.print("Enter your first name: ");
                         String name = input.nextLine();
                         if (child_Data.get(name) == null) {
                             System.out.println("You are a new client!!!");
                             ChildClient client = new ChildClient(name, age);
                             child_Data.put(name, client);
                         }
+                        System.out.println();
                         child_Data.get(name).runChildClient(cinema);
                     }
                     if (age > 18) {
@@ -298,6 +301,40 @@ public class Main {
         return client_Map;
     }
 
+    static ArrayList<Admin> readJsonAdmin() {
+        File file = new File(
+                "Code\\Json\\Admin.json");
+        ObjectMapper om = new ObjectMapper();
+        om.registerModule(new JavaTimeModule());
+        ArrayList<Admin> list = null;
+        try {
+            TypeReference<ArrayList<Admin>> typeRef = new TypeReference<ArrayList<Admin>>() {
+            };
+            list = om.readValue(file, typeRef);
+        } catch (Exception e) {
+            System.out.println(e);
+            System.exit(1);
+        }
+        return list;
+    }
+
+    static ArrayList<Staff> readJsonStaff() {
+        File file = new File(
+                "Code\\Json\\Staff.json");
+        ObjectMapper om = new ObjectMapper();
+        om.registerModule(new JavaTimeModule());
+        ArrayList<Staff> list = null;
+        try {
+            TypeReference<ArrayList<Staff>> typeRef = new TypeReference<ArrayList<Staff>>() {
+            };
+            list = om.readValue(file, typeRef);
+        } catch (Exception e) {
+            System.out.println(e);
+            System.exit(1);
+        }
+        return list;
+    }
+
     /*----------------------------------JSON Converter Method----------------------------------*/
     public static void cinemaConverter(Cinema cinema) {
         ObjectMapper mapper = new ObjectMapper();
@@ -330,6 +367,30 @@ public class Main {
                 "Code\\Json\\ChildClient.json");
         try {
             mapper.writeValue(file, client_Map);
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+    }
+
+    public static void StaffConverter(ArrayList<Staff> staff_List) {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+        File file = new File(
+                "C:\\Users\\zeze3\\OneDrive\\Documents\\GitHub\\W23---Final-project\\Code\\Json\\Staff.json");
+        try {
+            mapper.writeValue(file, staff_List);
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+    }
+
+    public static void AdminConverter(ArrayList<Admin> Admin_List) {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+        File file = new File(
+                "C:\\Users\\zeze3\\OneDrive\\Documents\\GitHub\\W23---Final-project\\Code\\Json\\Admin.json");
+        try {
+            mapper.writeValue(file, Admin_List);
         } catch (IOException e) {
             System.out.println(e);
         }

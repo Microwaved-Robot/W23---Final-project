@@ -138,7 +138,7 @@ public class Admin extends Staff {
                     changeTicketPrice();
                     break;
                 case (9):
-                    hireStaff(staffArray);
+                    hireStaff(staffArray, cinema);
                     break;
                 case (10):
                     fireStaff(staffArray);
@@ -178,7 +178,7 @@ public class Admin extends Staff {
 
     // option 7 is used to hire staff
     // all that's left is to test and exception handling
-    void hireStaff(ArrayList<Staff> staffArray) {
+    void hireStaff(ArrayList<Staff> staffArray, Cinema cinema) {
         String name = "";
         boolean flag = false;
         do {
@@ -191,7 +191,7 @@ public class Admin extends Staff {
                 flag = true;
             }
         } while (flag);
-        staffArray.add(new Staff(name));
+        staffArray.add(new Staff(name, cinema));
         input.nextLine();
     }
 

@@ -4,25 +4,25 @@
     "numberOfRoom": 2,
     "movie_List": [
         {
-            "name": "Oshi no Ko ep1",
+            "name": "yes",
             "length": 90,
             "time": [
-                2023,
-                7,
-                20,
-                14,
-                30
+                2,
+                2,
+                23,
+                2,
+                12
             ]
         },
         {
-            "name": "I Want to Eat Your Pancreas (its a movie trust)",
-            "length": 100,
+            "name": "eeeeee",
+            "length": 10,
             "time": [
-                2023,
-                6,
-                3,
+                20,
+                1,
+                23,
                 12,
-                0
+                23
             ]
         }
     ],
@@ -32,39 +32,9 @@
                 [
                     false,
                     false,
-                    false,
-                    false,
-                    false,
                     false
                 ],
                 [
-                    false,
-                    false,
-                    false,
-                    false,
-                    false,
-                    false
-                ],
-                [
-                    false,
-                    false,
-                    false,
-                    false,
-                    false,
-                    false
-                ],
-                [
-                    false,
-                    false,
-                    false,
-                    false,
-                    false,
-                    false
-                ],
-                [
-                    false,
-                    false,
-                    false,
                     false,
                     false,
                     false
@@ -72,25 +42,25 @@
             ],
             "movie_List": [
                 {
-                    "name": "Oshi no Ko ep1",
+                    "name": "yes",
                     "length": 90,
                     "time": [
-                        2023,
-                        7,
-                        20,
-                        14,
-                        30
+                        2,
+                        2,
+                        23,
+                        2,
+                        12
                     ]
                 },
                 {
-                    "name": "Oshi no Ko ep1",
+                    "name": "yes",
                     "length": 90,
                     "time": [
-                        2023,
-                        7,
-                        20,
-                        14,
-                        30
+                        2,
+                        2,
+                        23,
+                        2,
+                        12
                     ]
                 }
             ],
@@ -99,45 +69,36 @@
         {
             "seats": [
                 [
-                    false,
-                    false,
-                    false,
                     false
                 ],
                 [
-                    false,
-                    false,
-                    false,
                     false
                 ],
                 [
-                    false,
-                    false,
-                    false,
                     false
                 ]
             ],
             "movie_List": [
                 {
-                    "name": "I Want to Eat Your Pancreas (its a movie trust)",
-                    "length": 100,
+                    "name": "eeeeee",
+                    "length": 10,
                     "time": [
-                        2023,
-                        6,
-                        3,
+                        20,
+                        1,
+                        23,
                         12,
-                        0
+                        23
                     ]
                 },
                 {
-                    "name": "I Want to Eat Your Pancreas (its a movie trust)",
-                    "length": 100,
+                    "name": "eeeeee",
+                    "length": 10,
                     "time": [
-                        2023,
-                        6,
-                        3,
+                        20,
+                        1,
+                        23,
                         12,
-                        0
+                        23
                     ]
                 }
             ],
@@ -146,26 +107,16 @@
     ],
     "adminArray": [
         {
-            "name": "Zeyu Huang",
+            "name": "Zeyu",
             "age": 17,
-            "pin": 666
-        },
-        {
-            "name": "Samuel Boulay",
-            "age": 2,
-            "pin": 123
-        },
-        {
-            "name": "Mackenzie Rouchdy",
-            "age": 17,
-            "pin": 12345
+            "pin": 1
         }
     ],
     "staffArray": [
         {
-            "name": "Sakkaravarthi Ramanathan",
-            "age": 999,
-            "pin": 12345
+            "name": "Samuel",
+            "age": 2,
+            "pin": 1
         }
     ]
 }

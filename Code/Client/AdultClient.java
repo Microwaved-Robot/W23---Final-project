@@ -6,6 +6,7 @@ import Code.Cinema.Cinema;
 
 public class AdultClient extends Client{
     Scanner input = new Scanner(System.in);
+    Scanner sc = new Scanner(System.in);
 
     String name;
     String lastName;
@@ -30,8 +31,7 @@ public class AdultClient extends Client{
     public void runAdultClient(Cinema c) {
         int userChoice = 0;
         boolean flag = true;
-
-        Scanner sc = new Scanner(System.in);
+        
         do {
             System.out.println("1. View Showtimes");
             System.out.println("2. Purchase Ticket");
@@ -66,8 +66,6 @@ public class AdultClient extends Client{
                     break;
             }
         } while(flag);
-
-        sc.close();
     }
 
     
