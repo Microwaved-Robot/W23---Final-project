@@ -165,12 +165,14 @@ public class CinemaRoom {
         }
     }
 
-    public void selectSeat(int row, int column) {
+    public void selectSeat(int row, char letter) {
+        letter = Character.toUpperCase(letter);
+        int column = (int) letter - 65;
         if (isFull()) {
             System.out.println("The room is full :( ");
             return;
-        } else if (seats[row][column] == false) {
-            seats[row][column] = true;
+        } else if (seats[column][row] == false) {
+            seats[column][row] = true;
             System.out.println("Seat has been reserved :)");
         } else {
             System.out.println("The seat has been taken ;-; ");
@@ -203,45 +205,60 @@ public class CinemaRoom {
     public void displaySeat() {
         // flag 1 & 2 are so that we can have the number and letter column without
         // changing the array itself
-        boolean flag = true, flag2 = true;
+        // boolean flag = true, flag2 = true;
 
-        for (int i = 0; i < seats.length + 1; i++) {
-            if (i == 0) {
-                // '#'' for estetic reason
-                System.out.print("#");
-            } else {
-                // Prints a letter in the first vertical column
-                System.out.print((char) (65 + i - 1));
-            }
-            if (i == seats.length) {
-                i--;
-                flag2 = false;
-            }
-            for (int j = 0; j < seats[i].length + 1; j++) {
-                flag = true;
-                if (i == 0) {
-                    // Print the horizontal numbers
-                    System.out.print(" " + j);
-                    continue;
-                } else if (j == seats[i].length) {
-                    j--;
-                    flag = false;
-                }
-                // Print X or O depending on the seat available : X meaning not available and O
-                // the contrary
-                if (seats[i][j] == false) {
-                    System.out.print(" O");
-                } else {
-                    System.out.print(" X");
-                }
-                if (flag == false) {
-                    j++;
-                }
+        // for (int i = 0; i < seats.length + 1; i++) {
+        // if (i == 0) {
+        // // '#'' for estetic reason
+        // System.out.print("#");
+        // } else {
+        // // Prints a letter in the first vertical column
+        // System.out.print((char) (65 + i - 1));
+        // }
+        // if (i == seats.length) {
+        // i--;
+        // flag2 = false;
+        // }
+        // for (int j = 0; j < seats[i].length + 1; j++) {
+        // flag = true;
+        // if (i == 0) {
+        // // Print the horizontal numbers
+        // System.out.print(" " + j);
+        // continue;
+        // } else if (j == seats[i].length) {
+        // j--;
+        // flag = false;
+        // }
+        // // Print X or O depending on the seat available : X meaning not available and
+        // O
+        // // the contrary
+        // if (seats[i][j] == false) {
+        // System.out.print(" O");
+        // } else {
+        // System.out.print(" X");
+        // }
+        // if (flag == false) {
+        // j++;
+        // }
+        // }
+        // System.out.println();
+        // if (flag2 == false) {
+        // i++;
+        // }
+        // }
+
+        char[] letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
+        System.out.print("  ");
+        for (int i = 0; i < seats[0].length; i++) {
+            System.out.print(i + 1 + " ");
+        }
+        System.out.println();
+        for (int i = 0; i < seats.length; i++) {
+            System.out.print(letters[i] + " ");
+            for (int j = 0; j < seats[i].length; j++) {
+                System.out.print(seats[i][j] ? "X " : "O ");
             }
             System.out.println();
-            if (flag2 == false) {
-                i++;
-            }
         }
         System.out.println("Where X is taken and O is vacant.");
     }
