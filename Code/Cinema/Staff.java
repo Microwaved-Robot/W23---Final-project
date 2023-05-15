@@ -452,7 +452,7 @@ public class Staff {
             System.out.println(options());
             do {
                 try {
-                    System.out.println("Enter the number that corresponds to the action you would like to perform: ");
+                    System.out.print("Enter the number that corresponds to the action you would like to perform: ");
                     reply = input.nextInt();
                     input.nextLine();
                     if (reply < 0 || reply > 8) {
@@ -468,9 +468,6 @@ public class Staff {
                 }
             } while (flag);
             switch (reply) {
-                case (0):
-                    System.out.println("something went wrong...");
-                    break;
                 case (1):
                     displayMovieQueue(cinema);
                     break;
