@@ -27,13 +27,13 @@ public class Main {
         HashMap<String, AdultClient> adult_Data = readJsonAdult();
         ArrayList<Admin> adminArray = readJsonAdmin();
         ArrayList<Staff> staffArray = readJsonStaff();
+        
+        // if (cinema == null) {
+        //     cinema = new Cinema(false);
+        // }
+        // // sorter(cinema.getAdminArray(), cinema.getStaffArray());
 
-        if (cinema == null) {
-            cinema = new Cinema(false);
-        }
-        sorter(cinema.getAdminArray(), cinema.getStaffArray());
-
-        userIdentifier(cinema, child_Data, adult_Data, adminArray, staffArray);
+        // userIdentifier(cinema, child_Data, adult_Data, adminArray, staffArray);
     }
 
     public static Staff staffLogIn(ArrayList<Staff> staffArray) {
@@ -54,6 +54,7 @@ public class Main {
                 flag = true;
             }
         } while (flag);
+
         do {
             do {
 
@@ -252,7 +253,39 @@ public class Main {
         input.nextLine();
     }
 
-    public ArrayList<Admin> addAdmin(Cinema cinema) {
+    public static ArrayList<Staff> addStaff(Cinema cinema) {
+        int number = 0;
+        boolean flag = false;
+        ArrayList<Staff> staffArray = new ArrayList<>();
+
+        do {
+            try {
+                System.out.print("Enter the number of Staff: ");
+                number = input.nextInt();
+                if (number <= 0) {
+                    throw new IllegalArgumentException("Negative number");
+                }
+                flag = false;
+            } catch (IllegalArgumentException e) {
+                System.out.println("The input needs to be bigger than 0.");
+                flag = true;
+            } catch (InputMismatchException e) {
+                System.out.println("The input needs to be a number.");
+                flag = true;
+            }
+        } while (flag);
+        System.out.println();
+        staffArray = new ArrayList<>();
+        for (int i = 0; i < number; i++) {
+            System.out.println("For the " + (i + 1) + " staff: ");
+            Staff staff = new Staff(cinema);
+            staffArray.add(staff);
+            System.out.println();
+        }
+        return staffArray;
+    }
+
+    public static ArrayList<Admin> addAdmin(Cinema cinema) {
         int number = 0;
         boolean flag = false;
         ArrayList<Admin> adminArray = new ArrayList<>();
@@ -404,7 +437,7 @@ public class Main {
         }
     }
 
-    public static void StaffConverter(ArrayList<Staff> staff_List) {
+    public static void staffConverter(ArrayList<Staff> staff_List) {
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
         File file = new File(
@@ -416,7 +449,7 @@ public class Main {
         }
     }
 
-    public static void AdminConverter(ArrayList<Admin> Admin_List) {
+    public static void adminConverter(ArrayList<Admin> Admin_List) {
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
         File file = new File(
