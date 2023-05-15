@@ -192,7 +192,7 @@ public class Admin extends Staff {
                 flag = true;
             }
         } while (flag);
-        cinema.getStaffArray().add(new Staff(name));
+        cinema.getStaffArray().add(new Staff(name, cinema));
         input.nextLine();
     }
 

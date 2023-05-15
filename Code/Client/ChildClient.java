@@ -7,6 +7,7 @@ import Code.Cinema.Cinema;
 
 public class ChildClient extends Client {
     Scanner input = new Scanner(System.in);
+    Scanner sc = new Scanner(System.in);
 
     String name;
     String lastName;
@@ -33,7 +34,6 @@ public class ChildClient extends Client {
     public void runChildClient(Cinema c) {
         int userChoice = 0;
         boolean flag = true;
-        Scanner sc = new Scanner(System.in);
 
         do {
 
@@ -75,8 +75,6 @@ public class ChildClient extends Client {
                     break;
             }
         } while (flag);
-
-        sc.close();
     }
 
     protected void getAcountInfo() {
@@ -122,7 +120,4 @@ public class ChildClient extends Client {
     public void setAge(int age) {
         this.age = age;
     }
-
-
-    
 }
