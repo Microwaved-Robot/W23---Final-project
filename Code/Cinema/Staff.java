@@ -24,7 +24,7 @@ public class Staff {
         // default
     }
 
-    public Staff(boolean ignore) {
+    public Staff(Cinema cinema) {
         boolean flag = true;
         do {
             try {
@@ -60,10 +60,10 @@ public class Staff {
                 flag = true;
             }
         } while (flag);
-        this.cinemaOfEmployement = null;
+        this.cinemaOfEmployement = cinema;
     }
 
-    public Staff(String name) {
+    public Staff(String name, Cinema cinema) {
         boolean flag = true;
         do {
             try {
@@ -88,7 +88,7 @@ public class Staff {
                 flag = true;
             }
         } while (flag);
-        this.cinemaOfEmployement = null;
+        this.cinemaOfEmployement = cinema;
     }
 
     // --------------------------------------------------------- UI Options Start
@@ -150,7 +150,6 @@ public class Staff {
                     answer = input.nextLine();
                 } catch (InputMismatchException ime) {
                     System.out.println("What you entered was not a 'Y' or a 'N', please try again.");
-                    // TODO: handle exception
                     flag = false;
                 }
                 if (answer.toLowerCase().equals("y") || answer.toLowerCase().equals("n")) {

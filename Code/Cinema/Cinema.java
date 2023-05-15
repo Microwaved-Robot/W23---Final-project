@@ -11,8 +11,6 @@ public class Cinema { // do a update all room for cinema room
     protected int numberOfRoom = 0;
     protected ArrayList<Movie> movie_List;
     protected ArrayList<CinemaRoom> room_List;
-    protected ArrayList<Staff> StaffArray;
-    protected ArrayList<Admin> AdminArray;
 
     static Scanner input = new Scanner(System.in);
 
@@ -48,7 +46,7 @@ public class Cinema { // do a update all room for cinema room
         AdminArray = new ArrayList<>();
         for (int i = 0; i < number; i++) {
             System.out.println("For the " + (i + 1) + " admin: ");
-            Admin admin = new Admin(this);
+            Admin admin = new Admin();
             AdminArray.add(admin);
             System.out.println();
         }
@@ -73,7 +71,7 @@ public class Cinema { // do a update all room for cinema room
         StaffArray = new ArrayList<>();
         for (int i = 0; i < number; i++) {
             System.out.println("For the " + (i + 1) + " staff: ");
-            Staff staff = new Staff(false);
+            Staff staff = new Staff(this);
             StaffArray.add(staff);
             System.out.println();
         }
@@ -161,12 +159,9 @@ public class Cinema { // do a update all room for cinema room
     // no problem in element of the parameter
 
     // change constructor parameters from hashmap to Array
-    protected Cinema(ArrayList<Movie> movie_List, ArrayList<CinemaRoom> room_List,
-            ArrayList<Staff> StaffArray, ArrayList<Admin> AdminArray) {
-        this.StaffArray = StaffArray;
+    protected Cinema(ArrayList<Movie> movie_List, ArrayList<CinemaRoom> room_List) {
         this.movie_List = movie_List;
         this.room_List = room_List;
-        this.AdminArray = AdminArray;
         numberOfRoom = room_List.size();
     }
 
@@ -290,19 +285,6 @@ public class Cinema { // do a update all room for cinema room
             }
         }
         return -1;
-    }
-
-    protected void addStaff() {
-        Staff staff = new Staff();
-        StaffArray.add(staff);
-    }
-
-    // check with google maybe move to main class?
-    protected void removeStaff() {
-        System.out.print("Enter the name of the staff you want to fire: ");
-        String name = input.nextLine();
-        int index = binarySearch(StaffArray, name);
-        StaffArray.remove(index);
     }
 
     /*----------------------------------Search and Sort Methods----------------------------------*/
@@ -525,21 +507,5 @@ public class Cinema { // do a update all room for cinema room
 
     public void setRoom_List(ArrayList<CinemaRoom> room_List) {
         this.room_List = room_List;
-    }
-
-    public ArrayList<Staff> getStaffArray() {
-        return StaffArray;
-    }
-
-    public void setStaffArray(ArrayList<Staff> StaffArray) {
-        this.StaffArray = StaffArray;
-    }
-
-    public ArrayList<Admin> getAdminArray() {
-        return AdminArray;
-    }
-
-    public void setAdminArray(ArrayList<Admin> AdminArray) {
-        this.AdminArray = AdminArray;
     }
 }
