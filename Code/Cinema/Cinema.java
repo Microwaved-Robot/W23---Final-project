@@ -25,7 +25,7 @@ public class Cinema { // do a update all room for cinema room
     public Cinema(boolean isNotDefault) {
         int number = 0;
         boolean flag = false;
-
+        
         do {
             try {
                 System.out.print("Enter the number of Movie the cinema is showing: ");

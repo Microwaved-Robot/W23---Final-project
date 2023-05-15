@@ -77,7 +77,7 @@ abstract class Client {
         
         Movie m = null;
 
-        
+        int selectedRoomNumber = 0;
 
         try {
 
@@ -88,7 +88,7 @@ abstract class Client {
             System.out.println("Movie Selected: " + m.getName());
 
             // the room that the movie is playing in
-            int selectedRoomNumber = c.searchCinemaRooms(m);
+            selectedRoomNumber = c.searchCinemaRooms(m);
 
             System.out.println("Your Movie Will Be In Cinema: " + selectedRoomNumber);
 
@@ -117,6 +117,7 @@ abstract class Client {
             // gets first letter user types
             char column = scan.next().charAt(0);
 
+            c.getRoom_List().get(selectedRoomNumber - 1).selectSeat(row, column);
             seat = row + "" + column;
 
             System.out.println("Seat Selected: " + seat);
