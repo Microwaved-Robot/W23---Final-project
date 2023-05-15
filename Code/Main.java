@@ -137,7 +137,7 @@ public class Main {
             do {
 
                 try {
-                    System.out.println("Enter your pin: ");
+                    System.out.print("Enter your pin: ");
                     pin = input.nextInt();
                     flag = false;
                 } catch (InputMismatchException ime) {
@@ -153,7 +153,7 @@ public class Main {
                 do {
 
                     try {
-                        System.out.println("Would you like to try again(Y or N)?");
+                        System.out.print("Would you like to try again(Y or N)?");
                         answer = input.nextLine();
                         if (!answer.toLowerCase().equals("y") && !answer.toLowerCase().equals("n")) {
                             throw new IllegalArgumentException();
