@@ -2,6 +2,7 @@ package Code;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -10,7 +11,9 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
+import Code.Cinema.Admin;
 import Code.Cinema.Cinema;
+import Code.Cinema.Staff;
 import Code.Client.AdultClient;
 import Code.Client.ChildClient;
 
@@ -26,8 +29,14 @@ public class Main {
         if (cinema == null) {
             cinema = new Cinema(false);
         }
+        sorter(cinema.getAdminArray(), cinema.getStaffArray());
 
         userIdentifier(cinema, child_Data, adult_Data);
+    }
+
+    static void sorter(ArrayList<Admin> admins, ArrayList<Staff> staff) {
+        Cinema.adminBubbleSort(admins);
+        Cinema.staffBubbleSort(staff);
     }
 
     static void userIdentifier(Cinema cinema, HashMap<String, ChildClient> child_Data,

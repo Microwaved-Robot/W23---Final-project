@@ -306,7 +306,7 @@ public class Cinema { // do a update all room for cinema room
     }
 
     /*----------------------------------Search and Sort Methods----------------------------------*/
-    public void bubbleSort(ArrayList<Staff> staff) {
+    public static void staffBubbleSort(ArrayList<Staff> staff) {
         for (int i = 1; i < staff.size(); i++) {
             for (int j = 0; j < staff.size() - 1; j++) {
                 if ((staff.get(j).getName().compareTo(staff.get(j + 1).getName())) > 0) {
@@ -341,7 +341,7 @@ public class Cinema { // do a update all room for cinema room
         return index;
     }
 
-    public void adminBubbleSort(ArrayList<Admin> admin) {
+    public static void adminBubbleSort(ArrayList<Admin> admin) {
         for (int i = 1; i < admin.size(); i++) {
             for (int j = 0; j < admin.size() - 1; j++) {
                 if ((admin.get(j).getName().compareTo(admin.get(j + 1).getName())) > 0) {
