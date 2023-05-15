@@ -1,1 +1,17 @@
-[{"name":"Mackenzie","age":17,"pin":123},{"name":"Samuel","age":2,"pin":12345},{"name":"Zeyu","age":17,"pin":777}]
+[
+    {
+        "name": "Mackenzie",
+        "age": 17,
+        "pin": 123
+    },
+    {
+        "name": "Samuel",
+        "age": 2,
+        "pin": 12345
+    },
+    {
+        "name": "Zeyu",
+        "age": 17,
+        "pin": 777
+    }
+]
