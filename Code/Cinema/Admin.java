@@ -87,7 +87,7 @@ public class Admin extends Staff {
     }
 
     // ------------------------------------- start admin UI
-    public void adminUI(Cinema cinema) {
+    public void adminUI(Cinema cinema, ArrayList<Staff> staffArray) {
         int reply = 0;
         String answer = "";
         boolean flag = true;
@@ -124,7 +124,6 @@ public class Admin extends Staff {
                     break;
                 case (4):
                     createMovie();
-                    ;
                     break;
                 case (5):
                     emptyRoomSeat();

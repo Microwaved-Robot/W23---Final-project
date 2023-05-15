@@ -22,7 +22,7 @@ public class Cinema { // do a update all room for cinema room
     // Manual adding
     // The boolean parameter doesnt do anything, it is there to distinguish from
     // default
-    public Cinema(boolean isNotDefault) {
+    public Cinema(boolean isNotDefault, ArrayList<Admin> AdminArray, ArrayList<Staff> StaffArray) {
         int number = 0;
         boolean flag = false;
 
@@ -43,7 +43,7 @@ public class Cinema { // do a update all room for cinema room
             }
         } while (flag);
         System.out.println();
-        AdminArray = new ArrayList<>();
+        // AdminArray = new ArrayList<>();
         for (int i = 0; i < number; i++) {
             System.out.println("For the " + (i + 1) + " admin: ");
             Admin admin = new Admin(this);
@@ -159,12 +159,9 @@ public class Cinema { // do a update all room for cinema room
     // no problem in element of the parameter
 
     // change constructor parameters from hashmap to Array
-    protected Cinema(ArrayList<Movie> movie_List, ArrayList<CinemaRoom> room_List,
-            ArrayList<Staff> StaffArray, ArrayList<Admin> AdminArray) {
-        this.StaffArray = StaffArray;
+    protected Cinema(ArrayList<Movie> movie_List, ArrayList<CinemaRoom> room_List) {
         this.movie_List = movie_List;
         this.room_List = room_List;
-        this.AdminArray = AdminArray;
         numberOfRoom = room_List.size();
     }
 
