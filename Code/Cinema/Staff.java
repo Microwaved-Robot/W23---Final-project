@@ -374,8 +374,7 @@ public class Staff {
                 System.out.println("Please try again.");
                 flag = true;
             }
-            while (flag)
-                ;
+            while (flag);
 
             cinema.getRoom_List().get(roomNum).displaySeat();
             do {
