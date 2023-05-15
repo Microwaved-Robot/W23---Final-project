@@ -43,7 +43,7 @@ public class Cinema { // do a update all room for cinema room
             }
         } while (flag);
         System.out.println();
-        // AdminArray = new ArrayList<>();
+        AdminArray = new ArrayList<>();
         for (int i = 0; i < number; i++) {
             System.out.println("For the " + (i + 1) + " admin: ");
             Admin admin = new Admin();

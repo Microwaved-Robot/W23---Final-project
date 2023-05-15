@@ -29,11 +29,11 @@ public class Main {
         ArrayList<Staff> staffArray = readJsonStaff();
 
         if (cinema == null) {
-            cinema = new Cinema(false);
+            cinema = new Cinema(false, adminArray, staffArray);
         }
-        sorter(cinema.getAdminArray(), cinema.getStaffArray());
+        sorter(adminArray, staffArray);
 
-        userIdentifier(cinema, child_Data, adult_Data);
+        userIdentifier(cinema, child_Data, adult_Data, adminArray, staffArray);
     }
 
     public static Staff staffLogIn(ArrayList<Staff> staffArray) {
