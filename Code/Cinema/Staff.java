@@ -353,7 +353,6 @@ public class Staff {
 
             } while (flag);
 
-            System.out.println(column + " " + seatRow);
             emptySeat(cinema, roomNum, seatRow, column);
 
             do {
