@@ -73,11 +73,13 @@ public class Ticket extends Client implements TicketPrice {
 
     @Override
     public void displayTicket() {
+        System.out.println("-----------------------------------");
         System.out.println("Date purchased: " + datePurchased);
         System.out.println("Movie: " + movie);
         System.out.println("Movie Showing Date: " + movieDate);
         System.out.println("Price: " + price);
         System.out.println("Seat: " + seat);
+        System.out.println("-----------------------------------");
     }
 
     // getters and setters
