@@ -22,8 +22,9 @@ public class Movie {
         // default
     }
 
-    // Create a new movie obj 
-    //The boolean parameter doesnt do anything, it is there to distinguish from default
+    // Create a new movie obj
+    // The boolean parameter doesnt do anything, it is there to distinguish from
+    // default
     protected Movie(boolean isNotDefault) {
         boolean flag = false;
 
@@ -42,15 +43,18 @@ public class Movie {
             try {
                 System.out.print("Enter the length of the movie in minute: ");
                 length = input.nextInt();
+                input.nextLine();
                 flag = false;
                 if (length <= 0) {
                     throw new IllegalArgumentException("Negative number");
                 }
             } catch (InputMismatchException ex) {
                 System.out.println("The length needs to be a number");
+                input.nextLine();
                 flag = true;
             } catch (IllegalArgumentException ex) {
                 System.out.println("The length needs to be higher than 0. ");
+                input.nextLine();
                 flag = true;
             }
         } while (flag);
@@ -61,6 +65,7 @@ public class Movie {
                 int year = input.nextInt();
                 int month = input.nextInt();
                 int day = input.nextInt();
+                input.nextLine();
 
                 if (month > 12 || month <= 0) {
                     throw new IllegalArgumentException("The month needs to be between 1 and 12.");
@@ -94,9 +99,11 @@ public class Movie {
                 flag = false;
             } catch (InputMismatchException ex) {
                 System.out.println("The date or the time of day needs to be a number. ");
+                input.nextLine();
                 flag = true;
             } catch (IllegalArgumentException ex) {
                 System.out.println(ex);
+                input.nextLine();
                 flag = true;
             }
         } while (flag);

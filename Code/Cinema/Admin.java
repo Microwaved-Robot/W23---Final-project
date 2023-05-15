@@ -96,18 +96,19 @@ public class Admin extends Staff {
                     System.out
                             .println("Enter the number that corresponds to the action you would like to perform: ");
                     reply = input.nextInt();
-                    if (reply < 0 || reply > 11) {
+                    input.nextLine();
+                    if (reply < 0 || reply > 10) {
                         throw new IllegalArgumentException();
                     } else {
                         flag = false;
                     }
                 } catch (Exception e) {
-                    System.out.println("You must enter an integer between 1 and 11");
+                    System.out.println("You must enter an integer between 1 and 10");
                     System.out.println("Please try again.");
+                    input.nextLine();
                     flag = true;
                 }
             } while (flag);
-            input.nextLine();
 
             switch (reply) {
                 case (1):
@@ -135,18 +136,18 @@ public class Admin extends Staff {
                     changeTicketPrice();
                     break;
                 case (9):
-                    hireStaff(staffArray);
+                    displayStaff(staffArray);
                     break;
                 case (10):
-                    fireStaff(staffArray);
+                    hireStaff(staffArray);
                     break;
                 case (11):
-                    resetCinema(cinema);
+                    fireStaff(staffArray);
                     break;
             }
             do {
                 try {
-                    System.out.println("do you wish to perform another action(Y or N)? ");
+                    System.out.println("Do you wish to perform another action(Y or N)? ");
                     answer = input.nextLine();
 
                     if (!answer.toLowerCase().equals("y") && !answer.toLowerCase().equals("n")) {
@@ -165,13 +166,17 @@ public class Admin extends Staff {
 
     private String adminOptions() {
         String str = options();
-        str += String.format("%s %s\n", "9) ", "Hire Staff.");
-        str += String.format("%s %s\n", "10) ", "Fire Staff.");
-        str += String.format("%s %s\n", "11) ", "Reset Cinema.");
+        str += String.format("%s %s\n", "9) ", "Display Staff.");
+        str += String.format("%s %s\n", "10) ", "Hire Staff.");
+        str += String.format("%s %s\n", "11) ", "Fire Staff.");
         return str;
     }
 
     // maybe I can add a promote to admin method? (if I have time)
+
+    void displayStaff(ArrayList<Staff> staffArray) {
+        System.out.println(staffArray.toString());
+    }
 
     // option 7 is used to hire staff
     // all that's left is to test and exception handling
@@ -180,7 +185,7 @@ public class Admin extends Staff {
         boolean flag = false;
         do {
             try {
-                System.out.println("Enter the staff member's name: ");
+                System.out.print("Enter the staff member's name: ");
                 name = input.nextLine();
                 flag = false;
             } catch (Exception e) {
@@ -189,7 +194,6 @@ public class Admin extends Staff {
             }
         } while (flag);
         staffArray.add(new Staff(name));
-        input.nextLine();
     }
 
     // option 8 is used to fire staff
@@ -202,8 +206,8 @@ public class Admin extends Staff {
             try {
                 System.out.println("Enter the staff member's username: ");
                 index = binarySearch(staffArray, input.nextLine());
+                staffArray.remove(index);
                 flag = false;
-
             } catch (InputMismatchException ime) {
                 System.out.println("What you entered is not a string.");
                 flag = true;
@@ -213,16 +217,6 @@ public class Admin extends Staff {
                 flag = true;
             }
         } while (flag);
-        staffArray.remove(index);
-        input.nextLine();
-    }
-
-    // option 11 resets the cinema
-    void resetCinema(Cinema cinema) {
-        cinema.setMovie_List(null);
-        cinema.setRoom_List(null);
-        System.out.println("The cinema has been reset.");
-        input.nextLine();
     }
 
     // -------------------------------------- end admin UI

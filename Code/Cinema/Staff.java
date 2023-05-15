@@ -62,6 +62,7 @@ public class Staff {
 
     public Staff(String name) {
         boolean flag = true;
+        this.name = name;
         do {
             try {
 
@@ -78,6 +79,7 @@ public class Staff {
             try {
                 System.out.print("Enter the staff member's age: ");
                 this.age = input.nextInt();
+                input.nextLine();
                 flag = false;
             } catch (Exception e) {
                 System.out.println("What you entered is not an integer.");
@@ -108,9 +110,9 @@ public class Staff {
         do {
 
             try {
-                System.out.print("Enter room number of movies to be displayed (0 to "
+                System.out.print("Enter room number of movies to be displayed (1 to "
                         + cinema.getRoom_List().size() + "): ");
-                roomNum = input.nextInt();
+                roomNum = input.nextInt() - 1;
                 cinema.getRoom_List().get(roomNum).showMoviesInTheRoom();
                 flag = false;
             } catch (InputMismatchException ime) {
@@ -120,7 +122,7 @@ public class Staff {
                 System.out.println("The room number you have entered does not exist in the cinema, please try again.");
                 flag = true;
             }
-        } while (!flag);
+        } while (flag);
         input.nextLine();
     }
 
@@ -132,12 +134,14 @@ public class Staff {
         int roomNum = -1;
         do {
             try {
-                System.out.println("Which room with you be adding the movie to? (enter intiger from 0 to "
+                System.out.println("Which room with you be adding the movie to? (enter intiger from 1 to "
                         + cinema.getRoom_List().size() + "): ");
-                roomNum = input.nextInt();
-                cinema.getRoom_List().get(roomNum).addMovieToQueue(new Movie());
+                roomNum = input.nextInt() - 1;
+                cinema.getRoom_List().get(roomNum).addMovieToQueue(new Movie(false));
                 if (roomNum < 0) {
                     throw new IllegalArgumentException("Your number must be positive, please try again.");
+                } else {
+                    input.nextLine();
                 }
             } catch (IllegalArgumentException iae) {
                 System.out.println(iae.getMessage());
@@ -171,38 +175,52 @@ public class Staff {
         boolean flag = false;
         String nameToBeRemoved = "";
         do {
+
+            do {
+                try {
+                    System.out.println("Enter room number of movie to be removed (enter intiger from 1 to "
+                            + cinema.getRoom_List().size() + "): ");
+                    roomNum = input.nextInt();
+                    input.nextLine();
+                    System.out.println(cinema.getRoom_List().get(roomNum).getMovie_List().toString());
+                    flag = false;
+                } catch (InputMismatchException ime) {
+                    System.out.println("What you entered  was not an integer.");
+                    System.out.println("Please try again.");
+                    input.nextLine();
+                    flag = true;
+                } catch (IndexOutOfBoundsException iobe) {
+                    System.out.println("The integer entered does not correspond to a room.");
+                    System.out.println("Please try again.");
+                    input.nextLine();
+                    flag = true;
+                }
+            } while (flag);
+            input.nextLine();
             do {
 
                 // input.nextLine() might not throw inputmismatchexception
                 try {
                     System.out.println("Enter name of movie to be removed: ");
                     nameToBeRemoved = input.nextLine();
+                    cinema.getRoom_List().get(roomNum).removeMovieInQueue(nameToBeRemoved);
                     flag = false;
-                } catch (Exception e) {
+                } catch (InputMismatchException e) {
                     System.out.println("What you entered was not a string.");
                     System.out.println("Please try again.");
                     flag = true;
+                } catch (Exception e) {
+                    System.out.println("The integer entered does not correspond to a room.");
+                    System.out.println("Please try again.");
+                    flag = true;
                 }
             } while (flag);
 
-            do {
-                try {
-                    System.out.println("Enter room num of movie to be removed: ");
-                    roomNum = input.nextInt();
-                    flag = true;
-                } catch (InputMismatchException ime) {
-                    System.out.println("What you entered  was not an integer.");
-                    System.out.println("Please try again.");
-                    flag = false;
-                }
-            } while (flag);
-            cinema.getRoom_List().get(roomNum).removeMovieInQueue(nameToBeRemoved);
             System.out.println("The movie has been removed from queue");
-            System.out.println("Do you want to remove another movie(y or n)? ");
+            System.out.println("Do you want to remove another movie(Y or N)? ");
             answer = input.nextLine();
 
         } while (answer.toLowerCase().equals("y"));
-        input.nextLine();
     }
 
     // option 4
@@ -223,8 +241,9 @@ public class Staff {
             do {
 
                 try {
-                    System.out.println("Enter room nubmer of seat to be removed: ");
-                    roomNum = input.nextInt();
+                    System.out.println("Enter room nubmer of seat to be removed (enter intiger from 1 to "
+                            + cinema.getRoom_List().size() + "): ");
+                    roomNum = input.nextInt() - 1;
 
                     if (roomNum < 0) {
                         throw new IllegalArgumentException();
@@ -321,8 +340,9 @@ public class Staff {
         boolean flag = true;
         do {
             try {
-                System.out.println("Enter room number of seats to be emptied: ");
-                roomNum = input.nextInt();
+                System.out.println("Enter room number of seats to be emptied (enter intiger from 1 to "
+                        + cinema.getRoom_List().size() + "): ");
+                roomNum = input.nextInt() - 1;
                 if (roomNum < 0) {
                     throw new IllegalArgumentException();
                 } else if (roomNum > cinema.getRoom_List().size()) {
@@ -343,6 +363,7 @@ public class Staff {
         } while (flag);
         cinema.getRoom_List().get(roomNum).emptyAllSeat();
         input.nextLine();
+        System.out.println("All seats have been emptied from this room.");
     }
 
     // option 7 display room seating
@@ -352,29 +373,32 @@ public class Staff {
         int roomNum = -1;
         boolean flag = true;
         do {
-            try {
-                System.out.print("Enter room number of seating to be viewed: ");
-                roomNum = input.nextInt();
-                input.nextLine();
+            do {
+                try {
+                    System.out.print("Enter room number of seating to be viewed (enter intiger from 1 to "
+                            + cinema.getRoom_List().size() + "): ");
+                    roomNum = input.nextInt() - 1;
 
-                if (roomNum < 0) {
-                    throw new IllegalArgumentException();
-                } else if (roomNum > cinema.getRoom_List().size()) {
-                    throw new IllegalArgumentException();
-                } else {
-                    flag = false;
+                    if (roomNum < 0) {
+                        throw new IllegalArgumentException();
+                    } else if (roomNum > cinema.getRoom_List().size() - 1) {
+                        throw new IllegalArgumentException();
+                    } else {
+                        flag = false;
+                        input.nextLine();
+                    }
+                } catch (IllegalArgumentException iae) {
+                    System.out.println("The integer you entered does not correspond to a room number.");
+                    System.out
+                            .println("Please enter an integer between 1 and " + cinema.getRoom_List().size());
+                    flag = true;
+                } catch (InputMismatchException ime) {
+                    System.out.println("What you entered was not an integer.");
+                    System.out.println("Please try again.");
+                    input.nextLine();
+                    flag = true;
                 }
-            } catch (IllegalArgumentException iae) {
-                System.out.println("The integer you entered does not correspond to a room number.");
-                System.out
-                        .println("Please enter an integer between 0 and " + cinema.getRoom_List().size());
-                flag = true;
-            } catch (InputMismatchException ime) {
-                System.out.println("What you entered was not an integer.");
-                System.out.println("Please try again.");
-                flag = true;
-            }
-            while (flag);
+            } while (flag);
 
             cinema.getRoom_List().get(roomNum).displaySeat();
             do {
@@ -389,7 +413,6 @@ public class Staff {
             } while (flag);
 
         } while (answer.toLowerCase().equals("y"));
-        input.nextLine();
     }
 
     // option 8 change adult ticket price
@@ -403,15 +426,18 @@ public class Staff {
             try {
                 System.out.println("Enter new ticket price: ");
                 newTicketPrice = input.nextDouble();
+                input.nextLine();
                 flag = false;
             } catch (InputMismatchException ime) {
                 System.out.println("What you entered is not a number.");
                 System.out.println("Please try again.");
+                input.nextLine();
                 flag = true;
             }
         } while (flag);
         Ticket.setPrice(newTicketPrice);
-        input.nextLine();
+
+        System.out.println("Ticket price has been changed.");
     }
 
     // ------------------------------------------------------------ UI Options End
@@ -428,6 +454,7 @@ public class Staff {
                 try {
                     System.out.println("Enter the number that corresponds to the action you would like to perform: ");
                     reply = input.nextInt();
+                    input.nextLine();
                     if (reply < 0 || reply > 8) {
                         throw new IllegalArgumentException();
                     } else {
@@ -436,10 +463,10 @@ public class Staff {
                 } catch (Exception e) {
                     System.out.println("You must enter an integer between 0 and 8");
                     System.out.println("Please try again.");
+                    input.nextLine();
                     flag = true;
                 }
             } while (flag);
-            input.nextLine();
             switch (reply) {
                 case (0):
                     System.out.println("something went wrong...");
@@ -455,7 +482,6 @@ public class Staff {
                     break;
                 case (4):
                     createMovie(cinema);
-                    ;
                     break;
                 case (5):
                     emptyRoomSeat(cinema);
@@ -473,7 +499,7 @@ public class Staff {
 
             do {
                 try {
-                    System.out.println("do you wish to perform another action(Y or N)? ");
+                    System.out.println("Do you wish to perform another action(Y or N)? ");
                     cont = input.nextLine();
 
                     if (!cont.toLowerCase().equals("y") && !cont.toLowerCase().equals("n")) {
@@ -493,7 +519,6 @@ public class Staff {
 
     private void emptySeat(Cinema cinema, int roomNum, int row, int column) {
         cinema.getRoom_List().get(roomNum).emptySeat(row, column);
-        input.nextLine();
     }
 
     // ------------------------- getters and setters
