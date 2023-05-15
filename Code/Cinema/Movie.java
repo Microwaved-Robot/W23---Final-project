@@ -65,7 +65,6 @@ public class Movie {
                 int year = input.nextInt();
                 int month = input.nextInt();
                 int day = input.nextInt();
-                input.nextLine();
 
                 if (month > 12 || month <= 0) {
                     throw new IllegalArgumentException("The month needs to be between 1 and 12.");
@@ -87,7 +86,6 @@ public class Movie {
                 System.out.print("Enter the time of day that the movie is going to be shown (hour min)");
                 int hour = input.nextInt();
                 int min = input.nextInt();
-                input.nextLine();
 
                 if (hour > 24 || hour < 0) {
                     throw new IllegalArgumentException("The hour neeeds to be between 0 and 24\n");
@@ -96,6 +94,7 @@ public class Movie {
                 }
 
                 time = LocalDateTime.of(year, month, day, hour, min);
+                input.nextLine();
                 flag = false;
             } catch (InputMismatchException ex) {
                 System.out.println("The date or the time of day needs to be a number. ");

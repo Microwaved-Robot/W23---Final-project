@@ -36,9 +36,11 @@ public class Admin extends Staff {
             try {
                 System.out.print("Enter admin's age: ");
                 this.age = input.nextInt();
+                input.nextLine();
                 flag = false;
             } catch (InputMismatchException ime) {
                 System.out.println("The age entered must be an integer.");
+                input.nextLine();
                 flag = true;
             }
         } while (flag);
@@ -47,14 +49,15 @@ public class Admin extends Staff {
             try {
                 System.out.print("Enter admin's pin: ");
                 this.PIN = input.nextInt();
+                input.nextLine();
                 flag = false;
             } catch (InputMismatchException ime) {
                 System.out.println("The pin entered must be an intiger.");
                 System.out.println("Please try again.");
+                input.nextLine();
                 flag = true;
             }
         } while (flag);
-        input.nextLine();
     }
 
     public Admin(String name) {
@@ -63,9 +66,11 @@ public class Admin extends Staff {
             try {
                 System.out.println("Enter admin's age: ");
                 this.age = input.nextInt();
+                input.nextLine();
                 flag = false;
             } catch (InputMismatchException ime) {
                 System.out.println("The age entered must be an integer.");
+                input.nextLine();
                 flag = true;
             }
         } while (flag);
@@ -73,10 +78,12 @@ public class Admin extends Staff {
             try {
                 System.out.println("Enter admin's pin: ");
                 this.PIN = input.nextInt();
+                input.nextLine();
                 flag = false;
             } catch (InputMismatchException ime) {
                 System.out.println("The pin entered must be an intiger.");
                 System.out.println("Please try again.");
+                input.nextLine();
                 flag = true;
             }
         } while (flag);
@@ -89,15 +96,15 @@ public class Admin extends Staff {
         String answer = "";
         boolean flag = true;
         do {
+            System.out.println(adminOptions());
             do {
 
-                System.out.println(adminOptions());
                 try {
                     System.out
                             .println("Enter the number that corresponds to the action you would like to perform: ");
                     reply = input.nextInt();
                     input.nextLine();
-                    if (reply < 0 || reply > 10) {
+                    if (reply < 0 || reply > 11) {
                         throw new IllegalArgumentException();
                     } else {
                         flag = false;
