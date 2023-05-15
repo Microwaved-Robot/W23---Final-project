@@ -2,7 +2,9 @@ package Code.Client;
 
 import java.time.LocalDateTime;
 import Code.Cinema.Movie;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Ticket extends Client implements TicketPrice {
 
     protected String datePurchased;
@@ -10,7 +12,7 @@ public class Ticket extends Client implements TicketPrice {
     protected LocalDateTime movieDate;
     static public double price = 20.00; // this is the price of all movies
     final static public double Daydiscount = 5.0; // how much the day discount is, how much money will be discounted
-    
+    final static public double childDiscount = 10.0;
     protected String seat;
 
     // constructor
@@ -20,6 +22,11 @@ public class Ticket extends Client implements TicketPrice {
         this.movie = movie;
         this.movieDate = movieDate;
         this.seat = seat;
+    }
+
+
+    public Ticket() {
+
     }
 
     // price of movie will depend on which movie is being showed
