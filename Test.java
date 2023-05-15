@@ -10,8 +10,8 @@ import Code.Client.ChildClient;
 
 public class Test {
     public static void main(String[] args) {
-        Cinema cinema = new Cinema(true);
-        cinemaConverter(cinema);
+        // Cinema cinema = new Cinema(true);
+        // cinemaConverter(cinema);
 
         // HashMap<String, AdultClient> map = new HashMap<>();
         // AdultClient c = new AdultClient("Zeyu", "Huang", 19);
@@ -36,7 +36,6 @@ public class Test {
         } catch (Exception e) {
             System.out.println(e);
         }
-        System.out.println(cinema2.getAdminArray());
     }
 
     public static void cinemaConverter(Cinema cinema) {

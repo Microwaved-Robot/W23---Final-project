@@ -4,25 +4,25 @@
     "numberOfRoom": 2,
     "movie_List": [
         {
-            "name": "yes",
-            "length": 90,
+            "name": "e",
+            "length": 2,
             "time": [
+                1,
                 2,
                 2,
-                23,
                 2,
-                12
+                3
             ]
         },
         {
-            "name": "eeeeee",
-            "length": 10,
+            "name": "w",
+            "length": 3,
             "time": [
-                20,
                 1,
-                23,
-                12,
-                23
+                3,
+                4,
+                4,
+                5
             ]
         }
     ],
@@ -32,9 +32,17 @@
                 [
                     false,
                     false,
+                    false,
                     false
                 ],
                 [
+                    false,
+                    false,
+                    false,
+                    false
+                ],
+                [
+                    false,
                     false,
                     false,
                     false
@@ -42,25 +50,25 @@
             ],
             "movie_List": [
                 {
-                    "name": "yes",
-                    "length": 90,
+                    "name": "e",
+                    "length": 2,
                     "time": [
+                        1,
                         2,
                         2,
-                        23,
                         2,
-                        12
+                        3
                     ]
                 },
                 {
-                    "name": "yes",
-                    "length": 90,
+                    "name": "e",
+                    "length": 2,
                     "time": [
+                        1,
                         2,
                         2,
-                        23,
                         2,
-                        12
+                        3
                     ]
                 }
             ],
@@ -69,54 +77,35 @@
         {
             "seats": [
                 [
-                    false
-                ],
-                [
-                    false
-                ],
-                [
+                    false,
                     false
                 ]
             ],
             "movie_List": [
                 {
-                    "name": "eeeeee",
-                    "length": 10,
+                    "name": "w",
+                    "length": 3,
                     "time": [
-                        20,
                         1,
-                        23,
-                        12,
-                        23
+                        3,
+                        4,
+                        4,
+                        5
                     ]
                 },
                 {
-                    "name": "eeeeee",
-                    "length": 10,
+                    "name": "w",
+                    "length": 3,
                     "time": [
-                        20,
                         1,
-                        23,
-                        12,
-                        23
+                        3,
+                        4,
+                        4,
+                        5
                     ]
                 }
             ],
             "roomNumber": 2
-        }
-    ],
-    "adminArray": [
-        {
-            "name": "Zeyu",
-            "age": 17,
-            "pin": 1
-        }
-    ],
-    "staffArray": [
-        {
-            "name": "Samuel",
-            "age": 2,
-            "pin": 1
         }
     ]
 }
