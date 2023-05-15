@@ -25,7 +25,7 @@ public class Cinema { // do a update all room for cinema room
     public Cinema(boolean isNotDefault, ArrayList<Admin> AdminArray, ArrayList<Staff> StaffArray) {
         int number = 0;
         boolean flag = false;
-        
+
         do {
             try {
                 System.out.print("Enter the number of Staff: ");
@@ -46,7 +46,7 @@ public class Cinema { // do a update all room for cinema room
         StaffArray = new ArrayList<>();
         for (int i = 0; i < number; i++) {
             System.out.println("For the " + (i + 1) + " staff: ");
-            Staff staff = new Staff(this);
+            Staff staff = new Staff(true);
             StaffArray.add(staff);
             System.out.println();
         }

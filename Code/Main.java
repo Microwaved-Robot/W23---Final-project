@@ -239,7 +239,7 @@ public class Main {
                     }
                     break;
                 case (2):
-                    staffLogIn(staffArray).staffUI();
+                    staffLogIn(staffArray).staffUI(cinema);
                     break;
                 case (3):
                     AdminLogIn(adminArray).adminUI(cinema, staffArray);
