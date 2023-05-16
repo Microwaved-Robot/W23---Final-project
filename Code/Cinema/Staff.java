@@ -337,7 +337,7 @@ public class Staff {
                 } catch (IllegalArgumentException iae) {
                     System.out.println("The integer you entered does not correspond to a room number.");
                     System.out.println(
-                            "Please enter an integer between 0 and " + cinema.getRoom_List().size());
+                            "Please enter an integer between 1 and " + cinema.getRoom_List().size());
                     input.nextLine();
                     flag = true;
                 } catch (InputMismatchException ime) {
@@ -356,7 +356,6 @@ public class Staff {
 
                     System.out.println("Enter the integer corresponding to the seats row: ");
                     seatRow = input.nextInt();
-                    input.nextLine();
                     seatRow--;
                     if (seatRow < 0) {
                         throw new IllegalArgumentException();
@@ -390,13 +389,12 @@ public class Staff {
                     } else if (column > cinema.getRoom_List().get(roomNum).getSeats().length) {
                         throw new IllegalArgumentException();
                     } else {
-                        input.nextLine();
                         flag = false;
                     }
                 } catch (IllegalArgumentException iae) {
                     System.out.print("The letter entered does not correspond to any seat. ");
                     System.out.println("Please enter an letter between A and "
-                            + (char) (cinema.getRoom_List().get(roomNum).getSeats().length) + 65);
+                            + (char) ((cinema.getRoom_List().get(roomNum).getSeats().length) + 64));
                     flag = true;
                 }
 
