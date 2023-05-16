@@ -224,6 +224,7 @@ public class Admin extends Staff {
                 flag = true;
             }
         } while (flag);
+        System.out.println("The staff member has been fired.");
     }
 
     // -------------------------------------- end admin UI
