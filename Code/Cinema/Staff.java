@@ -519,10 +519,18 @@ public class Staff {
             try {
                 System.out.println("Enter new ticket price: ");
                 newTicketPrice = input.nextDouble();
+                if (newTicketPrice < 0) {
+                    throw new IllegalArgumentException();
+                }
                 input.nextLine();
                 flag = false;
             } catch (InputMismatchException ime) {
                 System.out.println("What you entered is not a number.");
+                System.out.println("Please try again.");
+                input.nextLine();
+                flag = true;
+            } catch (IllegalArgumentException iae) {
+                System.out.println("The new price can't be a negative number.");
                 System.out.println("Please try again.");
                 input.nextLine();
                 flag = true;
