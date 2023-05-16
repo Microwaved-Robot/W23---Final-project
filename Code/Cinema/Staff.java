@@ -445,7 +445,7 @@ public class Staff {
                 flag = true;
             } catch (IllegalArgumentException iae) {
                 System.out.println("The integer you entered does not correspond to a cinema room.");
-                System.out.println("Please enter a number between 0 and " + cinema.getRoom_List().size());
+                System.out.println("Please enter a number between 1 and " + cinema.getRoom_List().size());
                 input.nextLine();
                 flag = true;
             }
