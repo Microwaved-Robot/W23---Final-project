@@ -492,7 +492,13 @@ public class Staff {
                 try {
                     System.out.print("Would you like to view the seating of another room?(y or n): ");
                     answer = input.nextLine();
+                    if (!answer.toLowerCase().equals("y") && !answer.toLowerCase().equals("n")) {
+                        throw new IllegalArgumentException();
+                    }
                     flag = false;
+                } catch (IllegalArgumentException iae) {
+                    System.out.println("You must enter a 'Y' or a 'N'.");
+                    flag = true;
                 } catch (Exception e) {
                     System.out.println("What you entered was not a string, please try again.");
                     flag = true;
