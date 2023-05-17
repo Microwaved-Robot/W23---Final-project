@@ -15,6 +15,7 @@ abstract class Client {
     protected int age;
     protected ArrayList<Ticket> tickets = new ArrayList<>();
     Scanner scan = new Scanner(System.in);
+    Scanner sc = new Scanner(System.in);
 
     /*
      * protected static int LinearSearchForTicketsByMovieName(ArrayList<Ticket> t,

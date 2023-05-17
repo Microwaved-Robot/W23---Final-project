@@ -48,6 +48,7 @@ public class AdultClient extends Client {
                 userChoice = sc.nextInt();
             } catch (InputMismatchException e) {
                 System.out.println("Please Enter A Valid Input");
+                sc.nextLine();
             }
 
 
@@ -73,7 +74,7 @@ public class AdultClient extends Client {
                     flag = false;
                     break;
                 default:
-                    System.out.println("Enter One Of The Options Listed Above!");
+                    System.out.println("Enter One Of The Options Listed Below!");
                     break;
             }
         } while (flag);

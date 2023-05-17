@@ -110,7 +110,7 @@ public class Admin extends Staff {
                         flag = false;
                     }
                 } catch (Exception e) {
-                    System.out.println("You must enter an integer between 1 and 10");
+                    System.out.println("You must enter an integer between 1 and 11");
                     System.out.println("Please try again.");
                     input.nextLine();
                     flag = true;

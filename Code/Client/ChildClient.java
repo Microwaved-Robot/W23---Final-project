@@ -46,8 +46,10 @@ public class ChildClient extends Client {
 
             try {
                 userChoice = sc.nextInt();
+                sc.nextLine();
             } catch (InputMismatchException e) {
                 System.out.println("Please Enter A Valid Input");
+                sc.nextLine();
             }
 
 
@@ -73,7 +75,7 @@ public class ChildClient extends Client {
                     flag = false;
                     break;
                 default:
-                    System.out.println("Enter One Of The Options Listed Above!");
+                    System.out.println("Enter One Of The Options Listed Below!");
                     break;
             }
         } while (flag);
