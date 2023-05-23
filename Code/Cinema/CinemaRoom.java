@@ -62,46 +62,6 @@ public class CinemaRoom {
         this.seats = new boolean[columnLetter][rowNumber];
         this.roomNumber = roomNumber;
         this.movie_List = new LinkedList<>();
-
-        // int nb = 0;
-        // do {
-        // try {
-        // System.out.print("Number of movie to add to the cinema room: ");
-        // nb = input.nextInt();
-        // if (roomNumber <= 0) {
-        // throw new IllegalArgumentException("Negative number");
-        // }
-        // input.nextLine();
-        // flag = false;
-        // } catch (InputMismatchException e) {
-        // flag = true;
-        // System.out.println("The input needs to be a positive number");
-        // } catch (IllegalArgumentException e) {
-        // System.out.println("The input needs to be bigger than 0.");
-        // flag = true;
-        // }
-        // } while (flag);
-
-        // for (int i = 0; i < nb; i++) {
-        // try {
-        // do {
-        // System.out.println("Movie " + i + ": ");
-        // Movie newMovie = new Movie();
-        // for (Movie movie : movie_List) {
-        // flag = movie.equals(newMovie);
-        // if (flag) {
-        // System.out.println("The movie is already in the Room");
-        // break;
-        // }
-        // movie_List.add(newMovie);
-        // }
-        // } while (flag);
-        // } catch (Exception e) {
-        // System.out.println(e);
-        // }
-        // }
-
-        // Collections.sort(movie_List, new MovieTimeComparator());
     }
 
     /*----------------------------------Methods----------------------------------*/
@@ -206,49 +166,6 @@ public class CinemaRoom {
     }
 
     public void displaySeat() {
-        // flag 1 & 2 are so that we can have the number and letter column without
-        // changing the array itself
-        // boolean flag = true, flag2 = true;
-
-        // for (int i = 0; i < seats.length + 1; i++) {
-        // if (i == 0) {
-        // // '#'' for estetic reason
-        // System.out.print("#");
-        // } else {
-        // // Prints a letter in the first vertical column
-        // System.out.print((char) (65 + i - 1));
-        // }
-        // if (i == seats.length) {
-        // i--;
-        // flag2 = false;
-        // }
-        // for (int j = 0; j < seats[i].length + 1; j++) {
-        // flag = true;
-        // if (i == 0) {
-        // // Print the horizontal numbers
-        // System.out.print(" " + j);
-        // continue;
-        // } else if (j == seats[i].length) {
-        // j--;
-        // flag = false;
-        // }
-        // // Print X or O depending on the seat available : X meaning not available and
-        // O
-        // // the contrary
-        // if (seats[i][j] == false) {
-        // System.out.print(" O");
-        // } else {
-        // System.out.print(" X");
-        // }
-        // if (flag == false) {
-        // j++;
-        // }
-        // }
-        // System.out.println();
-        // if (flag2 == false) {
-        // i++;
-        // }
-        // }
 
         char[] letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
         System.out.print("  ");
